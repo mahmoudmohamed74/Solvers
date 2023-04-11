@@ -1,6 +1,7 @@
 class AppStrings {
   // slider onBoarding
   static const String welcome = "Welcome";
+  static const String hi = "hi";
   static const String splashMessage =
       "We are here to support you technically :)";
 
