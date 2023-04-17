@@ -1,40 +1,40 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:solvers/Auth/presentation/widgets/default_form_field.dart';
 import 'package:solvers/Auth/presentation/widgets/default_text_button.dart';
+import 'package:solvers/Auth/presentation/widgets/horizontal_or_line.dart';
 import 'package:solvers/core/assets/app_assets.dart';
 import 'package:solvers/core/global/resources/strings_manger.dart';
 import 'package:solvers/core/global/resources/values_manger.dart';
 import 'package:solvers/core/global/theme/app_color/color_manager.dart';
-import 'package:solvers/core/routes/app_routes.dart';
+import 'package:solvers/core/utils/constants.dart';
 import 'package:solvers/core/utils/functions.dart';
 
-class LoginScreen extends StatelessWidget {
-  LoginScreen({super.key});
-  final _formKey = GlobalKey<FormState>(); // create validation
+class IndividualRegisterScreen extends StatelessWidget {
+  IndividualRegisterScreen({super.key});
+
+  final _formKey = GlobalKey<FormState>();
+
+  // create validation
+  final TextEditingController _firstNameEditingController =
+      TextEditingController();
+
+  final TextEditingController _lastNameEditingController =
+      TextEditingController();
 
   final TextEditingController _emailEditingController = TextEditingController();
+
   final TextEditingController _passwordEditingController =
+      TextEditingController();
+
+  final TextEditingController _passwordConfirmEditingController =
+      TextEditingController();
+
+  final TextEditingController _phoneNumberEditingController =
       TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        systemOverlayStyle: const SystemUiOverlayStyle(
-          statusBarColor: Colors.transparent,
-          statusBarIconBrightness: Brightness.dark,
-        ),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: IconButton(
-          onPressed: () {},
-          icon: Icon(
-            Icons.arrow_back,
-            color: ColorManager.darkPrimary,
-          ),
-        ),
-      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -44,21 +44,14 @@ class LoginScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                const SizedBox(
+                  height: AppSize.s65,
+                ),
                 const Image(
                   fit: BoxFit.fitHeight,
                   height: AppSize.s150,
                   image: AssetImage(
                     ImageAssets.splashLogo,
-                  ),
-                ),
-                const SizedBox(
-                  height: AppSize.s20,
-                ),
-                Text(
-                  AppStrings.solvers,
-                  style: TextStyle(
-                    fontSize: AppSize.s33,
-                    color: ColorManager.black,
                   ),
                 ),
                 const SizedBox(
@@ -72,14 +65,58 @@ class LoginScreen extends StatelessWidget {
                       bottom: AppPadding.p14,
                     ),
                     child: Text(
-                      AppStrings.login,
+                      AppStrings.individualsLogin,
                       style: TextStyle(
-                        fontSize: AppSize.s30,
+                        fontSize: AppSize.s25,
                         color: ColorManager.black,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
+                ),
+                DefaultFormField(
+                  hintText: AppStrings.firstNameHint,
+                  controller: _firstNameEditingController,
+                  type: TextInputType.name,
+                  validator: (String? s) {
+                    if (s!.length < Constants.three) {
+                      return AppStrings.userNameError;
+                    }
+                    return null;
+                  },
+                  suffix: Icons.person_outline_rounded,
+                  suffixPressed: () {},
+                ),
+                const SizedBox(
+                  height: AppSize.s12,
+                ),
+                DefaultFormField(
+                  hintText: AppStrings.lastNameHint,
+                  controller: _lastNameEditingController,
+                  type: TextInputType.name,
+                  validator: (String? s) {
+                    if (s!.length < Constants.three) {
+                      return AppStrings.userNameError;
+                    }
+                    return null;
+                  },
+                  suffix: Icons.person_outline_rounded,
+                  suffixPressed: () {},
+                ),
+                const SizedBox(
+                  height: AppSize.s12,
+                ),
+                DefaultFormField(
+                  hintText: AppStrings.phoneNumberHint,
+                  controller: _phoneNumberEditingController,
+                  type: TextInputType.text,
+                  validator: (input) =>
+                      input!.isValidPhone() ? null : AppStrings.phoneError,
+                  suffix: Icons.phone_iphone_outlined,
+                  suffixPressed: () {},
+                ),
+                const SizedBox(
+                  height: AppSize.s12,
                 ),
                 DefaultFormField(
                   hintText: AppStrings.emailHint,
@@ -100,50 +137,46 @@ class LoginScreen extends StatelessWidget {
                   validator: (input) => input!.isValidPassword()
                       ? null
                       : AppStrings.passwordError,
-                  suffix: Icons.remove_red_eye_rounded,
+                  suffix: Icons.lock_outline_rounded,
                   suffixPressed: () {
                     // TODO
                   },
                 ),
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                      left: AppPadding.p20,
-                    ),
-                    child: TextButton(
-                      child: Text(
-                        AppStrings.forgotPassword,
-                        style: TextStyle(
-                          fontSize: AppSize.s18,
-                          color: ColorManager.darkPrimary,
-                          fontWeight: FontWeight.normal,
-                        ),
-                      ),
-                      onPressed: () {
-                        Navigator.pushReplacementNamed(
-                          context,
-                          Routes.forgotPasswordRoute,
-                        );
-                      },
-                    ),
-                  ),
-                ),
                 const SizedBox(
                   height: AppSize.s12,
+                ),
+                DefaultFormField(
+                  hintText: AppStrings.confirmPasswordHint,
+                  controller: _passwordConfirmEditingController,
+                  type: TextInputType.text,
+                  validator: (String? s) {
+                    if (_passwordEditingController !=
+                        _passwordConfirmEditingController) {
+                      return AppStrings.passwordConfirmationError;
+                    }
+                    return null;
+                  },
+                  suffix: Icons.lock_outline_rounded,
+                  suffixPressed: () {
+                    // TODO
+                  },
+                ),
+                const SizedBox(
+                  height: AppSize.s20,
                 ),
                 DefaultTextButton(
                   borderColor: ColorManager.primary,
                   backGroundColor: ColorManager.primary,
                   textColor: ColorManager.black,
-                  text: AppStrings.login,
+                  text: AppStrings.signUp,
                   fontWeight: FontWeight.normal,
                   onTap: () {
                     if (_formKey.currentState!.validate()) {}
                   },
                 ),
-                const SizedBox(
-                  height: AppSize.s18,
+                const HorizontalOrLine(
+                  label: AppStrings.or,
+                  height: AppSize.s60,
                 ),
                 Align(
                   alignment: Alignment.topLeft,
@@ -152,7 +185,7 @@ class LoginScreen extends StatelessWidget {
                       left: AppPadding.p29,
                     ),
                     child: Text(
-                      AppStrings.doNotHaveAccount,
+                      AppStrings.haveAccount,
                       style: TextStyle(
                         fontSize: AppSize.s18,
                         color: ColorManager.darkPrimary,
@@ -162,25 +195,20 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(
-                  height: AppSize.s12,
+                  height: AppSize.s18,
                 ),
                 DefaultTextButton(
                   borderColor: ColorManager.primary,
                   backGroundColor: ColorManager.primary,
                   textColor: ColorManager.black,
-                  text: AppStrings.signUp,
+                  text: AppStrings.signIn,
                   fontWeight: FontWeight.normal,
                   onTap: () {
-                    Navigator.pushReplacementNamed(
-                      context,
-                      Routes.technicianRegisterRoute,
-                    );
-                    // if (_formKey.currentState!.validate()) {
-                    //   Navigator.pushReplacementNamed(
-                    //     context,
-                    //     Routes.individualRegisterRoute,
-                    //   );
-                    // }
+                    // Navigator.pushReplacementNamed(
+                    //   context,
+                    //   Routes.technicianRegisterRoute,
+                    // );
+                    // if (_formKey.currentState!.validate()) {}
                   },
                 ),
               ],

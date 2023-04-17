@@ -5,11 +5,11 @@ const String JSON_PATH = "assets/json";
 
 class ImageAssets {
   static const String splashLogo = "$IMAGE_PATH/splash_logo.png";
-  static const String onBoardingLogo1 = "$IMAGE_PATH/on_boarding_logo1.jpg";
-  static const String onBoardingLogo2 = "$IMAGE_PATH/on_boarding_logo2.jpg";
-  static const String onBoardingLogo3 = "$IMAGE_PATH/onboarding_logo3.svg";
-  static const String onBoardingLogo4 = "$IMAGE_PATH/onboarding_logo4.svg";
   static const String googleLogoIcon = "$IMAGE_PATH/google_logo_icon.png";
+  static const String otpImage = "$IMAGE_PATH/otp_image.png";
+  static const String resetPasswordImage =
+      "$IMAGE_PATH/reset_password_image.png";
+  static const String successImage = "$IMAGE_PATH/success_image.png";
 
   static const String hollowCircle = "$IMAGE_PATH/hollow_circle_ic.svg";
   static const String solidCircle = "$IMAGE_PATH/solid_circle_ic.svg";

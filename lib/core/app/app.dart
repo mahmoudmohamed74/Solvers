@@ -1,7 +1,8 @@
 // ignore_for_file: library_private_types_in_public_api, must_be_immutable
 
 import 'package:flutter/material.dart';
-import 'package:solvers/Auth/presentation/screens/splash/splash_screen.dart';
+import 'package:solvers/Auth/presentation/screens/success/success_screen.dart';
+import 'package:solvers/core/routes/app_routes.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp._internal();
@@ -23,14 +24,14 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       // localizationsDelegates: context.localizationDelegates,
       // supportedLocales: context.supportedLocales,
       // locale: context.locale,
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
-      // onGenerateRoute: RouteGenerator.getRoute,
-      // initialRoute: Routes.splashRoute,
+      home: SuccessScreen(),
+      onGenerateRoute: RouteGenerator.getRoute,
+      initialRoute: Routes.splashRoute,
       // theme: getAppTheme(),
     );
   }
