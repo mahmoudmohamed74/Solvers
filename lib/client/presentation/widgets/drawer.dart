@@ -67,9 +67,7 @@ class MyDrawer extends StatelessWidget {
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                      onTap: () {
-                        // TODO: Navigate to home screen
-                      },
+                      onTap: () {},
                       splashColor: ColorManager.primary,
                     ),
                     ListTile(
@@ -85,9 +83,7 @@ class MyDrawer extends StatelessWidget {
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                      onTap: () {
-                        // TODO: Navigate to settings screen
-                      },
+                      onTap: () {},
                       splashColor: ColorManager.primary,
                     ),
                     ListTile(
@@ -103,9 +99,7 @@ class MyDrawer extends StatelessWidget {
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                      onTap: () {
-                        // TODO: Navigate to settings screen
-                      },
+                      onTap: () {},
                       splashColor: ColorManager.primary,
                     ),
                   ],
