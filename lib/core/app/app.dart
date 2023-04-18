@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:solvers/Auth/presentation/screens/success/success_screen.dart';
 import 'package:solvers/core/routes/app_routes.dart';
+import 'package:solvers/test.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp._internal();
@@ -24,14 +25,11 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      // localizationsDelegates: context.localizationDelegates,
-      // supportedLocales: context.supportedLocales,
-      // locale: context.locale,
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SuccessScreen(),
-      onGenerateRoute: RouteGenerator.getRoute,
-      initialRoute: Routes.splashRoute,
+      home: TestScreen(),
+      // onGenerateRoute: RouteGenerator.getRoute,
+      // initialRoute: Routes.splashRoute,
       // theme: getAppTheme(),
     );
   }
