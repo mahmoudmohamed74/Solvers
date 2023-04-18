@@ -6,7 +6,7 @@ class AppColorsLight {
 }
 
 class ColorManger {
-  static Color primary = HexColor.fromHex('#ED9728');
+  static Color primary = HexColor.fromHex('#E79EFF');
   static Color darkGrey = HexColor.fromHex('#525252');
   static Color grey = HexColor.fromHex('#767676');
   static Color lightGrey = HexColor.fromHex('#9E9E9E');
@@ -14,6 +14,8 @@ class ColorManger {
 
   // new colors
   static Color darkPrimary = HexColor.fromHex("#d17d11");
+  static Color bottomAppbarColor = HexColor.fromHex("#BE05FA");
+  static Color selectedItemColor = HexColor.fromHex("#BE05FA");
   static Color grey1 = HexColor.fromHex("#707070");
   static Color grey2 = HexColor.fromHex("#797979");
   static Color white = HexColor.fromHex("#FFFFFF");

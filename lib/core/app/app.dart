@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:solvers/Auth/presentation/screens/success/success_screen.dart';
+import 'package:solvers/client/presentation/screens/layout_client_page.dart';
 import 'package:solvers/core/routes/app_routes.dart';
 import 'package:solvers/test.dart';
 
@@ -27,7 +28,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: TestScreen(),
+      home: ClientLayout(),
       // onGenerateRoute: RouteGenerator.getRoute,
       // initialRoute: Routes.splashRoute,
       // theme: getAppTheme(),

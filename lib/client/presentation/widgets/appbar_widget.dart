@@ -1,19 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:solvers/client/presentation/widgets/drawer.dart';
 import 'package:solvers/core/global/theme/app_color/color_manager.dart';
 
 class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   const AppBarWidget({Key? key}) : super(key: key);
 
   @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => const Size.fromHeight(70);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: ColorManager.white,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          bottom: Radius.circular(15.0),
+        ),
+      ),
       leading: Column(
         mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           ThreeBlackLinesWidget(),
         ],
@@ -22,7 +27,11 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
       elevation: 5,
       title: Column(
         mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          const SizedBox(
+            height: 10,
+          ),
           Image.asset(
             'assets/images/splash_logo.png',
             scale: 4,
@@ -43,7 +52,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
 class ThreeBlackLinesWidget extends StatelessWidget {
   final double lineHeight;
 
-  ThreeBlackLinesWidget({this.lineHeight = 3});
+  const ThreeBlackLinesWidget({super.key, this.lineHeight = 3});
 
   @override
   Widget build(BuildContext context) {

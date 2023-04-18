@@ -84,7 +84,7 @@ class MyDrawer extends StatelessWidget {
                         ),
                       ),
                       onTap: () {},
-                      splashColor: ColorManager.primary,
+                      splashColor: ColorManager.darkPrimary,
                     ),
                     ListTile(
                       leading: Icon(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:solvers/client/presentation/screens/home_client_page.dart';
 import 'package:solvers/client/presentation/widgets/appbar_widget.dart';
 import 'package:solvers/client/presentation/widgets/drawer.dart';
 
@@ -13,9 +14,9 @@ class _TestScreenState extends State<TestScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.lightGreenAccent,
+      backgroundColor: Colors.white,
       appBar: const AppBarWidget(),
-      body: MyDrawer(),
+      body: ClientHomePage(),
     );
   }
 }
