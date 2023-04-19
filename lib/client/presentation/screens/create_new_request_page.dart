@@ -1,4 +1,3 @@
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:solvers/Auth/presentation/widgets/default_text_button.dart';
 import 'package:solvers/Auth/presentation/widgets/multi_drop_down%20_button.dart';
@@ -37,8 +36,8 @@ class _ClientNewRequestPageState extends State<ClientNewRequestPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const SizedBox(
-              height: AppSize.s20,
+            SizedBox(
+              height: MediaQuery.of(context).size.height / AppPadding.p20,
             ),
             const Text(
               "Create New Request",
