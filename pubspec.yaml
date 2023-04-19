@@ -78,6 +78,8 @@ flutter:
     - assets/images/logout_ic.png
     - assets/images/contact_us_ic.png
     - assets/images/person_ic.png
+    - assets/images/circle_ic.png
+    - assets/images/true_ic.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
