@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:solvers/core/global/resources/color_manager.dart';

@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:solvers/Auth/presentation/screens/login/login_screen.dart';
 import 'package:solvers/Auth/presentation/screens/success/success_screen.dart';
+import 'package:solvers/Auth/presentation/screens/technician/technician_register_screen.dart';
 import 'package:solvers/core/routes/app_routes.dart';
 
 class MyApp extends StatefulWidget {
@@ -19,11 +20,11 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      // home: LoginScreen(),
-      onGenerateRoute: RouteGenerator.getRoute,
-      initialRoute: Routes.splashRoute,
+      home: TechnicianRegisterScreen(),
+      // onGenerateRoute: RouteGenerator.getRoute,
+      // initialRoute: Routes.splashRoute,
     );
   }
 }

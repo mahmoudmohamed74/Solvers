@@ -45,10 +45,11 @@ class _TechnicianRegisterScreenState extends State<TechnicianRegisterScreen> {
   String? _selectedItem;
 
   final List<String> _items = [
-    'Item 1',
-    'Item 2',
-    'Item 3',
-    'Item 4',
+    'Writing',
+    'Programming',
+    'Technology',
+    'Networking',
+    'Design',
   ];
 
   @override
