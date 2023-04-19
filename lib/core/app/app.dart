@@ -1,10 +1,9 @@
 // ignore_for_file: library_private_types_in_public_api, must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:solvers/Auth/presentation/screens/login/login_screen.dart';
 import 'package:solvers/Auth/presentation/screens/success/success_screen.dart';
-import 'package:solvers/client/presentation/screens/layout_client_page.dart';
 import 'package:solvers/core/routes/app_routes.dart';
-import 'package:solvers/test.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp._internal();
@@ -18,20 +17,13 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  // @override
-  // void didChangeDependencies() {
-  //   _appPreferences.getLocal().then((local) => {context.setLocale(local)});
-  //   super.didChangeDependencies();
-  // }
-
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: ClientLayout(),
-      // onGenerateRoute: RouteGenerator.getRoute,
-      // initialRoute: Routes.splashRoute,
-      // theme: getAppTheme(),
+      // home: LoginScreen(),
+      onGenerateRoute: RouteGenerator.getRoute,
+      initialRoute: Routes.splashRoute,
     );
   }
 }

@@ -1,60 +1,43 @@
-// import 'package:get_it/get_it.dart';
-// import 'package:the_scene/data/datasource/remote_datasource.dart';
-// import 'package:the_scene/data/repository/movie_repo_impl.dart';
-// import 'package:the_scene/domain/repository/base_movie_repo.dart';
-// import 'package:the_scene/domain/usecases/get_movie_details.dart';
-// import 'package:the_scene/domain/usecases/get_now_playing_movies.dart';
-// import 'package:the_scene/domain/usecases/get_popular_movies.dart';
-// import 'package:the_scene/domain/usecases/get_recommendation.dart';
-// import 'package:the_scene/domain/usecases/get_top_rated_movies.dart';
-// import 'package:the_scene/presentation/controller/movie_bloc/movies_bloc.dart';
-// import 'package:the_scene/presentation/controller/movie_details_bloc/movie_details_bloc.dart';
+import 'package:get_it/get_it.dart';
+import 'package:solvers/Auth/data/repository/auth_repo_impl.dart';
+import 'package:solvers/Auth/domain/repository/base_auth_repo.dart';
+import 'package:solvers/Auth/domain/usecases/login_use_case.dart';
+import 'package:solvers/Auth/domain/usecases/signout_use_case.dart';
+import 'package:solvers/Auth/domain/usecases/signup_use_case.dart';
+import 'package:solvers/Auth/presentation/controller/auth_cubit/auth_cubit.dart';
 
-// final sl = GetIt.instance;
+final sl = GetIt.instance;
 
-// class ServicesLocator {
-//   void init() {
-//     // 1 Data Sources (route)
-//     sl.registerLazySingleton<BaseMovieRemoteDataSource>(
-//       () => MovieRemoteDataSourceImpl(),
-//     );
+class ServicesLocator {
+  Future<void> init() async {
+    // 1 Data Sources (route)
 
-//     // 2 Repository
+    // 2 Repository
 
-//     sl.registerLazySingleton<BaseMovieRepository>(
-//       () => MovieRepositoryImpl(sl()),
-//     );
+    sl.registerLazySingleton<BaseFirebaseAuthRepository>(
+      () => FirebaseAuthRepositoryImpl(),
+    );
 
-//     // 3 Use cases
-//     // 2 Use cases
-//     sl.registerLazySingleton(
-//       () => GetNowPlayingMoviesUseCase(sl()),
-//     );
+    // Firebase auth useCases
+    sl.registerLazySingleton<LogInAuthUseCase>(() => LogInAuthUseCase(
+          sl(),
+        ));
 
-//     sl.registerLazySingleton(
-//       () => GetPopularMoviesUseCase(sl()),
-//     );
+    sl.registerLazySingleton<SignUpAuthUseCase>(() => SignUpAuthUseCase(
+          sl(),
+        ));
 
-//     sl.registerLazySingleton(
-//       () => GetTopRatedMoviesUseCase(sl()),
-//     );
+    sl.registerLazySingleton<SignOutAuthUseCase>(() => SignOutAuthUseCase(
+          sl(),
+        ));
 
-//     sl.registerLazySingleton(
-//       () => GetMovieDetailsUseCase(sl()),
-//     );
-
-//     sl.registerLazySingleton(
-//       () => GetRecommendationUseCase(sl()),
-//     );
-
-//     sl.registerFactory(() => MoviesBloc(
-//           sl(),
-//           sl(),
-//           sl(),
-//         ));
-//     sl.registerFactory(() => MovieDetailsBloc(
-//           sl(),
-//           sl(),
-//         ));
-//   }
-// }
+    // auth Blocs
+    sl.registerFactory<FirebaseAuthCubit>(
+      () => FirebaseAuthCubit(
+        sl(),
+        sl(),
+        sl(),
+      ),
+    );
+  }
+}

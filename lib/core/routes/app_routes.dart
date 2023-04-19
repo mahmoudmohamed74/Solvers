@@ -20,8 +20,6 @@ class Routes {
   static const String technicianRegisterRoute = "/technicianRegister";
   static const String forgotPasswordRoute = "/forgotPassword";
   static const String resetPasswordRoute = "/resetPassword";
-  static const String doctorMainRoute = "/doctorMain";
-  static const String patientMainRoute = "/patientMain";
   static const String phoneVerificationRoute = "/phoneVerification";
   static const String emailVerificationRoute = "/emailVerification";
   static const String successRoute = "/success";
@@ -50,7 +48,7 @@ class RouteGenerator {
       case Routes.resetPasswordRoute:
         return MaterialPageRoute(builder: (_) => ResetPasswordScreen());
       case Routes.successRoute:
-        return MaterialPageRoute(builder: (_) => SuccessScreen());
+        return MaterialPageRoute(builder: (_) => const SuccessScreen());
       case Routes.testRoute:
       default:
         return unDefinedRoute();
