@@ -74,16 +74,16 @@ class ThreeBlackLinesWidget extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               color: ColorManager.black,
-              borderRadius: BorderRadius.circular(2),
+              borderRadius: BorderRadius.circular(AppSize.s2),
             ),
             height: lineHeight,
             width: AppSize.s13,
           ),
-          const SizedBox(height: 5),
+          const SizedBox(height: AppSize.s5),
           Container(
             decoration: BoxDecoration(
               color: ColorManager.black,
-              borderRadius: BorderRadius.circular(2),
+              borderRadius: BorderRadius.circular(AppSize.s2),
             ),
             height: lineHeight,
             width: AppSize.s20,
