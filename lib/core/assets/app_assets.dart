@@ -11,4 +11,5 @@ class ImageAssets {
   static const String successImage = "$IMAGE_PATH/success_image.png";
   static const String circleImage = "$IMAGE_PATH/circle_ic.png";
   static const String trueImage = "$IMAGE_PATH/true_ic.png";
+  static const String dateTime = "$IMAGE_PATH/date_time_ic.png";
 }
