@@ -7,8 +7,6 @@ import 'package:solvers/core/global/resources/strings_manger.dart';
 import 'package:solvers/core/global/resources/values_manger.dart';
 import 'package:solvers/core/global/resources/color_manager.dart';
 
-final TextEditingController _textarea = TextEditingController();
-
 class ClientNewRequestPage extends StatefulWidget {
   const ClientNewRequestPage({Key? key}) : super(key: key);
 
@@ -17,6 +15,7 @@ class ClientNewRequestPage extends StatefulWidget {
 }
 
 class _ClientNewRequestPageState extends State<ClientNewRequestPage> {
+  final TextEditingController _textarea = TextEditingController();
   bool isChecked = false;
 
   final List<String> items = [
@@ -50,11 +49,31 @@ class _ClientNewRequestPageState extends State<ClientNewRequestPage> {
             const SizedBox(
               height: AppSize.s20,
             ),
-            MultiDropDownButtonWidget(),
+            MultiDropDownButtonWidget(
+              title: "Main problem",
+              items: const [
+                'Using New Application',
+                'Java programming',
+                'Backup',
+                'Network',
+                'Flutter',
+                'Dart',
+              ],
+            ),
             const SizedBox(
               height: AppSize.s20,
             ),
-            MultiDropDownButtonWidget(),
+            MultiDropDownButtonWidget(
+              title: "Specific problem",
+              items: const [
+                'Using New Application',
+                'Java programming',
+                'Backup',
+                'Network',
+                'Flutter',
+                'Dart',
+              ],
+            ),
             const SizedBox(
               height: AppSize.s30,
             ),
@@ -69,7 +88,7 @@ class _ClientNewRequestPageState extends State<ClientNewRequestPage> {
                       fontSize: AppSize.s20,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: AppSize.s10,
                   ),
                   TextFormField(
@@ -95,14 +114,11 @@ class _ClientNewRequestPageState extends State<ClientNewRequestPage> {
             const SizedBox(
               height: AppSize.s20,
             ),
-            // DefaultTextButton(
-            //   borderColor: ColorManager.primary,
-            //   backGroundColor: ColorManager.primary,
-            //   textColor: ColorManager.black,
-            //   text: "Send",
-            //   fontWeight: FontWeight.normal,
-            //   onTap: () {},
-            // ),
+            DefaultTextButton(
+              text: AppStrings.signUp,
+              fontWeight: FontWeight.normal,
+              onTap: () {},
+            ),
           ],
         ),
       ),

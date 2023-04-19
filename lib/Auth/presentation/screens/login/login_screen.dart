@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:solvers/Auth/domain/entities/registered_user.dart';
 import 'package:solvers/Auth/presentation/controller/auth_cubit/auth_cubit.dart';
 import 'package:solvers/Auth/presentation/widgets/default_form_field.dart';
 import 'package:solvers/Auth/presentation/widgets/default_text_button.dart';
@@ -148,9 +147,6 @@ class LoginScreen extends StatelessWidget {
                         height: AppSize.s12,
                       ),
                       DefaultTextButton(
-                        borderColor: ColorManager.primary,
-                        backGroundColor: ColorManager.primary,
-                        textColor: ColorManager.black,
                         text: AppStrings.login,
                         fontWeight: FontWeight.normal,
                         onTap: () async {
@@ -195,9 +191,6 @@ class LoginScreen extends StatelessWidget {
                         height: AppSize.s12,
                       ),
                       DefaultTextButton(
-                        borderColor: ColorManager.primary,
-                        backGroundColor: ColorManager.primary,
-                        textColor: ColorManager.black,
                         text: AppStrings.signUp,
                         fontWeight: FontWeight.normal,
                         onTap: () {
