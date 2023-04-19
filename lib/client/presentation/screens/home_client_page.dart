@@ -5,6 +5,14 @@ class ClientHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(child: Text("ClientHomePage"));
+    return const Padding(
+      padding: EdgeInsets.all(30),
+      child: Text(
+        "Welcome \nUsername!",
+        style: TextStyle(
+          fontSize: 64,
+        ),
+      ),
+    );
   }
 }

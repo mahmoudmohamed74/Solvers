@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:solvers/client/presentation/controller/client_cubit.dart';
 import 'package:solvers/client/presentation/widgets/appbar_widget.dart';
-import 'package:solvers/core/global/theme/app_color/color_manager.dart';
+import 'package:solvers/core/global/resources/color_manager.dart';
 
 class ClientLayout extends StatelessWidget {
   const ClientLayout({Key? key}) : super(key: key);
@@ -34,7 +34,7 @@ class ClientLayout extends StatelessWidget {
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerDocked,
             bottomNavigationBar: BottomAppBar(
-              color: ColorManager.darkPrimary,
+              color: ColorManager.selectedItem,
               shape: const CircularNotchedRectangle(),
               notchMargin: 8,
               child: SizedBox(

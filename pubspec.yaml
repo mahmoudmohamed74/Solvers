@@ -41,6 +41,7 @@ dependencies:
   pin_code_fields: ^7.4.0
   equatable: ^2.0.5
   flutter_bloc: ^8.1.2
+  dropdown_button2: ^2.1.0
 
 dev_dependencies:
   flutter_test:
@@ -75,6 +76,7 @@ flutter:
     - assets/images/help_ic.png
     - assets/images/logout_ic.png
     - assets/images/contact_us_ic.png
+    - assets/images/person_ic.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

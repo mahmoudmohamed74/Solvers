@@ -5,7 +5,7 @@ import 'package:solvers/Auth/presentation/widgets/default_text_button.dart';
 import 'package:solvers/core/assets/app_assets.dart';
 import 'package:solvers/core/global/resources/strings_manger.dart';
 import 'package:solvers/core/global/resources/values_manger.dart';
-import 'package:solvers/core/global/theme/app_color/color_manager.dart';
+import 'package:solvers/core/global/resources/color_manager.dart';
 import 'package:solvers/core/routes/app_routes.dart';
 
 class PhoneVerificationScreen extends StatelessWidget {
