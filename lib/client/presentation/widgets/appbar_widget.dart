@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:solvers/core/global/theme/app_color/color_manager.dart';
+import 'package:solvers/core/assets/app_assets.dart';
+import 'package:solvers/core/global/resources/color_manager.dart';
+import 'package:solvers/core/global/resources/values_manger.dart';
 
 class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   const AppBarWidget({Key? key}) : super(key: key);
@@ -13,33 +15,33 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: ColorManager.white,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
-          bottom: Radius.circular(15.0),
+          bottom: Radius.circular(AppSize.s15),
         ),
       ),
       leading: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
+        children: const [
           ThreeBlackLinesWidget(),
         ],
       ),
       centerTitle: true,
-      elevation: 5,
+      elevation: AppSize.s5,
       title: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const SizedBox(
-            height: 10,
+            height: AppSize.s10,
           ),
           Image.asset(
-            'assets/images/splash_logo.png',
-            scale: 4,
+            ImageAssets.splashLogo,
+            scale: AppSize.s4,
           ),
           Text(
             "Solvers",
             style: TextStyle(
-              fontSize: 16,
+              fontSize: AppSize.s16,
               color: ColorManager.black,
             ),
           ),
@@ -52,7 +54,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
 class ThreeBlackLinesWidget extends StatelessWidget {
   final double lineHeight;
 
-  const ThreeBlackLinesWidget({super.key, this.lineHeight = 3});
+  const ThreeBlackLinesWidget({super.key, this.lineHeight = AppSize.s3});
 
   @override
   Widget build(BuildContext context) {
@@ -63,10 +65,19 @@ class ThreeBlackLinesWidget extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               color: ColorManager.black,
+              borderRadius: BorderRadius.circular(AppSize.s2),
+            ),
+            height: lineHeight,
+            width: AppSize.s20,
+          ),
+          const SizedBox(height: AppSize.s5),
+          Container(
+            decoration: BoxDecoration(
+              color: ColorManager.black,
               borderRadius: BorderRadius.circular(2),
             ),
             height: lineHeight,
-            width: 20,
+            width: AppSize.s13,
           ),
           const SizedBox(height: 5),
           Container(
@@ -75,16 +86,7 @@ class ThreeBlackLinesWidget extends StatelessWidget {
               borderRadius: BorderRadius.circular(2),
             ),
             height: lineHeight,
-            width: 13,
-          ),
-          const SizedBox(height: 5),
-          Container(
-            decoration: BoxDecoration(
-              color: ColorManager.black,
-              borderRadius: BorderRadius.circular(2),
-            ),
-            height: lineHeight,
-            width: 20,
+            width: AppSize.s20,
           ),
         ],
       ),

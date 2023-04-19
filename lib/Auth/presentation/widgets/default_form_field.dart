@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:solvers/core/global/resources/values_manger.dart';
-import 'package:solvers/core/global/theme/app_color/color_manager.dart';
+import 'package:solvers/core/global/resources/color_manager.dart';
 
 class DefaultFormField extends StatelessWidget {
   DefaultFormField({

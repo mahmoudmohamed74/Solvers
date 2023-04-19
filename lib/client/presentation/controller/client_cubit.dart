@@ -16,7 +16,7 @@ class ClientCubit extends Cubit<ClientState> {
     const ClientHomePage(),
     const ClientMyRequestPage(),
     const ClientOffersPage(),
-    const ClientProfilePage(),
+    ClientProfilePage(),
   ];
 
   void changeBottomNav(int index) {

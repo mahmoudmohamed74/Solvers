@@ -5,7 +5,7 @@ import 'package:solvers/Auth/presentation/widgets/horizontal_or_line.dart';
 import 'package:solvers/core/assets/app_assets.dart';
 import 'package:solvers/core/global/resources/strings_manger.dart';
 import 'package:solvers/core/global/resources/values_manger.dart';
-import 'package:solvers/core/global/theme/app_color/color_manager.dart';
+import 'package:solvers/core/global/resources/color_manager.dart';
 import 'package:solvers/core/utils/constants.dart';
 import 'package:solvers/core/utils/functions.dart';
 

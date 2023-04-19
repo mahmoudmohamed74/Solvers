@@ -16,7 +16,7 @@ class _TestScreenState extends State<TestScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: const AppBarWidget(),
-      body: ClientHomePage(),
+      body: MyDrawer(),
     );
   }
 }
