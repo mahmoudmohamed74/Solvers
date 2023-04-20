@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:solvers/Auth/presentation/widgets/default_form_field.dart';
-import 'package:solvers/core/assets/app_assets.dart';
 import 'package:solvers/core/global/resources/strings_manger.dart';
 import 'package:solvers/core/global/resources/values_manger.dart';
-import 'package:solvers/core/global/resources/color_manager.dart';
 import 'package:solvers/core/utils/constants.dart';
 import 'package:solvers/core/utils/functions.dart';
 
@@ -32,9 +30,9 @@ class ClientProfilePage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.only(
-            top: 60,
-            right: 20,
-            left: 20,
+            top: AppSize.s60,
+            right: AppSize.s20,
+            left: AppSize.s20,
           ),
           child: Column(
             children: [

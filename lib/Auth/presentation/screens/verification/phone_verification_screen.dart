@@ -109,9 +109,6 @@ class PhoneVerificationScreen extends StatelessWidget {
                   height: AppSize.s25,
                 ),
                 DefaultTextButton(
-                  borderColor: ColorManager.primary,
-                  backGroundColor: ColorManager.primary,
-                  textColor: ColorManager.black,
                   text: AppStrings.verify,
                   fontWeight: FontWeight.normal,
                   onTap: () {

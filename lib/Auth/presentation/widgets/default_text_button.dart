@@ -1,23 +1,18 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:solvers/core/global/resources/color_manager.dart';
 import 'package:solvers/core/global/resources/values_manger.dart';
 
 class DefaultTextButton extends StatelessWidget {
   DefaultTextButton({
     Key? key,
     required this.text,
-    required this.textColor,
-    required this.backGroundColor,
-    required this.borderColor,
     this.onTap,
     this.fontWeight,
   }) : super(key: key);
   String text;
   VoidCallback? onTap;
-  Color textColor;
-  Color backGroundColor;
-  Color borderColor;
   FontWeight? fontWeight;
   @override
   Widget build(BuildContext context) {
@@ -40,10 +35,10 @@ class DefaultTextButton extends StatelessWidget {
         style: ButtonStyle(
           side: MaterialStateProperty.all(
             BorderSide(
-              color: borderColor,
+              color: ColorManager.primary,
             ),
           ),
-          backgroundColor: MaterialStateProperty.all(backGroundColor),
+          backgroundColor: MaterialStateProperty.all(ColorManager.primary),
           shape: MaterialStateProperty.all(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(AppSize.s22),
@@ -59,7 +54,7 @@ class DefaultTextButton extends StatelessWidget {
             style: TextStyle(
               fontSize: AppSize.s18,
               fontWeight: fontWeight,
-              color: textColor,
+              color: ColorManager.black,
               fontStyle: FontStyle.normal,
             ),
           ),

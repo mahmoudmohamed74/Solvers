@@ -89,9 +89,6 @@ class ForgotPasswordScreen extends StatelessWidget {
                   height: AppSize.s20,
                 ),
                 DefaultTextButton(
-                  borderColor: ColorManager.primary,
-                  backGroundColor: ColorManager.primary,
-                  textColor: ColorManager.black,
                   text: AppStrings.next,
                   fontWeight: FontWeight.normal,
                   onTap: () {

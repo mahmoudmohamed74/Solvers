@@ -165,9 +165,6 @@ class IndividualRegisterScreen extends StatelessWidget {
                   height: AppSize.s20,
                 ),
                 DefaultTextButton(
-                  borderColor: ColorManager.primary,
-                  backGroundColor: ColorManager.primary,
-                  textColor: ColorManager.black,
                   text: AppStrings.signUp,
                   fontWeight: FontWeight.normal,
                   onTap: () {
@@ -198,9 +195,6 @@ class IndividualRegisterScreen extends StatelessWidget {
                   height: AppSize.s18,
                 ),
                 DefaultTextButton(
-                  borderColor: ColorManager.primary,
-                  backGroundColor: ColorManager.primary,
-                  textColor: ColorManager.black,
                   text: AppStrings.signIn,
                   fontWeight: FontWeight.normal,
                   onTap: () {

@@ -6,7 +6,15 @@ import 'package:solvers/core/global/resources/color_manager.dart';
 import 'package:solvers/core/global/resources/values_manger.dart';
 
 class MultiDropDownButtonWidget extends StatefulWidget {
-  const MultiDropDownButtonWidget({Key? key}) : super(key: key);
+  List<String> items = [];
+
+  final String title;
+
+  MultiDropDownButtonWidget({
+    required this.items,
+    required this.title,
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<MultiDropDownButtonWidget> createState() =>
@@ -14,16 +22,7 @@ class MultiDropDownButtonWidget extends StatefulWidget {
 }
 
 class _MultiDropDownButtonWidgetState extends State<MultiDropDownButtonWidget> {
-  final List<String> items = [
-    'Using New Application',
-    'Java programming',
-    'Backup',
-    'Network',
-    'Flutter',
-    'Dart',
-  ];
   List<String> selectedItems = [];
-
   @override
   Widget build(BuildContext context) {
     return DropdownButtonHideUnderline(
@@ -31,7 +30,7 @@ class _MultiDropDownButtonWidgetState extends State<MultiDropDownButtonWidget> {
         hint: Align(
           alignment: AlignmentDirectional.center,
           child: Text(
-            'Main problem',
+            widget.title,
             style: TextStyle(
               fontSize: AppSize.s16,
               color: ColorManager.black,
@@ -40,7 +39,7 @@ class _MultiDropDownButtonWidgetState extends State<MultiDropDownButtonWidget> {
             softWrap: false,
           ),
         ),
-        items: items.map((item) {
+        items: widget.items.map((item) {
           return DropdownMenuItem<String>(
             value: item,
             //disable default onTap to avoid closing menu when selecting an item
@@ -89,7 +88,7 @@ class _MultiDropDownButtonWidgetState extends State<MultiDropDownButtonWidget> {
         value: selectedItems.isEmpty ? null : selectedItems.last,
         onChanged: (value) {},
         selectedItemBuilder: (context) {
-          return items.map(
+          return widget.items.map(
             (item) {
               return Container(
                 width: AppSize.s200,
