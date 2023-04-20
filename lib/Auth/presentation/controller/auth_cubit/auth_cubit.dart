@@ -32,6 +32,7 @@ class FirebaseAuthCubit extends Cubit<FirebaseAuthState> {
       emit(CubitAuthConfirmed(newUser));
       user = newUser;
     }).catchError((e) {
+      print("${e.toString()} sssssssss");
       emit(CubitAuthFailed(e.toString()));
     });
     return user;
@@ -45,6 +46,7 @@ class FirebaseAuthCubit extends Cubit<FirebaseAuthState> {
       print(user.displayName);
       print(user.uid);
     }).catchError((e) {
+      print("${e.toString()} sssssssss");
       emit(CubitAuthFailed(e.toString()));
     });
   }

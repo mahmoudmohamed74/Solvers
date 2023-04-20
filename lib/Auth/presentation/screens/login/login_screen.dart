@@ -163,7 +163,7 @@ class LoginScreen extends StatelessWidget {
                           // await cubit.logIn(
                           //   RegisteredUser(
                           //     email: "volt@gmail.com",
-                          //     password: "a123456789",
+                          //     password: "123456789",
                           //   ),
                           // );
                           // await cubit.signUp(RegisteredUser(
