@@ -11,6 +11,8 @@ class ColorManager {
   static Color lightGrey = const Color(0xffEEEDF0);
   static Color black = const Color(0xff000000);
   static Color softBlack = const Color(0xff3A3A3A);
+  static Color green = const Color(0xff4CD964);
+  static Color red = const Color(0xffFA2828);
 
   // new colors
   static Color lightPrimary = const Color(0xCCd17d11); // color with 80% opacity

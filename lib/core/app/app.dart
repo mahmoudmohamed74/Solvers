@@ -26,7 +26,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: ClientOffersPage(),
+      home: ClientLayout(),
       // onGenerateRoute: RouteGenerator.getRoute,
       // initialRoute: Routes.splashRoute,
     );

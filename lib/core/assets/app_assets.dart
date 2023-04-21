@@ -20,4 +20,5 @@ class ImageAssets {
   static const String smallTrue = "$IMAGE_PATH/small_true_ic.png";
   static const String leftLine = "$IMAGE_PATH/left_line.png";
   static const String rightLine = "$IMAGE_PATH/right_line.png";
+  static const String chat = "$IMAGE_PATH/chat_ic.png";
 }
