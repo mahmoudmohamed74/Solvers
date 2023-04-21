@@ -13,43 +13,45 @@ class ClientOffersPage extends StatelessWidget {
       appBar: const AppBarWidget(),
       body: Padding(
         padding: const EdgeInsets.all(AppPadding.p20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              height: MediaQuery.of(context).size.height / AppSize.s50,
-            ),
-            const Text(
-              "Offers",
-              style: TextStyle(
-                fontSize: AppSize.s40,
+        child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: MediaQuery.of(context).size.height / AppSize.s50,
               ),
-            ),
-            const SizedBox(
-              height: AppSize.s20,
-            ),
-            const Align(
-              alignment: Alignment.center,
-              child: Text(
-                "Request Number",
+              const Text(
+                "Offers",
                 style: TextStyle(
-                  fontSize: AppSize.s32,
-                  fontWeight: FontWeight.bold,
+                  fontSize: AppSize.s40,
                 ),
               ),
-            ),
-            const Align(
-              alignment: Alignment.center,
-              child: Text(
-                "1234566",
-                style: TextStyle(
-                  fontSize: AppSize.s32,
+              const SizedBox(
+                height: AppSize.s20,
+              ),
+              const Align(
+                alignment: Alignment.center,
+                child: Text(
+                  "Request Number",
+                  style: TextStyle(
+                    fontSize: AppSize.s32,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
-            ),
-            Expanded(
-              child: ListView.builder(
-                physics: const BouncingScrollPhysics(),
+              const Align(
+                alignment: Alignment.center,
+                child: Text(
+                  "1234566",
+                  style: TextStyle(
+                    fontSize: AppSize.s32,
+                  ),
+                ),
+              ),
+              ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) => Padding(
                   padding: const EdgeInsets.all(AppPadding.p20),
                   child: Container(
@@ -77,17 +79,28 @@ class ClientOffersPage extends StatelessWidget {
                           const SizedBox(
                             height: AppSize.s30,
                           ),
-                          const Padding(
-                            padding: EdgeInsets.only(
-                              left: AppPadding.p35,
-                            ),
-                            child: Text(
-                              "Request number: ****",
-                              style: TextStyle(
-                                fontSize: AppSize.s15,
-                                fontWeight: FontWeight.bold,
+                          Row(
+                            children: [
+                              Image.asset(
+                                ImageAssets.personPhoto,
+                                scale: 1.8,
                               ),
-                            ),
+                              const SizedBox(
+                                width: AppSize.s10,
+                              ),
+                              const Text(
+                                "Tech name",
+                                style: TextStyle(
+                                  fontSize: AppSize.s20,
+                                ),
+                              ),
+                              const SizedBox(
+                                width: AppSize.s10,
+                              ),
+                              Image.asset(
+                                ImageAssets.smallPerson,
+                              ),
+                            ],
                           ),
                           const SizedBox(
                             height: AppSize.s15,
@@ -99,9 +112,9 @@ class ClientOffersPage extends StatelessWidget {
                                 width: AppSize.s10,
                               ),
                               const Text(
-                                "Date:dd/mm/yyyy",
+                                "offer date: dd/mm/yyyy",
                                 style: TextStyle(
-                                  fontSize: AppSize.s15,
+                                  fontSize: AppSize.s20,
                                 ),
                               ),
                             ],
@@ -109,31 +122,72 @@ class ClientOffersPage extends StatelessWidget {
                           const SizedBox(
                             height: AppSize.s15,
                           ),
-                          const Padding(
-                            padding: EdgeInsets.only(
-                              left: AppPadding.p35,
-                            ),
-                            child: Text(
-                              "Status: New",
-                              style: TextStyle(
-                                fontSize: AppSize.s15,
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                              left: AppPadding.p35,
-                            ),
-                            child: InkWell(
-                              onTap: () {},
-                              child: Text(
-                                "view details",
-                                style: TextStyle(
-                                  fontSize: AppSize.s12,
-                                  color: ColorManager.purple,
+                          Row(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                  left: AppSize.s36,
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text(
+                                      "Price",
+                                      style: TextStyle(
+                                        fontSize: AppSize.s20,
+                                      ),
+                                    ),
+                                    InkWell(
+                                      onTap: () {},
+                                      child: Text(
+                                        "view details",
+                                        style: TextStyle(
+                                          fontSize: AppSize.s14,
+                                          color: ColorManager.purple,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
-                            ),
+                              const SizedBox(
+                                width: AppSize.s60,
+                              ),
+                              InkWell(
+                                child: Stack(
+                                  alignment: Alignment.center,
+                                  children: [
+                                    Image.asset(
+                                      ImageAssets.greenBox,
+                                    ),
+                                    Image.asset(
+                                      ImageAssets.smallTrue,
+                                    ),
+                                  ],
+                                ),
+                                onTap: () {},
+                              ),
+                              const SizedBox(
+                                width: AppSize.s5,
+                              ),
+                              InkWell(
+                                child: Stack(
+                                  alignment: Alignment.center,
+                                  children: [
+                                    Image.asset(
+                                      ImageAssets.redBox,
+                                    ),
+                                    Image.asset(
+                                      ImageAssets.rightLine,
+                                    ),
+                                    Image.asset(
+                                      ImageAssets.leftLine,
+                                    ),
+                                  ],
+                                ),
+                                onTap: () {},
+                              ),
+                            ],
                           ),
                         ],
                       ),
@@ -141,9 +195,9 @@ class ClientOffersPage extends StatelessWidget {
                   ),
                 ),
                 itemCount: 5,
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ),
       ),
     );
