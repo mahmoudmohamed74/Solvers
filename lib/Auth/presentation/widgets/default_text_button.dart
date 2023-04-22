@@ -52,8 +52,7 @@ class DefaultTextButton extends StatelessWidget {
           child: Text(
             text,
             style: TextStyle(
-              fontSize: AppSize.s18,
-              fontWeight: fontWeight,
+              fontSize: AppSize.s20,
               color: ColorManager.black,
               fontStyle: FontStyle.normal,
             ),

@@ -18,7 +18,7 @@ class ClientLayout extends StatelessWidget {
           var clientCubit = ClientCubit.get(context);
           return Scaffold(
             appBar: const AppBarWidget(),
-            drawer: Align(
+            drawer: const Align(
               alignment: Alignment.topLeft,
               child: MyDrawer(),
             ),
