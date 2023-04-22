@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:solvers/client/presentation/widgets/drawer.dart';
 import 'package:solvers/core/assets/app_assets.dart';
 import 'package:solvers/core/global/resources/color_manager.dart';
 import 'package:solvers/core/global/resources/values_manger.dart';
@@ -18,12 +19,17 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
           bottom: Radius.circular(AppSize.s15),
         ),
       ),
-      leading: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: const [
-          ThreeBlackLinesWidget(),
-        ],
+      leading: IconButton(
+        icon: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: const [
+            ThreeBlackLinesWidget(),
+          ],
+        ),
+        onPressed: () {
+          Scaffold.of(context).openDrawer();
+        },
       ),
       centerTitle: true,
       elevation: AppSize.s5,
@@ -58,41 +64,36 @@ class ThreeBlackLinesWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              color: ColorManager.black,
-              borderRadius: BorderRadius.circular(AppSize.s2),
-            ),
-            height: lineHeight,
-            width: AppSize.s20,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            color: ColorManager.black,
+            borderRadius: BorderRadius.circular(AppSize.s2),
           ),
-          const SizedBox(height: AppSize.s5),
-          Container(
-            decoration: BoxDecoration(
-              color: ColorManager.black,
-              borderRadius: BorderRadius.circular(AppSize.s2),
-            ),
-            height: lineHeight,
-            width: AppSize.s13,
+          height: lineHeight,
+          width: AppSize.s20,
+        ),
+        const SizedBox(height: AppSize.s5),
+        Container(
+          decoration: BoxDecoration(
+            color: ColorManager.black,
+            borderRadius: BorderRadius.circular(AppSize.s2),
           ),
-          const SizedBox(height: AppSize.s5),
-          Container(
-            decoration: BoxDecoration(
-              color: ColorManager.black,
-              borderRadius: BorderRadius.circular(AppSize.s2),
-            ),
-            height: lineHeight,
-            width: AppSize.s20,
+          height: lineHeight,
+          width: AppSize.s13,
+        ),
+        const SizedBox(height: AppSize.s5),
+        Container(
+          decoration: BoxDecoration(
+            color: ColorManager.black,
+            borderRadius: BorderRadius.circular(AppSize.s2),
           ),
-        ],
-      ),
-      onTap: () {
-        print("object");
-      },
+          height: lineHeight,
+          width: AppSize.s20,
+        ),
+      ],
     );
   }
 }

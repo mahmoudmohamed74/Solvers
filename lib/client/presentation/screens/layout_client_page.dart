@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:solvers/client/presentation/controller/client_cubit.dart';
 import 'package:solvers/client/presentation/widgets/appbar_widget.dart';
+import 'package:solvers/client/presentation/widgets/drawer.dart';
 import 'package:solvers/core/global/resources/color_manager.dart';
 
 class ClientLayout extends StatelessWidget {
@@ -17,6 +18,10 @@ class ClientLayout extends StatelessWidget {
           var clientCubit = ClientCubit.get(context);
           return Scaffold(
             appBar: const AppBarWidget(),
+            drawer: Align(
+              alignment: Alignment.topLeft,
+              child: MyDrawer(),
+            ),
             body: clientCubit.screens[clientCubit.currentIndex],
             floatingActionButton: SizedBox(
               height: 50,

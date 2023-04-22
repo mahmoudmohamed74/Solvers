@@ -31,7 +31,7 @@ class MyDrawer extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const SizedBox(
-                    height: AppSize.s20,
+                    height: AppSize.s40,
                   ),
                   Image.asset(
                     'assets/images/splash_logo.png',
