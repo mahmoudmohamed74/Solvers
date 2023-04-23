@@ -1,41 +1,37 @@
 import 'package:equatable/equatable.dart';
 
-class UserAuth extends Equatable {
+class ClientModel extends Equatable {
   final String firstName;
   final String lastName;
   final String email;
-  final String id;
+  final String clientId;
   final int phoneNumber;
-  final String? skills;
 
-  const UserAuth({
+  const ClientModel({
     required this.firstName,
     required this.lastName,
     required this.email,
-    required this.id,
+    required this.clientId,
     required this.phoneNumber,
-    this.skills,
   });
 
-  factory UserAuth.fromJson(Map<String, dynamic> json) {
-    return UserAuth(
-      firstName: json["firstName"],
-      lastName: json["lastName"],
-      email: json["email"],
-      id: json["id"],
-      phoneNumber: json["phoneNumber"],
-      skills: json['skills'] != null ? json['skills'] as String : "No skill",
+  factory ClientModel.fromJson(Map<String, dynamic> json) {
+    return ClientModel(
+      firstName: json['firstName'],
+      lastName: json['lastName'],
+      email: json['email'],
+      clientId: json['clientId'],
+      phoneNumber: json['phoneNumber'],
     );
   }
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return <String, dynamic>{
       'firstName': firstName,
       'lastName': lastName,
       'email': email,
-      'id': id,
+      'clientId': clientId,
       'phoneNumber': phoneNumber,
-      'skills': skills,
     };
   }
 
@@ -45,9 +41,8 @@ class UserAuth extends Equatable {
       firstName,
       lastName,
       email,
-      id,
+      clientId,
       phoneNumber,
-      skills!,
     ];
   }
 }

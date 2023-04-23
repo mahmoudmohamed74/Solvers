@@ -4,8 +4,10 @@ import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:solvers/Auth/data/models/client_model.dart';
 
 import 'package:solvers/Auth/domain/entities/registered_user.dart';
+import 'package:solvers/Auth/domain/usecases/create_client_use_case.dart';
 import 'package:solvers/Auth/domain/usecases/login_use_case.dart';
 import 'package:solvers/Auth/domain/usecases/signout_use_case.dart';
 import 'package:solvers/Auth/domain/usecases/signup_use_case.dart';
@@ -16,21 +18,23 @@ class FirebaseAuthCubit extends Cubit<FirebaseAuthState> {
   SignUpAuthUseCase signUpAuthUseCase;
   LogInAuthUseCase logInAuthUseCase;
   SignOutAuthUseCase signOutAuthUseCase;
+  CreateClientUseCase createClientUseCase;
   User? user;
   FirebaseAuthCubit(
     this.signUpAuthUseCase,
     this.logInAuthUseCase,
     this.signOutAuthUseCase,
+    this.createClientUseCase,
   ) : super(AuthInitial());
 
   static FirebaseAuthCubit get(BuildContext context) =>
       BlocProvider.of(context);
 
   Future<User?> signUp(RegisteredUser newUserInfo) async {
-    emit(CubitAuthConfirming());
+    emit(CubitAuthLoadingState());
     await signUpAuthUseCase(params: newUserInfo).then((newUser) {
-      emit(CubitAuthConfirmed(newUser));
       user = newUser;
+      emit(CubitAuthConfirmed(newUser));
     }).catchError((e) {
       print("${e.toString()} sssssssss");
       emit(CubitAuthFailed(e.toString()));
@@ -38,8 +42,20 @@ class FirebaseAuthCubit extends Cubit<FirebaseAuthState> {
     return user;
   }
 
+  Future<void> createClient(ClientModel clientModel) async {
+    emit(CreateClientLoading());
+
+    try {
+      await createClientUseCase(params: clientModel);
+      emit(CreateClientSuccess());
+    } catch (e) {
+      print("${e.toString()} create client error cubit ");
+      emit(CubitAuthFailed(e.toString()));
+    }
+  }
+
   Future<void> logIn(RegisteredUser userInfo) async {
-    emit(CubitAuthConfirming());
+    emit(CubitAuthLoadingState());
     await logInAuthUseCase(params: userInfo).then((user) {
       emit(CubitAuthConfirmed(user));
       this.user = user;
@@ -52,7 +68,7 @@ class FirebaseAuthCubit extends Cubit<FirebaseAuthState> {
   }
 
   Future<void> signOut({required String userId}) async {
-    emit(CubitAuthConfirming());
+    emit(CubitAuthLoadingState());
     await signOutAuthUseCase.call(params: userId).then((value) async {
       emit(CubitAuthSignOut());
     }).catchError((e) {

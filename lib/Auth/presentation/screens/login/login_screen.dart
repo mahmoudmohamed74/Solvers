@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:solvers/Auth/data/models/client_model.dart';
+import 'package:solvers/Auth/domain/entities/registered_user.dart';
 import 'package:solvers/Auth/presentation/controller/auth_cubit/auth_cubit.dart';
 import 'package:solvers/Auth/presentation/widgets/default_form_field.dart';
 import 'package:solvers/Auth/presentation/widgets/default_text_button.dart';
@@ -32,6 +34,7 @@ class LoginScreen extends StatelessWidget {
         },
         builder: (context, state) {
           var cubit = FirebaseAuthCubit.get(context);
+
           return Scaffold(
             appBar: AppBar(
               systemOverlayStyle: const SystemUiOverlayStyle(
@@ -150,9 +153,8 @@ class LoginScreen extends StatelessWidget {
                         text: AppStrings.login,
                         fontWeight: FontWeight.normal,
                         onTap: () async {
-                          // if (_formKey.currentState!.validate()) {
+                          // if (_formKey.currentState!.validate()) {}
 
-                          // }
                           // await cubit.signOut(
                           //   userId: "7rt0Frki1Wem8SBtiv8ygyeKRrO2",
                           // );
@@ -162,10 +164,26 @@ class LoginScreen extends StatelessWidget {
                           //     password: "123456789",
                           //   ),
                           // );
-                          // await cubit.signUp(RegisteredUser(
-                          //   email: "volt@gmail.com",
-                          //   password: "a123456789",
-                          // ));
+                          await cubit.signUp(
+                            RegisteredUser(
+                              email: _emailEditingController.text,
+                              password: _passwordEditingController.text,
+                            ),
+                          );
+                          if (state is CubitAuthConfirmed) {
+                            await cubit.createClient(
+                              ClientModel(
+                                firstName: "mahmoud",
+                                lastName: "volt",
+                                email: _emailEditingController.text,
+                                clientId: cubit.user!.uid,
+                                phoneNumber: 0109140,
+                              ),
+                            );
+                          }
+
+                          print("user id 2 ${cubit.user!.uid}");
+                          print("user id 2 ${cubit.user}");
                         },
                       ),
                       const SizedBox(

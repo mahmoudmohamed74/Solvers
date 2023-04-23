@@ -9,7 +9,7 @@ abstract class FirebaseAuthState extends Equatable {
 
 class AuthInitial extends FirebaseAuthState {}
 
-class CubitAuthConfirming extends FirebaseAuthState {}
+class CubitAuthLoadingState extends FirebaseAuthState {}
 
 class CubitAuthConfirmed extends FirebaseAuthState {
   final User user;
@@ -23,3 +23,8 @@ class CubitAuthFailed extends FirebaseAuthState {
   final String error;
   const CubitAuthFailed(this.error);
 }
+// create user
+
+class CreateClientLoading extends FirebaseAuthState {}
+
+class CreateClientSuccess extends FirebaseAuthState {}

@@ -1,6 +1,9 @@
 import 'package:get_it/get_it.dart';
 import 'package:solvers/Auth/data/repository/auth_repo_impl.dart';
+import 'package:solvers/Auth/data/repository/create_user_repo_impl.dart';
 import 'package:solvers/Auth/domain/repository/base_auth_repo.dart';
+import 'package:solvers/Auth/domain/repository/base_create_user_repo.dart';
+import 'package:solvers/Auth/domain/usecases/create_client_use_case.dart';
 import 'package:solvers/Auth/domain/usecases/login_use_case.dart';
 import 'package:solvers/Auth/domain/usecases/signout_use_case.dart';
 import 'package:solvers/Auth/domain/usecases/signup_use_case.dart';
@@ -17,6 +20,9 @@ class ServicesLocator {
     sl.registerLazySingleton<BaseFirebaseAuthRepository>(
       () => FirebaseAuthRepositoryImpl(),
     );
+    sl.registerLazySingleton<BaseCreateUserRepo>(
+      () => CreateUserRepoImpl(),
+    );
 
     // Firebase auth useCases
     sl.registerLazySingleton<LogInAuthUseCase>(() => LogInAuthUseCase(
@@ -31,9 +37,16 @@ class ServicesLocator {
           sl(),
         ));
 
+    // client use cases
+
+    sl.registerLazySingleton<CreateClientUseCase>(() => CreateClientUseCase(
+          sl(),
+        ));
+
     // auth Blocs
     sl.registerFactory<FirebaseAuthCubit>(
       () => FirebaseAuthCubit(
+        sl(),
         sl(),
         sl(),
         sl(),
