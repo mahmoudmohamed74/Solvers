@@ -5,6 +5,7 @@ import 'package:solvers/client/presentation/widgets/appbar_widget.dart';
 import 'package:solvers/core/global/resources/strings_manger.dart';
 import 'package:solvers/core/global/resources/values_manger.dart';
 import 'package:solvers/core/global/resources/color_manager.dart';
+import 'package:solvers/core/routes/app_routes.dart';
 
 class ClientNewRequestPage extends StatefulWidget {
   const ClientNewRequestPage({Key? key}) : super(key: key);
@@ -30,7 +31,9 @@ class _ClientNewRequestPageState extends State<ClientNewRequestPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarWidget(),
+      appBar: AppBarWidget(
+        isBack: true,
+      ),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Column(
@@ -116,7 +119,9 @@ class _ClientNewRequestPageState extends State<ClientNewRequestPage> {
             DefaultTextButton(
               text: AppStrings.signUp,
               fontWeight: FontWeight.normal,
-              onTap: () {},
+              onTap: () {
+                Navigator.pushReplacementNamed(context, Routes.requestDone);
+              },
             ),
           ],
         ),

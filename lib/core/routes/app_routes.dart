@@ -8,7 +8,18 @@ import 'package:solvers/Auth/presentation/screens/success/success_screen.dart';
 import 'package:solvers/Auth/presentation/screens/technician/technician_register_screen.dart';
 import 'package:solvers/Auth/presentation/screens/verification/email_verification_screen.dart';
 import 'package:solvers/Auth/presentation/screens/verification/phone_verification_screen.dart';
+import 'package:solvers/client/presentation/screens/chat_page_client_page.dart';
+import 'package:solvers/client/presentation/screens/create_new_request_page.dart';
+import 'package:solvers/client/presentation/screens/help_page.dart';
+import 'package:solvers/client/presentation/screens/home_client_page.dart';
+import 'package:solvers/client/presentation/screens/layout_client_page.dart';
+import 'package:solvers/client/presentation/screens/my_requests_page.dart';
+import 'package:solvers/client/presentation/screens/offers_client_page.dart';
+import 'package:solvers/client/presentation/screens/profile_page_client.dart';
+import 'package:solvers/client/presentation/screens/request_status_page.dart';
+import 'package:solvers/client/presentation/screens/requst_done_page.dart';
 import 'package:solvers/core/global/resources/strings_manger.dart';
+import 'package:solvers/test.dart';
 
 class Routes {
   static const String splashRoute = "/";
@@ -23,6 +34,19 @@ class Routes {
   static const String phoneVerificationRoute = "/phoneVerification";
   static const String emailVerificationRoute = "/emailVerification";
   static const String successRoute = "/success";
+
+  // client routes
+  static const String clientLayout = "/clientLayout";
+  static const String createNewRequest = "/createNewRequest";
+  static const String homeClient = "/homeClient";
+  static const String myRequests = "/myRequests";
+  static const String help = "/help";
+  static const String chatClient = "/chatClient";
+  static const String offersClint = "/offersClint";
+  static const String paymentDone = "/paymentDone";
+  static const String profileClient = "/profileClient";
+  static const String requestStatus = "/requestStatus";
+  static const String requestDone = "/requestDone";
 }
 
 class RouteGenerator {
@@ -49,7 +73,33 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => ResetPasswordScreen());
       case Routes.successRoute:
         return MaterialPageRoute(builder: (_) => const SuccessScreen());
+
+      // client routes
+      case Routes.clientLayout:
+        return MaterialPageRoute(builder: (_) => const ClientLayout());
+      case Routes.createNewRequest:
+        return MaterialPageRoute(builder: (_) => const ClientNewRequestPage());
+      case Routes.homeClient:
+        return MaterialPageRoute(builder: (_) => const ClientHomePage());
+      case Routes.myRequests:
+        return MaterialPageRoute(builder: (_) => const ClientMyRequestPage());
+      case Routes.help:
+        return MaterialPageRoute(builder: (_) => HelpPage());
+      case Routes.chatClient:
+        return MaterialPageRoute(builder: (_) => const ClientChatPage());
+      case Routes.offersClint:
+        return MaterialPageRoute(builder: (_) => const ClientOffersPage());
+      case Routes.paymentDone:
+        return MaterialPageRoute(builder: (_) => ResetPasswordScreen());
+      case Routes.profileClient:
+        return MaterialPageRoute(builder: (_) => ClientProfilePage());
+      case Routes.requestStatus:
+        return MaterialPageRoute(
+            builder: (_) => const ClientRequestStatusPage());
+      case Routes.requestDone:
+        return MaterialPageRoute(builder: (_) => const ClientRequestDonePage());
       case Routes.testRoute:
+        return MaterialPageRoute(builder: (_) => const TestScreen());
       default:
         return unDefinedRoute();
     }

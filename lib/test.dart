@@ -15,7 +15,7 @@ class _TestScreenState extends State<TestScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: const AppBarWidget(),
+      appBar: AppBarWidget(),
       body: MyDrawer(),
     );
   }

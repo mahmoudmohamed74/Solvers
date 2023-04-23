@@ -9,6 +9,7 @@ class ImageAssets {
   static const String resetPasswordImage =
       "$IMAGE_PATH/reset_password_image.png";
   static const String successImage = "$IMAGE_PATH/success_image.png";
+  static const String back = "$IMAGE_PATH/left_arrow_ic.png";
   static const String person = "$IMAGE_PATH/person_ic.png";
   static const String smallPerson = "$IMAGE_PATH/small_person_ic.png";
   static const String circleImage = "$IMAGE_PATH/circle_ic.png";

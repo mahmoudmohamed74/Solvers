@@ -10,7 +10,9 @@ class ClientOffersPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarWidget(),
+      appBar: AppBarWidget(
+        isBack: true,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(AppPadding.p20),
         child: SingleChildScrollView(

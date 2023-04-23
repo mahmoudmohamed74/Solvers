@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:solvers/client/presentation/widgets/drawer.dart';
 import 'package:solvers/core/assets/app_assets.dart';
 import 'package:solvers/core/global/resources/color_manager.dart';
 import 'package:solvers/core/global/resources/values_manger.dart';
+import 'package:solvers/core/routes/app_routes.dart';
 
 class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
-  const AppBarWidget({Key? key}) : super(key: key);
+  AppBarWidget({this.isBack = false, Key? key}) : super(key: key);
+
+  bool isBack = false;
 
   @override
   Size get preferredSize => const Size.fromHeight(70);
@@ -19,18 +21,17 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
           bottom: Radius.circular(AppSize.s15),
         ),
       ),
-      leading: IconButton(
-        icon: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: const [
-            ThreeBlackLinesWidget(),
-          ],
-        ),
-        onPressed: () {
-          Scaffold.of(context).openDrawer();
-        },
-      ),
+      leading: isBack
+          ? IconButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              icon: Image.asset(
+                ImageAssets.back,
+                scale: AppSize.s1_5,
+              ),
+            )
+          : const ThreeBlackLinesWidget(),
       centerTitle: true,
       elevation: AppSize.s5,
       title: Column(
@@ -64,36 +65,47 @@ class ThreeBlackLinesWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          decoration: BoxDecoration(
-            color: ColorManager.black,
-            borderRadius: BorderRadius.circular(AppSize.s2),
+    return IconButton(
+      icon: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  color: ColorManager.black,
+                  borderRadius: BorderRadius.circular(AppSize.s2),
+                ),
+                height: lineHeight,
+                width: AppSize.s20,
+              ),
+              const SizedBox(height: AppSize.s5),
+              Container(
+                decoration: BoxDecoration(
+                  color: ColorManager.black,
+                  borderRadius: BorderRadius.circular(AppSize.s2),
+                ),
+                height: lineHeight,
+                width: AppSize.s13,
+              ),
+              const SizedBox(height: AppSize.s5),
+              Container(
+                decoration: BoxDecoration(
+                  color: ColorManager.black,
+                  borderRadius: BorderRadius.circular(AppSize.s2),
+                ),
+                height: lineHeight,
+                width: AppSize.s20,
+              ),
+            ],
           ),
-          height: lineHeight,
-          width: AppSize.s20,
-        ),
-        const SizedBox(height: AppSize.s5),
-        Container(
-          decoration: BoxDecoration(
-            color: ColorManager.black,
-            borderRadius: BorderRadius.circular(AppSize.s2),
-          ),
-          height: lineHeight,
-          width: AppSize.s13,
-        ),
-        const SizedBox(height: AppSize.s5),
-        Container(
-          decoration: BoxDecoration(
-            color: ColorManager.black,
-            borderRadius: BorderRadius.circular(AppSize.s2),
-          ),
-          height: lineHeight,
-          width: AppSize.s20,
-        ),
-      ],
+        ],
+      ),
+      onPressed: () {
+        Scaffold.of(context).openDrawer();
+      },
     );
   }
 }

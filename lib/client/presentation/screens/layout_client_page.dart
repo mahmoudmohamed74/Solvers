@@ -4,6 +4,7 @@ import 'package:solvers/client/presentation/controller/client_cubit.dart';
 import 'package:solvers/client/presentation/widgets/appbar_widget.dart';
 import 'package:solvers/client/presentation/widgets/drawer.dart';
 import 'package:solvers/core/global/resources/color_manager.dart';
+import 'package:solvers/core/routes/app_routes.dart';
 
 class ClientLayout extends StatelessWidget {
   const ClientLayout({Key? key}) : super(key: key);
@@ -17,7 +18,7 @@ class ClientLayout extends StatelessWidget {
         builder: (context, state) {
           var clientCubit = ClientCubit.get(context);
           return Scaffold(
-            appBar: const AppBarWidget(),
+            appBar: AppBarWidget(),
             drawer: const Align(
               alignment: Alignment.topLeft,
               child: MyDrawer(),
@@ -28,7 +29,10 @@ class ClientLayout extends StatelessWidget {
               width: 50,
               child: FloatingActionButton(
                 backgroundColor: ColorManager.white,
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushReplacementNamed(
+                      context, Routes.createNewRequest);
+                },
                 child: Icon(
                   Icons.add,
                   size: 30,
