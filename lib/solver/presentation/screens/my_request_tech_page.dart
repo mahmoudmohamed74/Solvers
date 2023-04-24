@@ -151,10 +151,10 @@ class TechMyRequestPage extends StatelessWidget {
                           Container(
                             color: ColorManager.grey,
                             height: AppSize.s18,
-                            width: AppSize.s60,
+                            width: AppSize.s90,
                             child: const Center(
                               child: Text(
-                                "PAY NOW",
+                                "NOT PAID YET",
                                 style: TextStyle(fontSize: AppSize.s13),
                               ),
                             ),
@@ -174,6 +174,10 @@ class TechMyRequestPage extends StatelessWidget {
                               fontSize: AppSize.s15,
                             ),
                           ),
+                          const SizedBox(
+                            width: AppSize.s5,
+                          ),
+                          const Icon(Icons.edit),
                           SizedBox(
                             width: MediaQuery.of(context).size.width / 3,
                           ),
