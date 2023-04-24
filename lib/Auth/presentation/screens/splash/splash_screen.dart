@@ -24,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   _goNext() async {
-    Navigator.pushReplacementNamed(context, Routes.clientLayout);
+    Navigator.pushReplacementNamed(context, Routes.layoutClient);
     // _appPreferences.isDoctorLoggedIn().then((isDoctorLoggedIn) {
     //   if (isDoctorLoggedIn) {
     //     Navigator.pushReplacementNamed(context, Routes.doctorMainRoute);
