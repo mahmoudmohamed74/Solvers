@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:solvers/client/presentation/screens/layout_client_page.dart';
 import 'package:solvers/core/routes/app_routes.dart';
+import 'package:solvers/solver/presentation/screens/create_offer_tech_page.dart';
 import 'package:solvers/solver/presentation/screens/layout_tech_page.dart';
 
 class MyApp extends StatefulWidget {
@@ -19,9 +20,9 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: TechLayout(),
+      home: TechCreateOfferPage(),
       // onGenerateRoute: RouteGenerator.getRoute,
       // initialRoute: Routes.splashRoute,
     );
