@@ -4,9 +4,17 @@ import 'package:solvers/core/global/resources/strings_manger.dart';
 import 'package:solvers/core/global/resources/values_manger.dart';
 import 'package:solvers/core/utils/constants.dart';
 import 'package:solvers/core/utils/functions.dart';
+import 'package:solvers/solver/presentation/widgets/skills_form_widget.dart';
 
-class TechProfilePage extends StatelessWidget {
+class TechProfilePage extends StatefulWidget {
   TechProfilePage({Key? key}) : super(key: key);
+
+  @override
+  State<TechProfilePage> createState() => _TechProfilePageState();
+}
+
+class _TechProfilePageState extends State<TechProfilePage> {
+  List<String> _skills = ['Flutter', 'Dart', 'Firebase'];
   final _formKey = GlobalKey<FormState>();
 
   // create validation
@@ -30,7 +38,7 @@ class TechProfilePage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.only(
-            top: AppSize.s60,
+            top: AppSize.s20,
             right: AppSize.s20,
             left: AppSize.s20,
           ),
@@ -44,7 +52,7 @@ class TechProfilePage extends StatelessWidget {
                     width: 20,
                   ),
                   const Text(
-                    "username",
+                    "tech name",
                     style: TextStyle(
                       fontSize: 36,
                     ),
@@ -55,7 +63,7 @@ class TechProfilePage extends StatelessWidget {
                 key: _formKey,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SizedBox(
                       height: AppSize.s33,
@@ -127,6 +135,19 @@ class TechProfilePage extends StatelessWidget {
                       suffixPressed: () {
                         // TODO
                       },
+                    ),
+                    const SizedBox(
+                      height: AppSize.s12,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        left: 30,
+                      ),
+                      child: SkillsForm(
+                        skills: _skills,
+                        onSkillsChanged: (skills) =>
+                            setState(() => _skills = skills),
+                      ),
                     ),
                   ],
                 ),

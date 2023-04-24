@@ -46,10 +46,10 @@ class _MultiDropDownButtonWidgetState extends State<MultiDropDownButtonWidget> {
             enabled: false,
             child: StatefulBuilder(
               builder: (context, menuSetState) {
-                final _isSelected = selectedItems.contains(item);
+                final isSelected = selectedItems.contains(item);
                 return InkWell(
                   onTap: () {
-                    _isSelected
+                    isSelected
                         ? selectedItems.remove(item)
                         : selectedItems.add(item);
                     //This rebuilds the StatefulWidget to update the button's text
@@ -63,7 +63,7 @@ class _MultiDropDownButtonWidgetState extends State<MultiDropDownButtonWidget> {
                         const EdgeInsets.symmetric(horizontal: AppSize.s14),
                     child: Row(
                       children: [
-                        _isSelected
+                        isSelected
                             ? const Icon(Icons.check_box_outlined)
                             : const Icon(Icons.check_box_outline_blank),
                         const SizedBox(width: AppSize.s16),
