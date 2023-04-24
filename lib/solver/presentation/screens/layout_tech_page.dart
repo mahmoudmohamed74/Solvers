@@ -1,23 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:solvers/client/presentation/controller/client_cubit.dart';
 import 'package:solvers/client/presentation/widgets/appbar_widget.dart';
 import 'package:solvers/client/presentation/widgets/drawer.dart';
 import 'package:solvers/core/global/resources/color_manager.dart';
 import 'package:solvers/core/global/resources/values_manger.dart';
-import 'package:solvers/core/routes/app_routes.dart';
+import 'package:solvers/solver/presentation/controller/tech_cubit.dart';
 
-class ClientLayout extends StatelessWidget {
-  const ClientLayout({Key? key}) : super(key: key);
+class TechLayout extends StatelessWidget {
+  const TechLayout({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) => ClientCubit(),
-      child: BlocConsumer<ClientCubit, ClientState>(
+      create: (BuildContext context) => TechCubit(),
+      child: BlocConsumer<TechCubit, TechState>(
         listener: (context, state) {},
         builder: (context, state) {
-          var clientCubit = ClientCubit.get(context);
+          var clientCubit = TechCubit.get(context);
           return Scaffold(
             appBar: AppBarWidget(),
             drawer: const Align(
@@ -25,24 +24,6 @@ class ClientLayout extends StatelessWidget {
               child: MyDrawer(),
             ),
             body: clientCubit.screens[clientCubit.currentIndex],
-            floatingActionButton: SizedBox(
-              height: 50,
-              width: 50,
-              child: FloatingActionButton(
-                backgroundColor: ColorManager.white,
-                onPressed: () {
-                  Navigator.pushReplacementNamed(
-                      context, Routes.createNewRequest);
-                },
-                child: Icon(
-                  Icons.add,
-                  size: 30,
-                  color: ColorManager.black,
-                ),
-              ),
-            ),
-            floatingActionButtonLocation:
-                FloatingActionButtonLocation.centerDocked,
             bottomNavigationBar: ClipRRect(
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(AppSize.s18),
@@ -50,8 +31,6 @@ class ClientLayout extends StatelessWidget {
               ),
               child: BottomAppBar(
                 color: ColorManager.selectedItem,
-                shape: const CircularNotchedRectangle(),
-                notchMargin: 8,
                 child: SizedBox(
                   height: 60,
                   child: Row(
@@ -64,7 +43,7 @@ class ClientLayout extends StatelessWidget {
                             onPressed: () {
                               clientCubit.changeBottomNav(0);
                             },
-                            minWidth: 40,
+                            minWidth: 100,
                             child: Icon(
                               Icons.home,
                               size: 35,
@@ -77,7 +56,7 @@ class ClientLayout extends StatelessWidget {
                             onPressed: () {
                               clientCubit.changeBottomNav(1);
                             },
-                            minWidth: 40,
+                            minWidth: 100,
                             child: Icon(
                               Icons.chat,
                               size: 35,
@@ -95,7 +74,7 @@ class ClientLayout extends StatelessWidget {
                             onPressed: () {
                               clientCubit.changeBottomNav(2);
                             },
-                            minWidth: 40,
+                            minWidth: 100,
                             child: Icon(
                               Icons.mark_as_unread,
                               size: 35,
@@ -108,7 +87,7 @@ class ClientLayout extends StatelessWidget {
                             onPressed: () {
                               clientCubit.changeBottomNav(3);
                             },
-                            minWidth: 40,
+                            minWidth: 100,
                             child: Icon(
                               Icons.person_outline_outlined,
                               size: 35,

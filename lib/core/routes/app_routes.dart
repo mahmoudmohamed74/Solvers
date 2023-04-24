@@ -13,10 +13,10 @@ import 'package:solvers/client/presentation/screens/create_new_request_page.dart
 import 'package:solvers/client/presentation/screens/help_page.dart';
 import 'package:solvers/client/presentation/screens/home_client_page.dart';
 import 'package:solvers/client/presentation/screens/layout_client_page.dart';
-import 'package:solvers/client/presentation/screens/my_requests_page.dart';
+import 'package:solvers/client/presentation/screens/my_requests_client_page.dart';
 import 'package:solvers/client/presentation/screens/offers_client_page.dart';
 import 'package:solvers/client/presentation/screens/profile_page_client.dart';
-import 'package:solvers/client/presentation/screens/request_status_page.dart';
+import 'package:solvers/client/presentation/screens/request_status_client_page.dart';
 import 'package:solvers/client/presentation/screens/requst_done_page.dart';
 import 'package:solvers/core/global/resources/strings_manger.dart';
 import 'package:solvers/test.dart';
