@@ -1,6 +1,8 @@
 // ignore_for_file: library_private_types_in_public_api, must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:solvers/Auth/presentation/screens/login/login_screen.dart';
+import 'package:solvers/Auth/presentation/screens/toggle/toggle_scrren.dart';
 import 'package:solvers/client/presentation/screens/layout_client_page.dart';
 import 'package:solvers/core/routes/app_routes.dart';
 import 'package:solvers/solver/presentation/screens/create_offer_tech_page.dart';
@@ -21,11 +23,11 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: TechLayout(),
-      // onGenerateRoute: RouteGenerator.getRoute,
-      // initialRoute: Routes.splashRoute,
+      // home: LoginScreen(),
+      onGenerateRoute: RouteGenerator.getRoute,
+      initialRoute: Routes.splashRoute,
     );
   }
 }

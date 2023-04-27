@@ -9,8 +9,8 @@ import 'package:solvers/core/global/resources/color_manager.dart';
 import 'package:solvers/core/utils/constants.dart';
 import 'package:solvers/core/utils/functions.dart';
 
-class IndividualRegisterScreen extends StatelessWidget {
-  IndividualRegisterScreen({super.key});
+class ClientRegisterScreen extends StatelessWidget {
+  ClientRegisterScreen({super.key});
 
   final _formKey = GlobalKey<FormState>();
 

@@ -4,7 +4,7 @@ class FirebaseAuthentication {
   static final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   get user => _firebaseAuth.currentUser;
 
-  static Future<User> signUp({
+  Future<User> signUp({
     required String email,
     required String password,
   }) async {
@@ -16,7 +16,7 @@ class FirebaseAuthentication {
     return user;
   }
 
-  static Future<User> logIn({
+  Future<User> logIn({
     required String email,
     required String password,
   }) async {
@@ -28,5 +28,5 @@ class FirebaseAuthentication {
     return user;
   }
 
-  static Future signOut() async => await _firebaseAuth.signOut();
+  Future signOut() async => await _firebaseAuth.signOut();
 }

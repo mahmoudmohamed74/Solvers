@@ -48,4 +48,9 @@ class AppStrings {
   static const String doNotHaveAccount = "Don't have  an account ? ";
   static const String haveAccount = "Already have an account ?";
   static const String or = "OR";
+  static const String loginAs = "Login as";
+  static const String individuals = "Individuals";
+  static const String needHelp = "Need help";
+  static const String technician = "Technician";
+  static const String joinTeam = "Join our team :)";
 }

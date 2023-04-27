@@ -8,6 +8,7 @@ import 'package:solvers/Auth/domain/entities/registered_user.dart';
 import 'package:solvers/Auth/presentation/controller/auth_cubit/auth_cubit.dart';
 import 'package:solvers/Auth/presentation/widgets/default_form_field.dart';
 import 'package:solvers/Auth/presentation/widgets/default_text_button.dart';
+import 'package:solvers/core/app/app_prefs.dart';
 import 'package:solvers/core/assets/app_assets.dart';
 import 'package:solvers/core/global/resources/strings_manger.dart';
 import 'package:solvers/core/global/resources/values_manger.dart';
@@ -23,18 +24,36 @@ class LoginScreen extends StatelessWidget {
   final TextEditingController _emailEditingController = TextEditingController();
   final TextEditingController _passwordEditingController =
       TextEditingController();
-
+  final AppPreferences _appPreferences = sl<AppPreferences>();
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => sl<FirebaseAuthCubit>(),
       child: BlocConsumer<FirebaseAuthCubit, FirebaseAuthState>(
-        listener: (context, state) {
-          // TODO: implement listener
+        listener: (context, state) async {
+          print("state is $state ");
+          if (state is SignUpSuccessState) {
+            await FirebaseAuthCubit.get(context).createClient(
+              ClientModel(
+                firstName: "mahmoud",
+                lastName: "volt",
+                email: _emailEditingController.text,
+                clientId: FirebaseAuthCubit.get(context).user!.uid,
+                phoneNumber: 0109140,
+              ),
+            );
+            // _appPreferences.setIsClientLoggedIn();
+            print("user id 2 ${FirebaseAuthCubit.get(context).user}");
+            print("user created successfully ");
+          } else if (state is CubitAuthFailed) {
+            print("user created error ");
+          } else if (state is CubitAuthLoadingState) {
+            print("user loading ");
+          } else {
+            print("user else ");
+          }
         },
         builder: (context, state) {
-          var cubit = FirebaseAuthCubit.get(context);
-
           return Scaffold(
             appBar: AppBar(
               systemOverlayStyle: const SystemUiOverlayStyle(
@@ -160,30 +179,23 @@ class LoginScreen extends StatelessWidget {
                           // );
                           // await cubit.logIn(
                           //   RegisteredUser(
-                          //     email: "volt@gmail.com",
-                          //     password: "123456789",
+                          //     email: "volt10@gmail.com",
+                          //     password: "a123456789",
                           //   ),
                           // );
-                          await cubit.signUp(
-                            RegisteredUser(
-                              email: _emailEditingController.text,
-                              password: _passwordEditingController.text,
-                            ),
-                          );
-                          if (state is CubitAuthConfirmed) {
-                            await cubit.createClient(
-                              ClientModel(
-                                firstName: "mahmoud",
-                                lastName: "volt",
-                                email: _emailEditingController.text,
-                                clientId: cubit.user!.uid,
-                                phoneNumber: 0109140,
-                              ),
-                            );
-                          }
-
-                          print("user id 2 ${cubit.user!.uid}");
-                          print("user id 2 ${cubit.user}");
+                          // await FirebaseAuthCubit.get(context).signUp(
+                          //   RegisteredUser(
+                          //     email: _emailEditingController.text,
+                          //     password: _passwordEditingController.text,
+                          //   ),
+                          // );
+                          // print(
+                          //     "sssss ${FirebaseAuthCubit.get(context).user!.uid}");
+                          // await FirebaseAuthCubit.get(context)
+                          //     .signOut(
+                          //         userId:
+                          //             FirebaseAuthCubit.get(context).user!.uid)
+                          //     .then((value) => print("object"));
                         },
                       ),
                       const SizedBox(
@@ -212,16 +224,12 @@ class LoginScreen extends StatelessWidget {
                         text: AppStrings.signUp,
                         fontWeight: FontWeight.normal,
                         onTap: () {
-                          Navigator.pushReplacementNamed(
-                            context,
-                            Routes.technicianRegisterRoute,
-                          );
-                          // if (_formKey.currentState!.validate()) {
-                          //   Navigator.pushReplacementNamed(
-                          //     context,
-                          //     Routes.individualRegisterRoute,
-                          //   );
-                          // }
+                          if (_formKey.currentState!.validate()) {
+                            Navigator.pushReplacementNamed(
+                              context,
+                              Routes.toggleRoute,
+                            );
+                          }
                         },
                       ),
                       const SizedBox(

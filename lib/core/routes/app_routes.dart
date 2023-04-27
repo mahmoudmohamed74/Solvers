@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:solvers/Auth/presentation/screens/forgot%20Password/forgot_password_screen.dart';
-import 'package:solvers/Auth/presentation/screens/individual/individual_register_screen.dart';
+import 'package:solvers/Auth/presentation/screens/client/client_register_screen.dart';
 import 'package:solvers/Auth/presentation/screens/login/login_screen.dart';
 import 'package:solvers/Auth/presentation/screens/reset%20password/reset_password_screen.dart';
 import 'package:solvers/Auth/presentation/screens/splash/splash_screen.dart';
 import 'package:solvers/Auth/presentation/screens/success/success_screen.dart';
 import 'package:solvers/Auth/presentation/screens/technician/technician_register_screen.dart';
+import 'package:solvers/Auth/presentation/screens/toggle/toggle_scrren.dart';
 import 'package:solvers/Auth/presentation/screens/verification/email_verification_screen.dart';
 import 'package:solvers/Auth/presentation/screens/verification/phone_verification_screen.dart';
 import 'package:solvers/client/presentation/screens/chat_page_client_page.dart';
@@ -33,7 +34,7 @@ class Routes {
   static const String onBoardingRoute = "/onBoarding";
   static const String toggleRoute = "/toggle";
   static const String userLoginRoute = "/userLogin";
-  static const String individualRegisterRoute = "/individualRegister";
+  static const String clientRegisterRoute = "/clientRegister";
   static const String technicianRegisterRoute = "/technicianRegister";
   static const String forgotPasswordRoute = "/forgotPassword";
   static const String resetPasswordRoute = "/resetPassword";
@@ -71,8 +72,10 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const SplashScreen());
       case Routes.userLoginRoute:
         return MaterialPageRoute(builder: (_) => LoginScreen());
-      case Routes.individualRegisterRoute:
-        return MaterialPageRoute(builder: (_) => IndividualRegisterScreen());
+      case Routes.toggleRoute:
+        return MaterialPageRoute(builder: (_) => ToggleScreen());
+      case Routes.clientRegisterRoute:
+        return MaterialPageRoute(builder: (_) => ClientRegisterScreen());
       case Routes.technicianRegisterRoute:
         return MaterialPageRoute(
             builder: (_) => const TechnicianRegisterScreen());

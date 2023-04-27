@@ -3,5 +3,5 @@ import 'package:solvers/Auth/data/models/client_model.dart';
 
 abstract class BaseCreateUserRepo {
   Future<void> createClient(ClientModel client);
-  // Future<User?> getClient(String clientId);
+  // Future<ClientModel?> getClient(String clientId);
 }

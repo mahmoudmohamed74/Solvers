@@ -2,11 +2,13 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:solvers/core/app/app_prefs.dart';
 import 'package:solvers/core/assets/app_assets.dart';
 import 'package:solvers/core/global/resources/strings_manger.dart';
 import 'package:solvers/core/global/resources/values_manger.dart';
 import 'package:solvers/core/global/resources/color_manager.dart';
 import 'package:solvers/core/routes/app_routes.dart';
+import 'package:solvers/core/services/services_locator.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -17,35 +19,31 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   Timer? _timer;
-  // final AppPreferences _appPreferences = sl<AppPreferences>();
+  final AppPreferences _appPreferences = sl<AppPreferences>();
 
   _startDelay() {
     _timer = Timer(const Duration(seconds: 2), _goNext);
   }
 
   _goNext() async {
-    Navigator.pushReplacementNamed(context, Routes.layoutClient);
-    // _appPreferences.isDoctorLoggedIn().then((isDoctorLoggedIn) {
-    //   if (isDoctorLoggedIn) {
-    //     Navigator.pushReplacementNamed(context, Routes.doctorMainRoute);
-    //   } else {
-    //     _appPreferences.isPatientLoggedIn().then((isPatientLoggedIn) {
-    //       if (isPatientLoggedIn) {
-    //         Navigator.pushReplacementNamed(context, Routes.patientMainRoute);
-    //       } else {
-    //         _appPreferences
-    //             .isOnBoardingScreenViewed()
-    //             .then((isOnBoardingScreenViewed) {
-    //           if (isOnBoardingScreenViewed) {
-    //             Navigator.pushReplacementNamed(context, Routes.toggleRoute);
-    //           } else {
-    //             Navigator.pushReplacementNamed(context, Routes.onBoardingRoute);
-    //           }
-    //         });
-    //       }
-    //     });
-    //   }
-    // });
+    // Navigator.pushReplacementNamed(context, Routes.layoutClient);
+    _appPreferences.isClientLoggedIn().then(
+      (isClientLoggedIn) {
+        if (isClientLoggedIn) {
+          Navigator.pushReplacementNamed(context, Routes.layoutClient);
+        } else {
+          _appPreferences.isTechnicianLoggedIn().then(
+            (isTechnicianLoggedIn) {
+              if (isTechnicianLoggedIn) {
+                Navigator.pushReplacementNamed(context, Routes.layoutTech);
+              } else {
+                Navigator.pushReplacementNamed(context, Routes.userLoginRoute);
+              }
+            },
+          );
+        }
+      },
+    );
   }
 
   @override

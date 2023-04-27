@@ -8,7 +8,7 @@ import 'package:solvers/core/services/services_locator.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  ServicesLocator().init();
+  await ServicesLocator().init();
   BlocOverrides.runZoned(
     () {
       runApp(MyApp());
