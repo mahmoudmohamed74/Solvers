@@ -28,6 +28,7 @@ class DefaultFormField extends StatelessWidget {
   Function? navigator;
   String? Function(String? val)? validator;
   bool? obscureText;
+  bool isClickable = true;
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +47,7 @@ class DefaultFormField extends StatelessWidget {
             validator: validator,
             onChanged: onChanged,
             style: const TextStyle(fontSize: AppSize.s20),
+            enabled: isClickable,
             decoration: InputDecoration(
               labelText: labelText,
               labelStyle: TextStyle(
@@ -67,6 +69,7 @@ class DefaultFormField extends StatelessWidget {
                   suffixPressed!();
                 },
               ),
+
               contentPadding: const EdgeInsets.symmetric(
                 vertical: AppPadding.p10,
                 horizontal: AppPadding.p5,

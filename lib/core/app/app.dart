@@ -1,13 +1,11 @@
 // ignore_for_file: library_private_types_in_public_api, must_be_immutable
 
 import 'package:flutter/material.dart';
-import 'package:solvers/Auth/presentation/screens/login/login_screen.dart';
-import 'package:solvers/Auth/presentation/screens/toggle/toggle_scrren.dart';
-import 'package:solvers/client/presentation/screens/layout_client_page.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:solvers/Auth/presentation/controller/auth_cubit/auth_cubit.dart';
+import 'package:solvers/client/presentation/controller/client_cubit.dart';
 import 'package:solvers/core/routes/app_routes.dart';
-import 'package:solvers/solver/presentation/screens/create_offer_tech_page.dart';
-import 'package:solvers/solver/presentation/screens/layout_tech_page.dart';
-import 'package:solvers/test.dart';
+import 'package:solvers/core/services/services_locator.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp._internal();
@@ -23,11 +21,21 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      // home: LoginScreen(),
-      onGenerateRoute: RouteGenerator.getRoute,
-      initialRoute: Routes.splashRoute,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<FirebaseAuthCubit>(
+          create: (BuildContext context) => sl<FirebaseAuthCubit>(),
+        ),
+        BlocProvider<ClientCubit>(
+          create: (BuildContext context) => sl<ClientCubit>(),
+        ),
+      ],
+      child: const MaterialApp(
+        debugShowCheckedModeBanner: false,
+        // home: EmailVerificationScreen(),
+        onGenerateRoute: RouteGenerator.getRoute,
+        initialRoute: Routes.splashRoute,
+      ),
     );
   }
 }

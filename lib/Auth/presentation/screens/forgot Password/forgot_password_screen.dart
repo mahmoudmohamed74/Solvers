@@ -1,6 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:solvers/Auth/presentation/widgets/default_form_field.dart';
+import 'package:solvers/Auth/presentation/widgets/default_snack_bar.dart';
 import 'package:solvers/Auth/presentation/widgets/default_text_button.dart';
 import 'package:solvers/core/assets/app_assets.dart';
 import 'package:solvers/core/global/resources/strings_manger.dart';
@@ -12,10 +14,41 @@ import 'package:solvers/core/utils/functions.dart';
 class ForgotPasswordScreen extends StatelessWidget {
   ForgotPasswordScreen({super.key});
 
-  final _formKey = GlobalKey<FormState>(); // create validation
+  final _formKey = GlobalKey<FormState>();
 
-  final TextEditingController _phoneNumberEditingController =
-      TextEditingController();
+  final TextEditingController _emailEditingController = TextEditingController();
+
+  Future<void> resetPassword(context) async {
+    try {
+      await FirebaseAuth.instance
+          .sendPasswordResetEmail(email: _emailEditingController.text);
+      ScaffoldMessenger.of(context).showSnackBar(
+        DefaultSnackbar(
+          text: Text(
+            AppStrings.linkSentToEmail,
+            style: TextStyle(
+              color: ColorManager.white,
+              fontSize: AppSize.s16,
+            ),
+          ),
+          backGroundColor: ColorManager.green,
+        ),
+      );
+    } on FirebaseAuthException catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        DefaultSnackbar(
+          text: Text(
+            e.message!,
+            style: TextStyle(
+              color: ColorManager.white,
+              fontSize: AppSize.s16,
+            ),
+          ),
+          backGroundColor: ColorManager.red,
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +61,12 @@ class ForgotPasswordScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushReplacementNamed(
+              context,
+              Routes.userLoginRoute,
+            );
+          },
           icon: Icon(
             Icons.arrow_back,
             color: ColorManager.darkPrimary,
@@ -48,7 +86,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                   fit: BoxFit.fitHeight,
                   height: AppSize.s150,
                   image: AssetImage(
-                    ImageAssets.splashLogo,
+                    ImageAssets.resetPasswordImage,
                   ),
                 ),
                 const SizedBox(
@@ -66,9 +104,9 @@ class ForgotPasswordScreen extends StatelessWidget {
                   height: AppSize.s20,
                 ),
                 Text(
-                  AppStrings.enterPhoneNumber,
+                  AppStrings.verifyYourEmail,
                   style: TextStyle(
-                    fontSize: AppSize.s33,
+                    fontSize: AppSize.s30,
                     color: ColorManager.black,
                     fontWeight: FontWeight.bold,
                   ),
@@ -77,13 +115,14 @@ class ForgotPasswordScreen extends StatelessWidget {
                   height: AppSize.s20,
                 ),
                 DefaultFormField(
-                  hintText: AppStrings.phoneNumberHint,
-                  controller: _phoneNumberEditingController,
+                  hintText: AppStrings.emailHint,
+                  controller: _emailEditingController,
                   type: TextInputType.text,
                   validator: (input) =>
-                      input!.isValidPhone() ? null : AppStrings.phoneError,
-                  suffix: Icons.phone_iphone_outlined,
+                      input!.isValidEmail() ? null : AppStrings.emailError,
+                  suffix: Icons.mail_outline_rounded,
                   suffixPressed: () {},
+                  obscureText: false,
                 ),
                 const SizedBox(
                   height: AppSize.s20,
@@ -92,11 +131,9 @@ class ForgotPasswordScreen extends StatelessWidget {
                   text: AppStrings.next,
                   fontWeight: FontWeight.normal,
                   onTap: () {
-                    Navigator.pushReplacementNamed(
-                      context,
-                      Routes.phoneVerificationRoute,
-                    );
-                    // if (_formKey.currentState!.validate()) {}
+                    if (_formKey.currentState!.validate()) {
+                      resetPassword(context);
+                    }
                   },
                 ),
                 const SizedBox(

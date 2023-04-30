@@ -69,6 +69,7 @@ class _TechProfilePageState extends State<TechProfilePage> {
                       height: AppSize.s33,
                     ),
                     DefaultFormField(
+                      obscureText: false,
                       hintText: AppStrings.firstNameHint,
                       controller: _firstNameEditingController,
                       type: TextInputType.name,
@@ -94,6 +95,7 @@ class _TechProfilePageState extends State<TechProfilePage> {
                         }
                         return null;
                       },
+                      obscureText: false,
                       suffix: Icons.edit,
                       suffixPressed: () {},
                     ),
@@ -101,6 +103,7 @@ class _TechProfilePageState extends State<TechProfilePage> {
                       height: AppSize.s12,
                     ),
                     DefaultFormField(
+                      obscureText: false,
                       hintText: AppStrings.phoneNumberHint,
                       controller: _phoneNumberEditingController,
                       type: TextInputType.text,
@@ -113,6 +116,7 @@ class _TechProfilePageState extends State<TechProfilePage> {
                       height: AppSize.s12,
                     ),
                     DefaultFormField(
+                      obscureText: false,
                       hintText: AppStrings.emailHint,
                       controller: _emailEditingController,
                       type: TextInputType.emailAddress,
@@ -125,6 +129,7 @@ class _TechProfilePageState extends State<TechProfilePage> {
                       height: AppSize.s12,
                     ),
                     DefaultFormField(
+                      obscureText: false,
                       hintText: AppStrings.passwordHint,
                       controller: _passwordEditingController,
                       type: TextInputType.number,

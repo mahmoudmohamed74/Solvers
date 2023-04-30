@@ -7,6 +7,7 @@ import 'package:solvers/core/global/resources/values_manger.dart';
 
 class MultiDropDownButtonWidget extends StatefulWidget {
   List<String> items = [];
+  final Function(List<String>) onSelectionChanged; // new parameter
 
   final String title;
 
@@ -14,6 +15,7 @@ class MultiDropDownButtonWidget extends StatefulWidget {
     required this.items,
     required this.title,
     Key? key,
+    required this.onSelectionChanged,
   }) : super(key: key);
 
   @override
@@ -23,6 +25,7 @@ class MultiDropDownButtonWidget extends StatefulWidget {
 
 class _MultiDropDownButtonWidgetState extends State<MultiDropDownButtonWidget> {
   List<String> selectedItems = [];
+
   @override
   Widget build(BuildContext context) {
     return DropdownButtonHideUnderline(
@@ -47,6 +50,7 @@ class _MultiDropDownButtonWidgetState extends State<MultiDropDownButtonWidget> {
             child: StatefulBuilder(
               builder: (context, menuSetState) {
                 final isSelected = selectedItems.contains(item);
+
                 return InkWell(
                   onTap: () {
                     isSelected
@@ -56,6 +60,8 @@ class _MultiDropDownButtonWidgetState extends State<MultiDropDownButtonWidget> {
                     setState(() {});
                     //This rebuilds the dropdownMenu Widget to update the check mark
                     menuSetState(() {});
+                    widget
+                        .onSelectionChanged(selectedItems); // call the function
                   },
                   child: Container(
                     height: double.infinity,
@@ -86,7 +92,12 @@ class _MultiDropDownButtonWidgetState extends State<MultiDropDownButtonWidget> {
         }).toList(),
         //Use last selected item as the current value so if we've limited menu height, it scroll to last item.
         value: selectedItems.isEmpty ? null : selectedItems.last,
-        onChanged: (value) {},
+        onChanged: (value) {
+          setState(() {
+            print(value);
+          });
+        },
+
         selectedItemBuilder: (context) {
           return widget.items.map(
             (item) {

@@ -27,6 +27,7 @@ dependencies:
   dropdown_button2: ^2.1.0
   cloud_firestore: ^4.5.2
   shared_preferences: ^2.1.0
+  conditional_builder_null_safety: ^0.0.6
 
 dev_dependencies:
   flutter_test:
@@ -63,7 +64,6 @@ flutter:
     - assets/images/contact_us_ic.png
     - assets/images/person_ic.png
     - assets/images/small_person_ic.png
-    - assets/images/circle_ic.png
     - assets/images/true_ic.png
     - assets/images/date_time_ic.png
     - assets/images/person_photo.png

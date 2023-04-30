@@ -5,6 +5,7 @@ class Constants {
   // static const String token = "SEND TOKEN HERE";
   static const String empty = "";
   static const int zero = 0;
+  static const int two = 2;
   static const int three = 3;
   static const int five = 5;
   static const double zeroDouble = 0.0;

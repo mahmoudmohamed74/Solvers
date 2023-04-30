@@ -1,12 +1,15 @@
 // ignore_for_file: prefer_final_fields
 
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:solvers/Auth/data/models/client_model.dart';
+import 'package:solvers/Auth/data/models/tech_model.dart';
 import 'package:solvers/Auth/domain/entities/registered_user.dart';
 import 'package:solvers/Auth/presentation/controller/auth_cubit/auth_cubit.dart';
 import 'package:solvers/Auth/presentation/widgets/default_form_field.dart';
+import 'package:solvers/Auth/presentation/widgets/default_snack_bar.dart';
 import 'package:solvers/Auth/presentation/widgets/default_text_button.dart';
 import 'package:solvers/core/app/app_prefs.dart';
 import 'package:solvers/core/assets/app_assets.dart';
@@ -25,224 +28,234 @@ class LoginScreen extends StatelessWidget {
   final TextEditingController _passwordEditingController =
       TextEditingController();
   final AppPreferences _appPreferences = sl<AppPreferences>();
+
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => sl<FirebaseAuthCubit>(),
-      child: BlocConsumer<FirebaseAuthCubit, FirebaseAuthState>(
-        listener: (context, state) async {
-          print("state is $state ");
-          if (state is SignUpSuccessState) {
-            await FirebaseAuthCubit.get(context).createClient(
-              ClientModel(
-                firstName: "mahmoud",
-                lastName: "volt",
-                email: _emailEditingController.text,
-                clientId: FirebaseAuthCubit.get(context).user!.uid,
-                phoneNumber: 0109140,
-              ),
-            );
-            // _appPreferences.setIsClientLoggedIn();
-            print("user id 2 ${FirebaseAuthCubit.get(context).user}");
-            print("user created successfully ");
-          } else if (state is CubitAuthFailed) {
-            print("user created error ");
-          } else if (state is CubitAuthLoadingState) {
-            print("user loading ");
+    final authCubit = BlocProvider.of<FirebaseAuthCubit>(context);
+
+    return BlocConsumer<FirebaseAuthCubit, FirebaseAuthState>(
+      listener: (context, state) async {
+        print("state is $state ");
+        if (state is LogInSuccessState) {
+          print(state.user);
+          if (state.user.emailVerified == true) {
+            if (state.userRole == 'technician') {
+              Navigator.pushReplacementNamed(
+                context,
+                Routes.layoutTech,
+              );
+            } else if (state.userRole == 'client') {
+              Navigator.pushReplacementNamed(
+                context,
+                Routes.layoutClient,
+              );
+            }
           } else {
-            print("user else ");
+            Navigator.pushReplacementNamed(
+              context,
+              Routes.emailVerificationRoute,
+            );
           }
-        },
-        builder: (context, state) {
-          return Scaffold(
-            appBar: AppBar(
-              systemOverlayStyle: const SystemUiOverlayStyle(
-                statusBarColor: Colors.transparent,
-                statusBarIconBrightness: Brightness.dark,
-              ),
-              backgroundColor: Colors.transparent,
-              elevation: 0,
-              leading: IconButton(
-                onPressed: () {},
-                icon: Icon(
-                  Icons.arrow_back,
-                  color: ColorManager.darkPrimary,
+        } else if (state is CubitAuthFailed) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            DefaultSnackbar(
+              text: Text(
+                state.error,
+                style: TextStyle(
+                  color: ColorManager.white,
+                  fontSize: AppSize.s16,
                 ),
               ),
+              backGroundColor: ColorManager.red,
             ),
-            body: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const Image(
-                        fit: BoxFit.fitHeight,
-                        height: AppSize.s150,
-                        image: AssetImage(
-                          ImageAssets.splashLogo,
+          );
+        }
+      },
+      builder: (context, state) {
+        return Scaffold(
+          appBar: AppBar(
+            systemOverlayStyle: const SystemUiOverlayStyle(
+              statusBarColor: Colors.transparent,
+              statusBarIconBrightness: Brightness.dark,
+            ),
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            leading: IconButton(
+              onPressed: () {},
+              icon: Icon(
+                Icons.arrow_back,
+                color: ColorManager.darkPrimary,
+              ),
+            ),
+          ),
+          body: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Image(
+                      fit: BoxFit.fitHeight,
+                      height: AppSize.s150,
+                      image: AssetImage(
+                        ImageAssets.splashLogo,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: AppSize.s20,
+                    ),
+                    Text(
+                      AppStrings.solvers,
+                      style: TextStyle(
+                        fontSize: AppSize.s33,
+                        color: ColorManager.black,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: AppSize.s20,
+                    ),
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                          left: AppPadding.p28,
+                          bottom: AppPadding.p14,
                         ),
-                      ),
-                      const SizedBox(
-                        height: AppSize.s20,
-                      ),
-                      Text(
-                        AppStrings.solvers,
-                        style: TextStyle(
-                          fontSize: AppSize.s33,
-                          color: ColorManager.black,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: AppSize.s20,
-                      ),
-                      Align(
-                        alignment: Alignment.topLeft,
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                            left: AppPadding.p28,
-                            bottom: AppPadding.p14,
+                        child: Text(
+                          AppStrings.login,
+                          style: TextStyle(
+                            fontSize: AppSize.s30,
+                            color: ColorManager.black,
+                            fontWeight: FontWeight.bold,
                           ),
+                        ),
+                      ),
+                    ),
+                    DefaultFormField(
+                      hintText: AppStrings.emailHint,
+                      controller: _emailEditingController,
+                      type: TextInputType.emailAddress,
+                      validator: (input) =>
+                          input!.isValidEmail() ? null : AppStrings.emailError,
+                      suffix: Icons.mail_outline_rounded,
+                      suffixPressed: () {},
+                      obscureText: false,
+                    ),
+                    const SizedBox(
+                      height: AppSize.s12,
+                    ),
+                    DefaultFormField(
+                      obscureText: authCubit.isPassword,
+                      hintText: AppStrings.passwordHint,
+                      controller: _passwordEditingController,
+                      type: TextInputType.number,
+                      validator: (input) => input!.isValidPassword()
+                          ? null
+                          : AppStrings.passwordError,
+                      suffix: authCubit.suffix,
+                      suffixPressed: authCubit.changePasswordVisibility,
+                    ),
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                          left: AppPadding.p20,
+                        ),
+                        child: TextButton(
                           child: Text(
-                            AppStrings.login,
-                            style: TextStyle(
-                              fontSize: AppSize.s30,
-                              color: ColorManager.black,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
-                      DefaultFormField(
-                        hintText: AppStrings.emailHint,
-                        controller: _emailEditingController,
-                        type: TextInputType.emailAddress,
-                        validator: (input) => input!.isValidEmail()
-                            ? null
-                            : AppStrings.emailError,
-                        suffix: Icons.mail_outline_rounded,
-                        suffixPressed: () {},
-                      ),
-                      const SizedBox(
-                        height: AppSize.s12,
-                      ),
-                      DefaultFormField(
-                        hintText: AppStrings.passwordHint,
-                        controller: _passwordEditingController,
-                        type: TextInputType.number,
-                        validator: (input) => input!.isValidPassword()
-                            ? null
-                            : AppStrings.passwordError,
-                        suffix: Icons.remove_red_eye_rounded,
-                        suffixPressed: () {
-                          // TODO
-                        },
-                      ),
-                      Align(
-                        alignment: Alignment.topLeft,
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                            left: AppPadding.p20,
-                          ),
-                          child: TextButton(
-                            child: Text(
-                              AppStrings.forgotPassword,
-                              style: TextStyle(
-                                fontSize: AppSize.s18,
-                                color: ColorManager.darkPrimary,
-                                fontWeight: FontWeight.normal,
-                              ),
-                            ),
-                            onPressed: () {
-                              Navigator.pushReplacementNamed(
-                                context,
-                                Routes.forgotPasswordRoute,
-                              );
-                            },
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: AppSize.s12,
-                      ),
-                      DefaultTextButton(
-                        text: AppStrings.login,
-                        fontWeight: FontWeight.normal,
-                        onTap: () async {
-                          // if (_formKey.currentState!.validate()) {}
-
-                          // await cubit.signOut(
-                          //   userId: "7rt0Frki1Wem8SBtiv8ygyeKRrO2",
-                          // );
-                          // await cubit.logIn(
-                          //   RegisteredUser(
-                          //     email: "volt10@gmail.com",
-                          //     password: "a123456789",
-                          //   ),
-                          // );
-                          // await FirebaseAuthCubit.get(context).signUp(
-                          //   RegisteredUser(
-                          //     email: _emailEditingController.text,
-                          //     password: _passwordEditingController.text,
-                          //   ),
-                          // );
-                          // print(
-                          //     "sssss ${FirebaseAuthCubit.get(context).user!.uid}");
-                          // await FirebaseAuthCubit.get(context)
-                          //     .signOut(
-                          //         userId:
-                          //             FirebaseAuthCubit.get(context).user!.uid)
-                          //     .then((value) => print("object"));
-                        },
-                      ),
-                      const SizedBox(
-                        height: AppSize.s18,
-                      ),
-                      Align(
-                        alignment: Alignment.topLeft,
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                            left: AppPadding.p29,
-                          ),
-                          child: Text(
-                            AppStrings.doNotHaveAccount,
+                            AppStrings.forgotPassword,
                             style: TextStyle(
                               fontSize: AppSize.s18,
                               color: ColorManager.darkPrimary,
                               fontWeight: FontWeight.normal,
                             ),
                           ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: AppSize.s12,
-                      ),
-                      DefaultTextButton(
-                        text: AppStrings.signUp,
-                        fontWeight: FontWeight.normal,
-                        onTap: () {
-                          if (_formKey.currentState!.validate()) {
+                          onPressed: () {
                             Navigator.pushReplacementNamed(
                               context,
-                              Routes.toggleRoute,
+                              Routes.forgotPasswordRoute,
                             );
-                          }
+                          },
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: AppSize.s12,
+                    ),
+                    ConditionalBuilder(
+                      condition: state is! CubitAuthLoadingState,
+                      builder: (context) => DefaultTextButton(
+                        text: AppStrings.login,
+                        fontWeight: FontWeight.normal,
+                        onTap: () async {
+                          // if (_formKey.currentState!.validate()) {
+                          //   await FirebaseAuthCubit.get(context).signUp(
+                          //     RegisteredUser(
+                          //       email: "volt10@gmail.com",
+                          //       password: "a123456789",
+                          //     ),
+                          //   );
+                          // }
+
+                          await FirebaseAuthCubit.get(context).logIn(
+                            RegisteredUser(
+                              email: "mahmodhoda328@gmail.com",
+                              password: "aa123456789",
+                            ),
+                          );
                         },
                       ),
-                      const SizedBox(
-                        height: AppSize.s18,
+                      fallback: (context) => Center(
+                        child: CircularProgressIndicator(
+                          color: ColorManager.purple,
+                        ),
                       ),
-                    ],
-                  ),
+                    ),
+                    const SizedBox(
+                      height: AppSize.s18,
+                    ),
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                          left: AppPadding.p29,
+                        ),
+                        child: Text(
+                          AppStrings.doNotHaveAccount,
+                          style: TextStyle(
+                            fontSize: AppSize.s18,
+                            color: ColorManager.darkPrimary,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: AppSize.s12,
+                    ),
+                    DefaultTextButton(
+                      text: AppStrings.signUp,
+                      fontWeight: FontWeight.normal,
+                      onTap: () {
+                        Navigator.pushReplacementNamed(
+                          context,
+                          Routes.toggleRoute,
+                        );
+                      },
+                    ),
+                    const SizedBox(
+                      height: AppSize.s18,
+                    ),
+                  ],
                 ),
               ),
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }

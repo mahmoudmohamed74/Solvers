@@ -61,6 +61,7 @@ class ClientProfilePage extends StatelessWidget {
                       height: AppSize.s33,
                     ),
                     DefaultFormField(
+                      obscureText: false,
                       hintText: AppStrings.firstNameHint,
                       controller: _firstNameEditingController,
                       type: TextInputType.name,
@@ -88,11 +89,13 @@ class ClientProfilePage extends StatelessWidget {
                       },
                       suffix: Icons.edit,
                       suffixPressed: () {},
+                      obscureText: false,
                     ),
                     const SizedBox(
                       height: AppSize.s12,
                     ),
                     DefaultFormField(
+                      obscureText: false,
                       hintText: AppStrings.phoneNumberHint,
                       controller: _phoneNumberEditingController,
                       type: TextInputType.text,
@@ -112,11 +115,13 @@ class ClientProfilePage extends StatelessWidget {
                           input!.isValidEmail() ? null : AppStrings.emailError,
                       suffix: Icons.edit,
                       suffixPressed: () {},
+                      obscureText: false,
                     ),
                     const SizedBox(
                       height: AppSize.s12,
                     ),
                     DefaultFormField(
+                      obscureText: false,
                       hintText: AppStrings.passwordHint,
                       controller: _passwordEditingController,
                       type: TextInputType.number,

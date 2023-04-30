@@ -78,6 +78,7 @@ class ResetPasswordScreen extends StatelessWidget {
                   suffixPressed: () {
                     // TODO
                   },
+                  obscureText: false,
                 ),
                 const SizedBox(
                   height: AppSize.s22,
@@ -93,6 +94,7 @@ class ResetPasswordScreen extends StatelessWidget {
                     }
                     return null;
                   },
+                  obscureText: false,
                   suffix: Icons.lock_outline_rounded,
                   suffixPressed: () {
                     // TODO

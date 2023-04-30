@@ -12,7 +12,7 @@ class ImageAssets {
   static const String back = "$IMAGE_PATH/left_arrow_ic.png";
   static const String person = "$IMAGE_PATH/person_ic.png";
   static const String smallPerson = "$IMAGE_PATH/small_person_ic.png";
-  static const String circleImage = "$IMAGE_PATH/circle_ic.png";
+  // static const String circleImage = "$IMAGE_PATH/circle_ic.png";
   static const String trueImage = "$IMAGE_PATH/true_ic.png";
   static const String dateTime = "$IMAGE_PATH/date_time_ic.png";
   static const String personPhoto = "$IMAGE_PATH/person_photo.png";

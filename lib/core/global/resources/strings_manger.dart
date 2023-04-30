@@ -7,22 +7,31 @@ class AppStrings {
   static const String next = "Next";
   static const String confirm = "Confirm";
   static const String verify = "Verify";
-  static const String individualsLogin = "Individuals login";
-  static const String technicianLogin = "Technician login";
+  static const String reSend = "Resend";
+  static const String send = "Send";
+  static const String reSendCode = "Resend code";
+  static const String reSendMessage = "Email verification sent!";
+  static const String individualsLogin = "Individual registration";
+  static const String technicianLogin = "Technician registration";
   static const String forgotPassword = "Forgot Password";
   static const String setNewPassword = "Set new password";
   static const String enterPhoneNumber = "Enter phone number";
+  static const String enterEmail = "Enter Email";
   static const String verifyYourPhoneNumber = "Verify your phone number";
-  static const String verifyYourEmail = "Verify your email";
+  static const String verifyYourEmail = "Verify Your Email";
   static const String otpSentToPhone =
       "4-digit code has been sent to \n phone no";
-  static const String otpSentToEmail = "4-digit code has been sent to \n email";
+  static const String otpSentToEmail = "Link has been sent to \n your email";
+  static const String linkSentToEmail =
+      "Password reset link sent! check your email";
   static const String successfulNewPassword =
       "Set new password done successfully!";
   static const String splashMessage =
       "We are here to support you technically :)";
 
   static const String skills = "Skills";
+  static const String experience = "Experience:";
+  static const String skillsError = "One skill should be selected at least";
 
   static const String noRouteFound = "No Route Found";
 
@@ -38,7 +47,8 @@ class AppStrings {
       "8 characters, at least one letter and one number";
   static const String passwordConfirmationError =
       "Password confirmation miss match";
-  static const String phoneError = "Enter Valid Phone Number (01********)";
+  static const String phoneError = "Enter Valid Phone Number (05********)";
+  static const String experienceError = "Experience field should be entered";
   static const String emailHint = "Email address";
   static const String passwordHint = "Password";
   static const String confirmPasswordHint = "Confirm Password";

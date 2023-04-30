@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:solvers/Auth/presentation/controller/auth_cubit/auth_cubit.dart';
+import 'package:solvers/Auth/presentation/widgets/default_snack_bar.dart';
 import 'package:solvers/Auth/presentation/widgets/default_text_button.dart';
 import 'package:solvers/core/assets/app_assets.dart';
 import 'package:solvers/core/global/resources/strings_manger.dart';
 import 'package:solvers/core/global/resources/values_manger.dart';
 import 'package:solvers/core/global/resources/color_manager.dart';
+import 'package:solvers/core/routes/app_routes.dart';
 
 class EmailVerificationScreen extends StatelessWidget {
   const EmailVerificationScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
+    final authCubit = BlocProvider.of<FirebaseAuthCubit>(context);
     return Scaffold(
       appBar: AppBar(
         systemOverlayStyle: const SystemUiOverlayStyle(
@@ -69,47 +72,42 @@ class EmailVerificationScreen extends StatelessWidget {
                 const SizedBox(
                   height: AppSize.s25,
                 ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: AppPadding.p35),
-                  child: PinCodeTextField(
-                    appContext: context,
-                    autoFocus: true,
-                    cursorColor: Colors.black,
-                    keyboardType: TextInputType.number,
-                    length: 4,
-                    obscureText: false,
-                    animationType: AnimationType.scale,
-                    pinTheme: PinTheme(
-                      shape: PinCodeFieldShape.underline,
-                      fieldHeight: 50,
-                      fieldWidth: 40,
-                      borderWidth: 1,
-                      activeColor: ColorManager.white,
-                      inactiveColor: ColorManager.grey,
-                      inactiveFillColor: Colors.white,
-                      activeFillColor: ColorManager.white,
-                      selectedColor: ColorManager.purple,
-                      selectedFillColor: ColorManager.grey,
-                    ),
-                    animationDuration: const Duration(milliseconds: 300),
-                    enableActiveFill: true,
-                    onCompleted: (submittedCode) {
-                      // otpCode = submittedCode;
-                      print("Completed");
-                    },
-                    onChanged: (value) {
-                      print(value);
-                    },
-                  ),
-                ),
-                const SizedBox(
-                  height: AppSize.s25,
-                ),
                 DefaultTextButton(
-                  text: AppStrings.verify,
+                  text: AppStrings.login,
                   fontWeight: FontWeight.normal,
-                  onTap: () {},
+                  onTap: () async {
+                    Navigator.pushReplacementNamed(
+                      context,
+                      Routes.userLoginRoute,
+                    );
+                  },
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextButton(
+                    onPressed: () async {
+                      authCubit.user!.sendEmailVerification();
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        DefaultSnackbar(
+                          text: Text(
+                            AppStrings.reSendMessage,
+                            style: TextStyle(
+                              color: ColorManager.white,
+                              fontSize: AppSize.s16,
+                            ),
+                          ),
+                          backGroundColor: ColorManager.grey,
+                        ),
+                      );
+                    },
+                    child: Text(
+                      AppStrings.reSend,
+                      style: TextStyle(
+                        color: ColorManager.purple,
+                        fontSize: AppSize.s16,
+                      ),
+                    ),
+                  ),
                 ),
               ],
             ),

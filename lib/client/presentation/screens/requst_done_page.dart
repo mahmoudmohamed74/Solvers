@@ -28,20 +28,11 @@ class ClientRequestDonePage extends StatelessWidget {
               ),
             ),
             const SizedBox(
-              height: AppSize.s90,
+              height: AppSize.s40,
             ),
-            Stack(
-              alignment: Alignment.center,
-              children: [
-                Image.asset(
-                  ImageAssets.circleImage,
-                  scale: AppSize.s1,
-                ),
-                Image.asset(
-                  ImageAssets.trueImage,
-                  scale: AppSize.s1,
-                ),
-              ],
+            Image.asset(
+              ImageAssets.successImage,
+              scale: AppSize.s1,
             ),
             const SizedBox(
               height: AppSize.s30,

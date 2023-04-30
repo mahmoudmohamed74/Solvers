@@ -73,7 +73,7 @@ class RouteGenerator {
       case Routes.userLoginRoute:
         return MaterialPageRoute(builder: (_) => LoginScreen());
       case Routes.toggleRoute:
-        return MaterialPageRoute(builder: (_) => ToggleScreen());
+        return MaterialPageRoute(builder: (_) => const ToggleScreen());
       case Routes.clientRegisterRoute:
         return MaterialPageRoute(builder: (_) => ClientRegisterScreen());
       case Routes.technicianRegisterRoute:
@@ -83,8 +83,7 @@ class RouteGenerator {
         return MaterialPageRoute(
             builder: (_) => const PhoneVerificationScreen());
       case Routes.emailVerificationRoute:
-        return MaterialPageRoute(
-            builder: (_) => const EmailVerificationScreen());
+        return MaterialPageRoute(builder: (_) => EmailVerificationScreen());
       case Routes.forgotPasswordRoute:
         return MaterialPageRoute(builder: (_) => ForgotPasswordScreen());
       case Routes.resetPasswordRoute:

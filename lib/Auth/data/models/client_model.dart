@@ -5,13 +5,15 @@ class ClientModel extends Equatable {
   final String lastName;
   final String email;
   final String clientId;
-  final int phoneNumber;
+  final String type;
+  final String phoneNumber;
 
   const ClientModel({
     required this.firstName,
     required this.lastName,
     required this.email,
     required this.clientId,
+    this.type = 'client',
     required this.phoneNumber,
   });
 
@@ -21,6 +23,7 @@ class ClientModel extends Equatable {
       lastName: json['lastName'],
       email: json['email'],
       clientId: json['clientId'],
+      type: json['type'],
       phoneNumber: json['phoneNumber'],
     );
   }
@@ -31,6 +34,7 @@ class ClientModel extends Equatable {
       'lastName': lastName,
       'email': email,
       'clientId': clientId,
+      'type': type,
       'phoneNumber': phoneNumber,
     };
   }
@@ -42,6 +46,7 @@ class ClientModel extends Equatable {
       lastName,
       email,
       clientId,
+      type,
       phoneNumber,
     ];
   }

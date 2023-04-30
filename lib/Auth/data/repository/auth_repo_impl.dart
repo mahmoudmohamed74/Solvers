@@ -18,6 +18,9 @@ class FirebaseAuthRepositoryImpl implements BaseFirebaseAuthRepository {
         password: newUserInfo.password,
       );
       return userId;
+    } on FirebaseAuthException catch (e) {
+      print("'The email address entered is already in use.'");
+      return Future.error(e.message!);
     } catch (e) {
       return Future.error(e.toString());
     }
@@ -30,6 +33,8 @@ class FirebaseAuthRepositoryImpl implements BaseFirebaseAuthRepository {
         email: userInfo.email,
         password: userInfo.password,
       );
+    } on FirebaseAuthException catch (e) {
+      return Future.error(e.message!);
     } catch (e) {
       return Future.error(e.toString());
     }

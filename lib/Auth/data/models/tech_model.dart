@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:equatable/equatable.dart';
 
 class TechModel extends Equatable {
@@ -7,7 +5,9 @@ class TechModel extends Equatable {
   final String lastName;
   final String email;
   final String techId;
-  final int phoneNumber;
+  final String type;
+  final String experience;
+  final String phoneNumber;
   final List<String> skills;
 
   const TechModel({
@@ -15,6 +15,8 @@ class TechModel extends Equatable {
     required this.lastName,
     required this.email,
     required this.techId,
+    this.type = 'technician',
+    required this.experience,
     required this.phoneNumber,
     required this.skills,
   });
@@ -26,6 +28,8 @@ class TechModel extends Equatable {
       lastName,
       email,
       techId,
+      type,
+      experience,
       phoneNumber,
       skills,
     ];
@@ -37,6 +41,8 @@ class TechModel extends Equatable {
       lastName: json['lastName'],
       email: json['email'],
       techId: json['techId'],
+      type: json['type'],
+      experience: json['experience'],
       phoneNumber: json['phoneNumber'],
       skills: List<String>.from(
         (json['skills']),
@@ -49,6 +55,8 @@ class TechModel extends Equatable {
       'lastName': lastName,
       'email': email,
       'techId': techId,
+      'type': type,
+      'experience': experience,
       'phoneNumber': phoneNumber,
       'skills': skills,
     };

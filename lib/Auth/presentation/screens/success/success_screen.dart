@@ -18,7 +18,6 @@ class SuccessScreen extends StatelessWidget {
           children: [
             const Image(
               fit: BoxFit.fitHeight,
-              height: AppSize.s150,
               image: AssetImage(
                 ImageAssets.successImage,
               ),
