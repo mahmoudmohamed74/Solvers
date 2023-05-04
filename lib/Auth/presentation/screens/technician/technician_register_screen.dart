@@ -51,9 +51,13 @@ class _TechnicianRegisterScreenState extends State<TechnicianRegisterScreen> {
 
   final List<String> _items = [
     'Writing',
+    'Flutter',
     'Programming',
+    'Backup',
     'Technology',
+    'Network',
     'Networking',
+    'Dart',
     'Design',
   ];
 
@@ -66,9 +70,9 @@ class _TechnicianRegisterScreenState extends State<TechnicianRegisterScreen> {
             TechModel(
               firstName: "voltTech",
               lastName: "mahmoud",
-              email: "mahmodhoda2@gmail.com",
+              email: "mahmoudmohamed202074@gmail.com",
               techId: state.user.uid,
-              phoneNumber: "01091402",
+              phoneNumber: "01091402978",
               experience: _experienceEditingController.text,
               skills: _selectedItems,
             ),
@@ -288,7 +292,7 @@ class _TechnicianRegisterScreenState extends State<TechnicianRegisterScreen> {
                         // if (_formKey.currentState!.validate()) {}
                         FirebaseAuthCubit.get(context).signUp(
                           RegisteredUser(
-                            email: "mahmodhoda2@gmail.com",
+                            email: "mahmoudmohamed202074@gmail.com",
                             password: "a123456789",
                           ),
                         );

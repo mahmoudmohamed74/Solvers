@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:solvers/Auth/presentation/controller/auth_cubit/auth_cubit.dart';
 import 'package:solvers/client/presentation/controller/client_cubit.dart';
+import 'package:solvers/client/presentation/screens/layout_client_page.dart';
+import 'package:solvers/client/presentation/screens/request_status_client_page.dart';
 import 'package:solvers/core/routes/app_routes.dart';
 import 'package:solvers/core/services/services_locator.dart';
 
@@ -27,12 +29,13 @@ class _MyAppState extends State<MyApp> {
           create: (BuildContext context) => sl<FirebaseAuthCubit>(),
         ),
         BlocProvider<ClientCubit>(
-          create: (BuildContext context) => sl<ClientCubit>(),
+          create: (BuildContext context) =>
+              sl<ClientCubit>()..getOrder("IjPMaJsgP5XJ8u5AQvzrwijWCrp2"),
         ),
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
-        // home: EmailVerificationScreen(),
+        // home: ClientLayout(),
         onGenerateRoute: RouteGenerator.getRoute,
         initialRoute: Routes.splashRoute,
       ),

@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:solvers/Auth/presentation/controller/auth_cubit/auth_cubit.dart';
-import 'package:solvers/client/data/models/order_model.dart';
 import 'package:solvers/client/presentation/controller/client_cubit.dart';
 import 'package:solvers/client/presentation/widgets/appbar_widget.dart';
 import 'package:solvers/client/presentation/widgets/drawer.dart';
 import 'package:solvers/core/global/resources/color_manager.dart';
 import 'package:solvers/core/global/resources/values_manger.dart';
 import 'package:solvers/core/routes/app_routes.dart';
-import 'package:solvers/core/services/services_locator.dart';
 
 class ClientLayout extends StatelessWidget {
   const ClientLayout({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final authCubit = BlocProvider.of<FirebaseAuthCubit>(context);
+    // final authCubit = BlocProvider.of<FirebaseAuthCubit>(context);
 
     return BlocConsumer<ClientCubit, ClientState>(
       listener: (context, state) {},
@@ -35,7 +33,9 @@ class ClientLayout extends StatelessWidget {
               backgroundColor: ColorManager.white,
               onPressed: () {
                 Navigator.pushReplacementNamed(
-                    context, Routes.createNewRequest);
+                  context,
+                  Routes.createNewRequest,
+                );
               },
               child: Icon(
                 Icons.add,

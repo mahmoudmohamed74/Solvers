@@ -7,6 +7,8 @@ class OrderModel extends Equatable {
   final List<String> mainProblem;
   final List<String> specificProblem;
   final String problemDescription;
+  final String status;
+  final String orderId;
 
   const OrderModel({
     required this.clientName,
@@ -15,6 +17,8 @@ class OrderModel extends Equatable {
     required this.mainProblem,
     required this.specificProblem,
     required this.problemDescription,
+    required this.orderId,
+    this.status = 'new',
   });
 
   factory OrderModel.fromJson(Map<String, dynamic> json) {
@@ -29,6 +33,8 @@ class OrderModel extends Equatable {
         (json['specificProblem']),
       ),
       problemDescription: json['problem'],
+      status: json['status'],
+      orderId: json['orderId'],
     );
   }
 
@@ -40,6 +46,8 @@ class OrderModel extends Equatable {
       'mainProblem': mainProblem,
       'specificProblem': specificProblem,
       'problem': problemDescription,
+      'status': status,
+      'orderId': orderId,
     };
   }
 
@@ -52,6 +60,8 @@ class OrderModel extends Equatable {
       mainProblem,
       specificProblem,
       problemDescription,
+      status,
+      orderId,
     ];
   }
 }

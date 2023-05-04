@@ -5,7 +5,8 @@ import 'package:solvers/core/global/resources/color_manager.dart';
 import 'package:solvers/core/global/resources/values_manger.dart';
 
 class ClientOffersPage extends StatelessWidget {
-  const ClientOffersPage({Key? key}) : super(key: key);
+  final String? orderId;
+  const ClientOffersPage({Key? key, this.orderId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -42,11 +43,11 @@ class ClientOffersPage extends StatelessWidget {
                   ),
                 ),
               ),
-              const Align(
+              Align(
                 alignment: Alignment.center,
                 child: Text(
-                  "1234566",
-                  style: TextStyle(
+                  orderId!.substring(0, 8),
+                  style: const TextStyle(
                     fontSize: AppSize.s32,
                   ),
                 ),

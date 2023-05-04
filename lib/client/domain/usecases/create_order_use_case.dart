@@ -8,6 +8,6 @@ class CreateOrderUseCase implements BaseUseCase<void, OrderModel> {
   CreateOrderUseCase(this._baseCreateOrderRepo);
   @override
   Future<void> call({required OrderModel params}) async {
-    return _baseCreateOrderRepo.createOrder(params);
+    return await _baseCreateOrderRepo.createOrder(params);
   }
 }

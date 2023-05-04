@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
+import 'package:uuid/uuid.dart';
+
 import 'package:solvers/Auth/presentation/controller/auth_cubit/auth_cubit.dart';
 import 'package:solvers/Auth/presentation/widgets/default_text_button.dart';
 import 'package:solvers/Auth/presentation/widgets/multi_drop_down%20_button.dart';
 import 'package:solvers/client/data/models/order_model.dart';
 import 'package:solvers/client/presentation/controller/client_cubit.dart';
 import 'package:solvers/client/presentation/widgets/appbar_widget.dart';
+import 'package:solvers/core/global/resources/color_manager.dart';
 import 'package:solvers/core/global/resources/strings_manger.dart';
 import 'package:solvers/core/global/resources/values_manger.dart';
-import 'package:solvers/core/global/resources/color_manager.dart';
 import 'package:solvers/core/routes/app_routes.dart';
 
 class ClientNewRequestPage extends StatefulWidget {
@@ -47,6 +50,9 @@ class _ClientNewRequestPageState extends State<ClientNewRequestPage> {
   Widget build(BuildContext context) {
     final authCubit = BlocProvider.of<FirebaseAuthCubit>(context);
     var dateTime = DateTime.now();
+    var dateTimeFormatted =
+        DateFormat('dd/MM/yyyy HH:mm:ss a').format(dateTime);
+    final orderId = const Uuid().v4();
 
     return BlocConsumer<ClientCubit, ClientState>(
       listener: (context, state) {
@@ -147,11 +153,12 @@ class _ClientNewRequestPageState extends State<ClientNewRequestPage> {
                       OrderModel(
                         clientName: authCubit.clientData!.firstName,
                         clientId: authCubit.clientData!.clientId,
-                        dateTime: dateTime.toString(),
+                        dateTime: dateTimeFormatted.toString(),
                         mainProblem: _selectedMainProblemItems,
                         specificProblem: _selectedSpecificProblemItems,
                         problemDescription:
                             _problemDescriptionEditingController.text,
+                        orderId: orderId,
                       ),
                     );
                   },

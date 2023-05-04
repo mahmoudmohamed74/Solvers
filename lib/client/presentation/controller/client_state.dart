@@ -12,13 +12,27 @@ class AppChangeBottomNavStates extends ClientState {}
 class CreateOrderLoadingState extends ClientState {}
 
 class CreateOrderSuccessState extends ClientState {
-  final OrderModel orderModel;
-
-  CreateOrderSuccessState(this.orderModel);
+  CreateOrderSuccessState();
 }
 
 class CreateOrderErrorState extends ClientState {
   final String error;
 
   CreateOrderErrorState(this.error);
+}
+
+class GetOrderLoadingState extends ClientState {}
+
+class GetOrderEmptyState extends ClientState {}
+
+class GetOrderSuccessState extends ClientState {
+  final List<OrderModel> orderModel;
+
+  GetOrderSuccessState(this.orderModel);
+}
+
+class GetOrderErrorState extends ClientState {
+  final String error;
+
+  GetOrderErrorState(this.error);
 }

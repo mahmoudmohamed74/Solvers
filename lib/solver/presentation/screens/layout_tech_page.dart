@@ -36,67 +36,57 @@ class TechLayout extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          MaterialButton(
-                            onPressed: () {
-                              clientCubit.changeBottomNav(0);
-                            },
-                            minWidth: 100,
-                            child: Icon(
-                              Icons.home,
-                              size: 35,
-                              color: clientCubit.currentIndex == 0
-                                  ? ColorManager.black
-                                  : ColorManager.white,
-                            ),
-                          ),
-                          MaterialButton(
-                            onPressed: () {
-                              clientCubit.changeBottomNav(1);
-                            },
-                            minWidth: 100,
-                            child: Icon(
-                              Icons.chat,
-                              size: 35,
-                              color: clientCubit.currentIndex == 1
-                                  ? ColorManager.black
-                                  : ColorManager.white,
-                            ),
-                          ),
-                        ],
+                      MaterialButton(
+                        onPressed: () {
+                          clientCubit.changeBottomNav(0);
+                        },
+                        minWidth: 100,
+                        child: Icon(
+                          Icons.home,
+                          size: 35,
+                          color: clientCubit.currentIndex == 0
+                              ? ColorManager.black
+                              : ColorManager.white,
+                        ),
                       ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          MaterialButton(
-                            onPressed: () {
-                              clientCubit.changeBottomNav(2);
-                            },
-                            minWidth: 100,
-                            child: Icon(
-                              Icons.mark_as_unread,
-                              size: 35,
-                              color: clientCubit.currentIndex == 2
-                                  ? ColorManager.black
-                                  : ColorManager.white,
-                            ),
-                          ),
-                          MaterialButton(
-                            onPressed: () {
-                              clientCubit.changeBottomNav(3);
-                            },
-                            minWidth: 100,
-                            child: Icon(
-                              Icons.person_outline_outlined,
-                              size: 35,
-                              color: clientCubit.currentIndex == 3
-                                  ? ColorManager.black
-                                  : ColorManager.white,
-                            ),
-                          ),
-                        ],
+                      MaterialButton(
+                        onPressed: () {
+                          clientCubit.changeBottomNav(1);
+                        },
+                        minWidth: 100,
+                        child: Icon(
+                          Icons.chat,
+                          size: 35,
+                          color: clientCubit.currentIndex == 1
+                              ? ColorManager.black
+                              : ColorManager.white,
+                        ),
+                      ),
+                      MaterialButton(
+                        onPressed: () {
+                          clientCubit.changeBottomNav(2);
+                        },
+                        minWidth: 100,
+                        child: Icon(
+                          Icons.mark_as_unread,
+                          size: 35,
+                          color: clientCubit.currentIndex == 2
+                              ? ColorManager.black
+                              : ColorManager.white,
+                        ),
+                      ),
+                      MaterialButton(
+                        onPressed: () {
+                          clientCubit.changeBottomNav(3);
+                        },
+                        minWidth: 70,
+                        child: Icon(
+                          Icons.person_outline_outlined,
+                          size: 35,
+                          color: clientCubit.currentIndex == 3
+                              ? ColorManager.black
+                              : ColorManager.white,
+                        ),
                       ),
                     ],
                   ),

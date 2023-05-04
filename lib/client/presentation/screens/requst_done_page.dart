@@ -3,9 +3,14 @@ import 'package:solvers/Auth/presentation/widgets/default_text_button.dart';
 import 'package:solvers/core/assets/app_assets.dart';
 import 'package:solvers/core/global/resources/color_manager.dart';
 import 'package:solvers/core/global/resources/values_manger.dart';
+import 'package:solvers/core/routes/app_routes.dart';
 
 class ClientRequestDonePage extends StatelessWidget {
-  const ClientRequestDonePage({Key? key}) : super(key: key);
+  final String? orderId;
+  const ClientRequestDonePage({
+    Key? key,
+    this.orderId,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +63,7 @@ class ClientRequestDonePage extends StatelessWidget {
               ),
             ),
             Text(
-              "12345",
+              orderId!.substring(0, 8),
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: AppSize.s20,
@@ -71,6 +76,12 @@ class ClientRequestDonePage extends StatelessWidget {
             ),
             DefaultTextButton(
               text: "Done",
+              onTap: () {
+                Navigator.pushReplacementNamed(
+                  context,
+                  Routes.layoutClient,
+                );
+              },
             ),
           ],
         ),

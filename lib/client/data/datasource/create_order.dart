@@ -7,7 +7,25 @@ class FireStoreCreateOrder {
   Future<void> addOrderToFireStore(OrderModel order) async {
     await _fireStoreCreateOrderCollection
         .collection('order')
-        .doc(order.clientId)
-        .set(order.toJson());
+        .add(order.toJson());
+  }
+
+  Future<List<OrderModel>?> getOrderToClientFromFireStore(
+    String clientId,
+  ) async {
+    QuerySnapshot<Map<String, dynamic>> querySnapshot =
+        await _fireStoreCreateOrderCollection
+            .collection('order')
+            .where('clientId', isEqualTo: clientId)
+            .get();
+
+    if (querySnapshot.docs.isNotEmpty) {
+
+      return querySnapshot.docs
+          .map((doc) => OrderModel.fromJson(doc.data()))
+          .toList();
+    } else {
+      return [];
+    }
   }
 }

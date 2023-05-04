@@ -19,6 +19,7 @@ import 'package:solvers/client/data/datasource/create_order.dart';
 import 'package:solvers/client/data/repository/create_order_repo_impl.dart';
 import 'package:solvers/client/domain/repository/base_create_order_repo.dart';
 import 'package:solvers/client/domain/usecases/create_order_use_case.dart';
+import 'package:solvers/client/domain/usecases/get_order_use_case.dart';
 import 'package:solvers/client/presentation/controller/client_cubit.dart';
 import 'package:solvers/core/app/app_prefs.dart';
 
@@ -101,6 +102,10 @@ class ServicesLocator {
     sl.registerLazySingleton<CreateOrderUseCase>(() => CreateOrderUseCase(
           sl(),
         ));
+    sl.registerLazySingleton<GetOrderToClientUseCase>(
+        () => GetOrderToClientUseCase(
+              sl(),
+            ));
 
     // auth Blocs
 
@@ -118,6 +123,7 @@ class ServicesLocator {
 
     sl.registerFactory<ClientCubit>(
       () => ClientCubit(
+        sl(),
         sl(),
       ),
     );

@@ -119,7 +119,6 @@ class FirebaseAuthCubit extends Cubit<FirebaseAuthState> {
 
   Future<void> createTech(TechModel techModel) async {
     emit(CreateTechLoading());
-    emit(CubitAuthLoadingState()); // for con builder
     try {
       await createTechUseCase(params: techModel);
       emit(CreateTechSuccess());
@@ -131,6 +130,8 @@ class FirebaseAuthCubit extends Cubit<FirebaseAuthState> {
 
   Future<TechModel?> getTechCubit({required String techId}) async {
     emit(GetTechLoading());
+    emit(CubitAuthLoadingState()); // for con builder
+
     return await getTechUseCase.call(params: techId).then((value) async {
       techData = value;
       if (techData != null) {
