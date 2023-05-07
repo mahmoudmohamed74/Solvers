@@ -8,6 +8,7 @@ import 'package:solvers/client/presentation/screens/layout_client_page.dart';
 import 'package:solvers/client/presentation/screens/request_status_client_page.dart';
 import 'package:solvers/core/routes/app_routes.dart';
 import 'package:solvers/core/services/services_locator.dart';
+import 'package:solvers/test.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp._internal();
@@ -35,9 +36,9 @@ class _MyAppState extends State<MyApp> {
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
-        // home: ClientLayout(),
-        onGenerateRoute: RouteGenerator.getRoute,
-        initialRoute: Routes.splashRoute,
+        home: TestScreen(),
+        // onGenerateRoute: RouteGenerator.getRoute,
+        // initialRoute: Routes.splashRoute,
       ),
     );
   }

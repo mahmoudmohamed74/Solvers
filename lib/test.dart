@@ -3,6 +3,8 @@ import 'package:solvers/client/presentation/screens/home_client_page.dart';
 import 'package:solvers/client/presentation/widgets/appbar_widget.dart';
 import 'package:solvers/client/presentation/widgets/drawer.dart';
 
+import 'core/services/paypal_payment.dart';
+
 class TestScreen extends StatefulWidget {
   const TestScreen({Key? key}) : super(key: key);
 
@@ -11,23 +13,15 @@ class TestScreen extends StatefulWidget {
 }
 
 class _TestScreenState extends State<TestScreen> {
-  List<String> _skills = ['Flutter', 'Dart', 'Firebase'];
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('My Profile'),
-      ),
-      body: Padding(
-        padding: EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ExperienceListWidget(),
-            // Other profile information widgets...
-          ],
-        ),
+    return Center(
+      child: TextButton(
+        child: const Text("pay"),
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (BuildContext context) => const PaypalPayment()));
+        },
       ),
     );
   }

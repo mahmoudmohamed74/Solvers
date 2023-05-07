@@ -1,0 +1,20 @@
+{
+  "hosting": {
+    "public": "build/web",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "/return",
+        "destination": "/index.html"
+      },
+      {
+        "source": "/cancel",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}
