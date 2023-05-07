@@ -27,6 +27,14 @@ class LogInSuccessState extends FirebaseAuthState {
 
 class CubitAuthSignOut extends FirebaseAuthState {}
 
+class ResetPasswordSuccessState extends FirebaseAuthState {}
+
+class ResetPasswordErrorState extends FirebaseAuthState {
+  final String errorMessage;
+
+  ResetPasswordErrorState(this.errorMessage);
+}
+
 class CubitAuthFailed extends FirebaseAuthState {
   final String error;
   CubitAuthFailed(this.error);

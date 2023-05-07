@@ -8,11 +8,11 @@ import 'package:solvers/Auth/presentation/widgets/default_text_button.dart';
 import 'package:solvers/Auth/presentation/widgets/multi_drop_down%20_button.dart';
 import 'package:solvers/client/data/models/order_model.dart';
 import 'package:solvers/client/presentation/controller/client_cubit.dart';
+import 'package:solvers/client/presentation/screens/requst_done_page.dart';
 import 'package:solvers/client/presentation/widgets/appbar_widget.dart';
 import 'package:solvers/core/global/resources/color_manager.dart';
 import 'package:solvers/core/global/resources/strings_manger.dart';
 import 'package:solvers/core/global/resources/values_manger.dart';
-import 'package:solvers/core/routes/app_routes.dart';
 
 class ClientNewRequestPage extends StatefulWidget {
   const ClientNewRequestPage({Key? key}) : super(key: key);
@@ -57,7 +57,14 @@ class _ClientNewRequestPageState extends State<ClientNewRequestPage> {
     return BlocConsumer<ClientCubit, ClientState>(
       listener: (context, state) {
         if (state is CreateOrderSuccessState) {
-          Navigator.pushReplacementNamed(context, Routes.requestDone);
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (_) => ClientRequestDonePage(
+                orderId: orderId.toString(),
+              ),
+            ),
+          );
         }
       },
       builder: (context, state) {

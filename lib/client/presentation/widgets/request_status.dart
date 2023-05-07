@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 import 'package:solvers/client/data/models/order_model.dart';
+import 'package:solvers/client/presentation/controller/client_cubit.dart';
 import 'package:solvers/client/presentation/screens/offers_client_page.dart';
-import 'package:solvers/client/presentation/screens/requst_done_page.dart';
 import 'package:solvers/core/assets/app_assets.dart';
 import 'package:solvers/core/global/resources/color_manager.dart';
 import 'package:solvers/core/global/resources/values_manger.dart';
-import 'package:solvers/core/routes/app_routes.dart';
 
 class RequestStatusWidget extends StatelessWidget {
   final OrderModel orderModel;
@@ -16,6 +14,9 @@ class RequestStatusWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final navigator = Navigator.of(context);
+
+    final clientCubit = ClientCubit.get(context);
     return Stack(
       children: [
         Padding(
@@ -94,12 +95,18 @@ class RequestStatusWidget extends StatelessWidget {
                         left: AppPadding.p35,
                       ),
                       child: InkWell(
-                        onTap: () {
-                          Navigator.pushReplacement(
-                            context,
+                        onTap: () async {
+                          // print(orderModel.orderId);
+
+                          // print(orderModel.orderDocId);
+
+                          await clientCubit.getOffer(orderModel.orderDocId);
+
+                          navigator.pushReplacement(
                             MaterialPageRoute(
                               builder: (_) => ClientOffersPage(
                                 orderId: orderModel.orderId,
+                                orderDocId: orderModel.orderDocId,
                               ),
                             ),
                           );

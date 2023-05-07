@@ -13,21 +13,27 @@ import 'package:solvers/Auth/domain/usecases/create_tech_use_case.dart';
 import 'package:solvers/Auth/domain/usecases/get_client_use_case.dart';
 import 'package:solvers/Auth/domain/usecases/get_tech_use_case.dart';
 import 'package:solvers/Auth/domain/usecases/login_use_case.dart';
+import 'package:solvers/Auth/domain/usecases/reset_password_use_case.dart';
 import 'package:solvers/Auth/domain/usecases/signout_use_case.dart';
 import 'package:solvers/Auth/domain/usecases/signup_use_case.dart';
+import 'package:solvers/Auth/presentation/widgets/default_snack_bar.dart';
 import 'package:solvers/core/app/app_prefs.dart';
+import 'package:solvers/core/global/resources/color_manager.dart';
+import 'package:solvers/core/global/resources/strings_manger.dart';
+import 'package:solvers/core/global/resources/values_manger.dart';
 import 'package:solvers/core/services/services_locator.dart';
 
 part 'auth_state.dart';
 
 class FirebaseAuthCubit extends Cubit<FirebaseAuthState> {
-  SignUpAuthUseCase signUpAuthUseCase;
-  LogInAuthUseCase logInAuthUseCase;
-  SignOutAuthUseCase signOutAuthUseCase;
-  CreateClientUseCase createClientUseCase;
-  GetClientUseCase getClientUseCase;
-  CreateTechUseCase createTechUseCase;
-  GetTechUseCase getTechUseCase;
+  final SignUpAuthUseCase _signUpAuthUseCase;
+  final LogInAuthUseCase _logInAuthUseCase;
+  final SignOutAuthUseCase _signOutAuthUseCase;
+  final CreateClientUseCase _createClientUseCase;
+  final GetClientUseCase _getClientUseCase;
+  final CreateTechUseCase _createTechUseCase;
+  final GetTechUseCase _getTechUseCase;
+  final ResetPasswordUseCase _restPasswordUseCase;
   final AppPreferences _appPreferences = sl<AppPreferences>();
   User? user;
   ClientModel? clientData;
@@ -35,13 +41,14 @@ class FirebaseAuthCubit extends Cubit<FirebaseAuthState> {
   String? userRole;
 
   FirebaseAuthCubit(
-    this.signUpAuthUseCase,
-    this.logInAuthUseCase,
-    this.signOutAuthUseCase,
-    this.createClientUseCase,
-    this.getClientUseCase,
-    this.createTechUseCase,
-    this.getTechUseCase,
+    this._signUpAuthUseCase,
+    this._logInAuthUseCase,
+    this._signOutAuthUseCase,
+    this._createClientUseCase,
+    this._getClientUseCase,
+    this._createTechUseCase,
+    this._getTechUseCase,
+    this._restPasswordUseCase,
   ) : super(AuthInitial());
 
   static FirebaseAuthCubit get(BuildContext context) =>
@@ -49,7 +56,7 @@ class FirebaseAuthCubit extends Cubit<FirebaseAuthState> {
 
   Future<User?> signUp(RegisteredUser newUserInfo) async {
     emit(CubitAuthLoadingState());
-    await signUpAuthUseCase(params: newUserInfo).then((newUser) async {
+    await _signUpAuthUseCase(params: newUserInfo).then((newUser) async {
       user = newUser;
       await user!.sendEmailVerification();
       emit(SignUpSuccessState(user!));
@@ -63,7 +70,7 @@ class FirebaseAuthCubit extends Cubit<FirebaseAuthState> {
 
   Future<void> logIn(RegisteredUser userInfo) async {
     emit(CubitAuthLoadingState());
-    await logInAuthUseCase(params: userInfo).then((user) async {
+    await _logInAuthUseCase(params: userInfo).then((user) async {
       this.user = user;
       print(user.uid);
       await getClientCubit(clientId: user.uid);
@@ -82,7 +89,7 @@ class FirebaseAuthCubit extends Cubit<FirebaseAuthState> {
 
   Future<void> signOut({required String userId}) async {
     emit(CubitAuthLoadingState());
-    await signOutAuthUseCase.call(params: userId).then((value) async {
+    await _signOutAuthUseCase.call(params: userId).then((value) async {
       // _appPreferences.logoutClient();
       emit(CubitAuthSignOut());
     }).catchError((e) {
@@ -90,10 +97,20 @@ class FirebaseAuthCubit extends Cubit<FirebaseAuthState> {
     });
   }
 
+  Future<void> resetPassword(context, String email) async {
+    emit(CubitAuthLoadingState());
+
+    await _restPasswordUseCase.call(params: email).then((value) {
+      emit(ResetPasswordSuccessState());
+    }).catchError((error) {
+      emit(ResetPasswordErrorState(error.toString()));
+    });
+  }
+
   Future<void> createClient(ClientModel clientModel) async {
     emit(CreateClientLoading());
     try {
-      await createClientUseCase(params: clientModel);
+      await _createClientUseCase(params: clientModel);
       emit(CreateClientSuccess());
     } catch (e) {
       print("${e.toString()} create client error cubit ");
@@ -104,7 +121,7 @@ class FirebaseAuthCubit extends Cubit<FirebaseAuthState> {
   Future<ClientModel?> getClientCubit({required String clientId}) async {
     emit(GetClientLoading());
     emit(CubitAuthLoadingState()); // for con builder
-    return await getClientUseCase.call(params: clientId).then((value) async {
+    return await _getClientUseCase.call(params: clientId).then((value) async {
       clientData = value;
       if (clientData != null) {
         emit(GetClientSuccess(clientData));
@@ -120,7 +137,7 @@ class FirebaseAuthCubit extends Cubit<FirebaseAuthState> {
   Future<void> createTech(TechModel techModel) async {
     emit(CreateTechLoading());
     try {
-      await createTechUseCase(params: techModel);
+      await _createTechUseCase(params: techModel);
       emit(CreateTechSuccess());
     } catch (e) {
       print("${e.toString()} create tech error cubit ");
@@ -132,7 +149,7 @@ class FirebaseAuthCubit extends Cubit<FirebaseAuthState> {
     emit(GetTechLoading());
     emit(CubitAuthLoadingState()); // for con builder
 
-    return await getTechUseCase.call(params: techId).then((value) async {
+    return await _getTechUseCase.call(params: techId).then((value) async {
       techData = value;
       if (techData != null) {
         emit(GetTechSuccess(techData));

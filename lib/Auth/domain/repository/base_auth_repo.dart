@@ -5,4 +5,5 @@ abstract class BaseFirebaseAuthRepository {
   Future<User> signUp(RegisteredUser newUserInfo);
   Future<User> logIn(RegisteredUser userInfo);
   Future<void> signOut({required String userId});
+  Future<void> resetPassword({required String email});
 }

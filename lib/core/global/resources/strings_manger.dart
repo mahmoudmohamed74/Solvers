@@ -26,6 +26,7 @@ class AppStrings {
       "Password reset link sent! check your email";
   static const String successfulNewPassword =
       "Set new password done successfully!";
+  static const String successFullOffer = "Offer has been created successfully!";
   static const String splashMessage =
       "We are here to support you technically :)";
 

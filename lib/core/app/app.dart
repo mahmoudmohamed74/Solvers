@@ -8,7 +8,9 @@ import 'package:solvers/client/presentation/screens/layout_client_page.dart';
 import 'package:solvers/client/presentation/screens/request_status_client_page.dart';
 import 'package:solvers/core/routes/app_routes.dart';
 import 'package:solvers/core/services/services_locator.dart';
-import 'package:solvers/test.dart';
+import 'package:solvers/solver/presentation/controller/tech_cubit.dart';
+import 'package:solvers/solver/presentation/screens/my_request_tech_page.dart';
+import 'package:solvers/solver/presentation/screens/request_status_tech_page.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp._internal();
@@ -30,15 +32,19 @@ class _MyAppState extends State<MyApp> {
           create: (BuildContext context) => sl<FirebaseAuthCubit>(),
         ),
         BlocProvider<ClientCubit>(
-          create: (BuildContext context) =>
-              sl<ClientCubit>()..getOrder("IjPMaJsgP5XJ8u5AQvzrwijWCrp2"),
-        ),
+            create: (BuildContext context) => sl<ClientCubit>()
+            // ..getOrder("IjPMaJsgP5XJ8u5AQvzrwijWCrp2"),
+            ),
+        BlocProvider<TechCubit>(
+            create: (BuildContext context) => sl<TechCubit>()
+            // ..getOrderTech(FirebaseAuthCubit.get(context).techData!.techId),
+            ),
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: TestScreen(),
-        // onGenerateRoute: RouteGenerator.getRoute,
-        // initialRoute: Routes.splashRoute,
+        // home: TechRequestStatusPage(),
+        onGenerateRoute: RouteGenerator.getRoute,
+        initialRoute: Routes.splashRoute,
       ),
     );
   }

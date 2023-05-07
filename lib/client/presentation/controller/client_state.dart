@@ -21,18 +21,46 @@ class CreateOrderErrorState extends ClientState {
   CreateOrderErrorState(this.error);
 }
 
-class GetOrderLoadingState extends ClientState {}
+class GetAllOrdersLoadingState extends ClientState {}
 
-class GetOrderEmptyState extends ClientState {}
+class GetAllOrdersEmptyState extends ClientState {}
 
-class GetOrderSuccessState extends ClientState {
+class GetAllOrdersSuccessState extends ClientState {
   final List<OrderModel> orderModel;
 
-  GetOrderSuccessState(this.orderModel);
+  GetAllOrdersSuccessState(this.orderModel);
 }
 
-class GetOrderErrorState extends ClientState {
+class GetAllOrdersErrorState extends ClientState {
   final String error;
 
-  GetOrderErrorState(this.error);
+  GetAllOrdersErrorState(this.error);
+}
+
+class GetAllOffersLoadingState extends ClientState {}
+
+class GetAllOffersSuccessState extends ClientState {
+  final List<OfferModel> allOffersList;
+
+  GetAllOffersSuccessState({required this.allOffersList});
+}
+
+class GetAllOffersErrorState extends ClientState {
+  final String error;
+
+  GetAllOffersErrorState(this.error);
+}
+
+class UpdateOfferClientLoadingState extends ClientState {}
+
+class UpdateOfferClientSuccessState extends ClientState {
+  final List<OfferModel> updatedOfferModelList;
+
+  UpdateOfferClientSuccessState({required this.updatedOfferModelList});
+}
+
+class UpdateOfferClientErrorState extends ClientState {
+  final String error;
+
+  UpdateOfferClientErrorState(this.error);
 }

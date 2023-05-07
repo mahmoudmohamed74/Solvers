@@ -1,26 +1,31 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:solvers/client/data/datasource/create_order.dart';
+
 import 'package:solvers/client/data/models/order_model.dart';
 import 'package:solvers/client/domain/usecases/create_order_use_case.dart';
+import 'package:solvers/client/domain/usecases/get_all_offers_use_case.dart';
 import 'package:solvers/client/domain/usecases/get_order_use_case.dart';
+import 'package:solvers/client/domain/usecases/update_offer_accepted_type_use_case.dart';
 import 'package:solvers/client/presentation/screens/home_client_page.dart';
 import 'package:solvers/client/presentation/screens/my_requests_client_page.dart';
 import 'package:solvers/client/presentation/screens/profile_page_client.dart';
 import 'package:solvers/client/presentation/screens/request_status_client_page.dart';
+import 'package:solvers/solver/data/models/offer_model.dart';
 
 part 'client_state.dart';
 
 class ClientCubit extends Cubit<ClientState> {
   final CreateOrderUseCase _createOrderUseCase;
   final GetOrderToClientUseCase _getOrderToClientUseCase;
-  List<OrderModel>? orders = [];
-  String? setSuccessOrderId;
+  final GetAllOffersToClientUseCase _getAllOffersToClientUseCase;
+  final UpdateOfferAcceptedTypeUseCase _updateOfferAcceptedTypeUseCase;
+
   ClientCubit(
     this._createOrderUseCase,
     this._getOrderToClientUseCase,
+    this._getAllOffersToClientUseCase,
+    this._updateOfferAcceptedTypeUseCase,
   ) : super(ClientInitial());
 
   static ClientCubit get(context) => BlocProvider.of(context);
@@ -54,18 +59,82 @@ class ClientCubit extends Cubit<ClientState> {
     }
   }
 
-  Future<List<OrderModel>?> getOrder(String clientId) async {
-    emit(GetOrderLoadingState());
+  List<OrderModel> allOrders = [];
+  Future<List<OrderModel>> getOrder(String clientId) async {
+    allOrders = [];
+    emit(GetAllOrdersLoadingState());
     return await _getOrderToClientUseCase.call(params: clientId).then((value) {
-      orders = value;
-      print(orders);
-      if (orders!.isEmpty) {
-        emit(GetOrderEmptyState());
+      allOrders = value;
+      // print(allOrders);
+
+      if (allOrders.isEmpty) {
+        emit(GetAllOrdersEmptyState());
       } else {
-        emit(GetOrderSuccessState(orders!));
+        emit(GetAllOrdersSuccessState(allOrders));
       }
+      return allOrders;
     }).catchError((error) {
-      emit(GetOrderErrorState(error.toString()));
+      emit(GetAllOrdersErrorState(error.toString()));
     });
+  }
+
+  List<OfferModel> allOffers = [];
+  List<OfferModel> clientOffers = [];
+  List<OfferModel> acceptedOffers = [];
+
+  Future<List<OfferModel>> getOffer(String orderId) async {
+    allOffers = [];
+    clientOffers = [];
+    acceptedOffers = [];
+    emit(GetAllOffersLoadingState());
+    return await _getAllOffersToClientUseCase.call(params: orderId).then(
+      (value) {
+        value.forEach(
+          (element) {
+            if (element.accepted == '') {
+              clientOffers.add(element);
+            } else if (element.accepted == 'true') {
+              acceptedOffers.add(element);
+            }
+          },
+        );
+        allOffers = value;
+        // print("allOffers $allOffers");
+        emit(GetAllOffersSuccessState(allOffersList: allOffers));
+        return allOffers;
+      },
+    ).catchError(
+      (error) {
+        emit(GetAllOffersErrorState(error.toString()));
+      },
+    );
+  }
+
+  Future<void> updateOfferAccepted(
+    context,
+    String orderDocId,
+    String techId,
+    String accepted,
+  ) async {
+    emit(UpdateOfferClientLoadingState());
+    await _updateOfferAcceptedTypeUseCase
+        .call(
+      paramsOne: orderDocId,
+      paramsTwo: techId,
+      paramsThree: accepted,
+    )
+        .then(
+      (value) {
+        getOffer(orderDocId);
+
+        emit(
+          UpdateOfferClientSuccessState(updatedOfferModelList: clientOffers),
+        );
+      },
+    ).catchError(
+      (error) {
+        emit(UpdateOfferClientErrorState(error.toString()));
+      },
+    );
   }
 }

@@ -97,6 +97,11 @@ class ClientLayout extends StatelessWidget {
                         MaterialButton(
                           onPressed: () {
                             clientCubit.changeBottomNav(2);
+                            clientCubit.getOrder(
+                              FirebaseAuthCubit.get(context)
+                                  .clientData!
+                                  .clientId,
+                            );
                           },
                           minWidth: 40,
                           child: Icon(

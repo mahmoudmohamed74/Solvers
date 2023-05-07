@@ -202,7 +202,7 @@ class LoginScreen extends StatelessWidget {
 
                           await FirebaseAuthCubit.get(context).logIn(
                             RegisteredUser(
-                              email: "mahmodhoda328@gmail.com",
+                              email: "mahmoudmohamed202074@gmail.com",
                               password: "aa123456789",
                             ),
                           );

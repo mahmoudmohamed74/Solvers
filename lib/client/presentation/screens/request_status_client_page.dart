@@ -3,34 +3,53 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:solvers/client/presentation/controller/client_cubit.dart';
 import 'package:solvers/client/presentation/widgets/request_status.dart';
+import 'package:solvers/core/global/resources/color_manager.dart';
+import 'package:solvers/core/global/resources/values_manger.dart';
 
 class ClientRequestStatusPage extends StatelessWidget {
   const ClientRequestStatusPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ClientCubit, ClientState>(
-      listener: (context, state) {
-        // TODO: implement listener
-      },
-      builder: (context, state) {
-        return Scaffold(
-          body: ConditionalBuilder(
-            condition: ClientCubit.get(context).orders!.isNotEmpty,
+    return Scaffold(
+      body: BlocBuilder<ClientCubit, ClientState>(
+        builder: (context, state) {
+          final ordersList = ClientCubit.get(context).allOrders;
+          if (state is GetAllOrdersLoadingState) {
+            return Center(
+              child: CircularProgressIndicator(
+                color: ColorManager.purple,
+              ),
+            );
+          }
+          return ConditionalBuilder(
+            condition: ordersList.isNotEmpty,
             builder: (context) {
               return ListView.builder(
                 physics: const BouncingScrollPhysics(),
                 itemBuilder: (context, index) {
-                  final orderIndex = ClientCubit.get(context).orders![index];
-                  return RequestStatusWidget(orderModel: orderIndex);
+                  return RequestStatusWidget(orderModel: ordersList[index]);
                 },
-                itemCount: ClientCubit.get(context).orders!.length,
+                itemCount: ordersList.length,
               );
             },
-            fallback: (context) => Container(),
-          ),
-        );
-      },
+            fallback: (context) => SizedBox(
+              height: MediaQuery.of(context).size.height / 2,
+              child: const Align(
+                alignment: Alignment.center,
+                child: Text(
+                  "You do'nt have any requests yet",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: AppSize.s32,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
+      ),
     );
   }
 }

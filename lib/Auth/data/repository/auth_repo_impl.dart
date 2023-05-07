@@ -50,4 +50,15 @@ class FirebaseAuthRepositoryImpl implements BaseFirebaseAuthRepository {
       return Future.error(e.toString());
     }
   }
+
+  @override
+  Future<void> resetPassword({required String email}) async {
+    try {
+      await firebaseAuthentication.resetPassword(email);
+    } on FirebaseAuthException catch (e) {
+      return Future.error(e.message!);
+    } catch (e) {
+      return Future.error(e.toString());
+    }
+  }
 }

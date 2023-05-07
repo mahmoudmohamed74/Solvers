@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:solvers/Auth/presentation/controller/auth_cubit/auth_cubit.dart';
 import 'package:solvers/core/global/resources/values_manger.dart';
 
 class TechHomePage extends StatelessWidget {
@@ -6,11 +8,13 @@ class TechHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.all(AppSize.s30),
+    final authCubit = BlocProvider.of<FirebaseAuthCubit>(context);
+
+    return Padding(
+      padding: const EdgeInsets.all(AppSize.s30),
       child: Text(
-        "Welcome \nTechnician!!",
-        style: TextStyle(
+        authCubit.techData!.firstName,
+        style: const TextStyle(
           fontSize: 64,
         ),
       ),
