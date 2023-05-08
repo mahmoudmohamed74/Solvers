@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_paypal/flutter_paypal.dart';
-import 'package:solvers/core/routes/app_routes.dart';
 import 'package:webview_flutter_x5/webview_flutter.dart';
 
 class PaypalPayment extends StatefulWidget {

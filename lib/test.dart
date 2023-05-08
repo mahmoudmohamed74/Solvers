@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:solvers/client/presentation/screens/home_client_page.dart';
 import 'package:solvers/client/presentation/widgets/appbar_widget.dart';
 import 'package:solvers/client/presentation/widgets/drawer.dart';
+import 'package:solvers/core/global/resources/color_manager.dart';
+import 'package:solvers/core/services/card_form_screen.dart';
 
 import 'core/services/paypal_payment.dart';
 
@@ -15,13 +17,16 @@ class TestScreen extends StatefulWidget {
 class _TestScreenState extends State<TestScreen> {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: TextButton(
-        child: const Text("pay"),
-        onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(
-              builder: (BuildContext context) => const PaypalPayment()));
-        },
+    return Scaffold(
+      appBar: AppBarWidget(),
+      body: Center(
+        child: TextButton(
+          child: const Text("pay"),
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (BuildContext context) => const CardFormScreen()));
+          },
+        ),
       ),
     );
   }
