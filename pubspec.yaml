@@ -32,7 +32,7 @@ dependencies:
   flutter_paypal: ^0.0.8
   webview_flutter_x5: ^2.0.8+9
   flutter_stripe: ^9.2.0
-  http: ^0.13.6
+  http: ^0.13.5
 
 dev_dependencies:
   flutter_test:

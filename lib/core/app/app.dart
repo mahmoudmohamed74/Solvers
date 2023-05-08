@@ -11,6 +11,7 @@ import 'package:solvers/core/services/services_locator.dart';
 import 'package:solvers/solver/presentation/controller/tech_cubit.dart';
 import 'package:solvers/solver/presentation/screens/my_request_tech_page.dart';
 import 'package:solvers/solver/presentation/screens/request_status_tech_page.dart';
+import 'package:solvers/test.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp._internal();
@@ -42,9 +43,9 @@ class _MyAppState extends State<MyApp> {
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
-        // home: TechRequestStatusPage(),
-        onGenerateRoute: RouteGenerator.getRoute,
-        initialRoute: Routes.splashRoute,
+        home: TestScreen(),
+        // onGenerateRoute: RouteGenerator.getRoute,
+        // initialRoute: Routes.splashRoute,
       ),
     );
   }
