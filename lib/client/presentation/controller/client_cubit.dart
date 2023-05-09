@@ -3,10 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:solvers/client/data/datasource/create_order.dart';
 
 import 'package:solvers/client/data/models/order_model.dart';
+import 'package:solvers/client/domain/entities/update_order_offer.dart';
 import 'package:solvers/client/domain/usecases/create_order_use_case.dart';
 import 'package:solvers/client/domain/usecases/get_all_offers_use_case.dart';
 import 'package:solvers/client/domain/usecases/get_order_use_case.dart';
-import 'package:solvers/client/domain/usecases/update_offer_accepted_type_use_case.dart';
+import 'package:solvers/client/domain/usecases/update_order_offer_use_case.dart';
 import 'package:solvers/client/presentation/screens/home_client_page.dart';
 import 'package:solvers/client/presentation/screens/my_requests_client_page.dart';
 import 'package:solvers/client/presentation/screens/profile_page_client.dart';
@@ -19,13 +20,14 @@ class ClientCubit extends Cubit<ClientState> {
   final CreateOrderUseCase _createOrderUseCase;
   final GetOrderToClientUseCase _getOrderToClientUseCase;
   final GetAllOffersToClientUseCase _getAllOffersToClientUseCase;
-  final UpdateOfferAcceptedTypeUseCase _updateOfferAcceptedTypeUseCase;
-
+  final UpdateOrderOfferUseCase _updateOrderOfferUseCase;
+  final FireStoreCreateOrder _fireStoreCreateOrder;
   ClientCubit(
     this._createOrderUseCase,
     this._getOrderToClientUseCase,
     this._getAllOffersToClientUseCase,
-    this._updateOfferAcceptedTypeUseCase,
+    this._updateOrderOfferUseCase,
+    this._fireStoreCreateOrder,
   ) : super(ClientInitial());
 
   static ClientCubit get(context) => BlocProvider.of(context);
@@ -91,7 +93,7 @@ class ClientCubit extends Cubit<ClientState> {
       (value) {
         value.forEach(
           (element) {
-            if (element.accepted == '') {
+            if (element.accepted == '' || element.accepted == 'true') {
               clientOffers.add(element);
             } else if (element.accepted == 'true') {
               acceptedOffers.add(element);
@@ -110,22 +112,14 @@ class ClientCubit extends Cubit<ClientState> {
     );
   }
 
-  Future<void> updateOfferAccepted(
+  Future<void> updateOrderOfferType(
     context,
-    String orderDocId,
-    String techId,
-    String accepted,
+    UpdateOrderOffer updateOrderOffer,
   ) async {
     emit(UpdateOfferClientLoadingState());
-    await _updateOfferAcceptedTypeUseCase
-        .call(
-      paramsOne: orderDocId,
-      paramsTwo: techId,
-      paramsThree: accepted,
-    )
-        .then(
+    await _updateOrderOfferUseCase.call(params: updateOrderOffer).then(
       (value) {
-        getOffer(orderDocId);
+        getOffer(updateOrderOffer.orderDocId);
 
         emit(
           UpdateOfferClientSuccessState(updatedOfferModelList: clientOffers),

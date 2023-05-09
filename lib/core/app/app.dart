@@ -33,19 +33,15 @@ class _MyAppState extends State<MyApp> {
           create: (BuildContext context) => sl<FirebaseAuthCubit>(),
         ),
         BlocProvider<ClientCubit>(
-            create: (BuildContext context) => sl<ClientCubit>()
-            // ..getOrder("IjPMaJsgP5XJ8u5AQvzrwijWCrp2"),
-            ),
+            create: (BuildContext context) => sl<ClientCubit>()),
         BlocProvider<TechCubit>(
-            create: (BuildContext context) => sl<TechCubit>()
-            // ..getOrderTech(FirebaseAuthCubit.get(context).techData!.techId),
-            ),
+            create: (BuildContext context) => sl<TechCubit>()),
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: TestScreen(),
-        // onGenerateRoute: RouteGenerator.getRoute,
-        // initialRoute: Routes.splashRoute,
+        // home: TestScreen(),
+        onGenerateRoute: RouteGenerator.getRoute,
+        initialRoute: Routes.splashRoute,
       ),
     );
   }

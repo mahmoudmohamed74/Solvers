@@ -235,18 +235,19 @@ class TechCreateOfferPage extends StatelessWidget {
                       child: DefaultTextButton(
                         text: "Send",
                         onTap: () {
-                          // if (_formKey.currentState!.validate()) {}
-                          TechCubit.get(context).createOffer(
-                            OfferModel(
-                              techName: authCubit.firstName,
-                              techId: authCubit.techId,
-                              price: "50",
-                              earnest: "30",
-                              offerDescription: "how can i help u",
-                              offerDate: dateTimeFormatted.toString(),
-                            ),
-                            orderDocId!,
-                          );
+                          if (_formKey.currentState!.validate()) {
+                            TechCubit.get(context).createOffer(
+                              OfferModel(
+                                techName: authCubit.firstName,
+                                techId: authCubit.techId,
+                                price: _price.text,
+                                earnest: _earnestPrice.text,
+                                offerDescription: _textarea.text,
+                                offerDate: dateTimeFormatted.toString(),
+                              ),
+                              orderDocId!,
+                            );
+                          }
                         },
                       ),
                     ),

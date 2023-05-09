@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 
 class OrderModel extends Equatable {
   final String clientName;
+  final String techName;
   final String clientId;
   final String dateTime;
   final List<String> mainProblem;
@@ -11,6 +12,8 @@ class OrderModel extends Equatable {
   final String orderId;
   final String orderDocId;
   final String accepted;
+  final String earnest;
+  final String price;
 
   const OrderModel({
     required this.clientName,
@@ -23,6 +26,9 @@ class OrderModel extends Equatable {
     this.status = 'new',
     this.orderDocId = '',
     this.accepted = '',
+    this.techName = '',
+    this.earnest = '0',
+    this.price = '0',
   });
 
   factory OrderModel.fromJson(Map<String, dynamic> json) {
@@ -41,6 +47,9 @@ class OrderModel extends Equatable {
       orderId: json['orderId'],
       orderDocId: json['orderDocId'],
       accepted: json['accepted'],
+      techName: json['techName'],
+      earnest: json['earnest'],
+      price: json['price'],
     );
   }
 
@@ -56,6 +65,9 @@ class OrderModel extends Equatable {
       'orderId': orderId,
       'orderDocId': orderDocId,
       'accepted': accepted,
+      'techName': techName,
+      'earnest': earnest,
+      'price': price,
     };
   }
 
@@ -72,6 +84,9 @@ class OrderModel extends Equatable {
       orderId,
       orderDocId,
       accepted,
+      techName,
+      earnest,
+      price,
     ];
   }
 }

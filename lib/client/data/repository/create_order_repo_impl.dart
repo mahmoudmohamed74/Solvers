@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:solvers/client/data/datasource/create_order.dart';
 import 'package:solvers/client/data/models/order_model.dart';
+import 'package:solvers/client/domain/entities/update_order_offer.dart';
 import 'package:solvers/client/domain/repository/base_create_order_repo.dart';
 import 'package:solvers/solver/data/models/offer_model.dart';
 
@@ -49,16 +50,18 @@ class CreateOrderRepoImpl implements BaseCreateOrderRepo {
   }
 
   @override
-  Future<void> updateOfferAcceptedType(
-    String orderDocId,
-    String techId,
-    String acceptedType,
+  Future<void> updateOrderOffer(
+    UpdateOrderOffer updateOrderOffer,
   ) async {
     try {
-      await _fireStoreCreateOrder.updateOfferAcceptedType(
-        orderDocId,
-        techId,
-        acceptedType,
+      await _fireStoreCreateOrder.updateOffer(
+        orderDocId: updateOrderOffer.orderDocId,
+        status: updateOrderOffer.status,
+        techName: updateOrderOffer.techName,
+        price: updateOrderOffer.price,
+        earnest: updateOrderOffer.earnest,
+        techId: updateOrderOffer.techId,
+        isAcceptedOffer: updateOrderOffer.isAcceptedOffer,
       );
     } catch (e) {
       print("Update Offer error repo : ${e.toString()}");

@@ -42,11 +42,11 @@ class FireStoreGetOrderToTech {
 
   Future<void> updateOrderAcceptedType(
     String orderDocId,
-    String accepted,
+    String isOrderAccepted,
   ) async {
     await _fireStoreTechCollection
         .collection('order')
         .doc(orderDocId)
-        .update({'accepted': accepted});
+        .update({'accepted': isOrderAccepted});
   }
 }

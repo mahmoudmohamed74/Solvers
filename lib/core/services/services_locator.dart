@@ -22,7 +22,7 @@ import 'package:solvers/client/domain/repository/base_create_order_repo.dart';
 import 'package:solvers/client/domain/usecases/create_order_use_case.dart';
 import 'package:solvers/client/domain/usecases/get_all_offers_use_case.dart';
 import 'package:solvers/client/domain/usecases/get_order_use_case.dart';
-import 'package:solvers/client/domain/usecases/update_offer_accepted_type_use_case.dart';
+import 'package:solvers/client/domain/usecases/update_order_offer_use_case.dart';
 import 'package:solvers/client/presentation/controller/client_cubit.dart';
 import 'package:solvers/core/app/app_prefs.dart';
 import 'package:solvers/solver/data/datasource/get_order.dart';
@@ -139,8 +139,8 @@ class ServicesLocator {
         () => GetAllOffersToClientUseCase(
               sl(),
             ));
-    sl.registerLazySingleton<UpdateOfferAcceptedTypeUseCase>(
-        () => UpdateOfferAcceptedTypeUseCase(
+    sl.registerLazySingleton<UpdateOrderOfferUseCase>(
+        () => UpdateOrderOfferUseCase(
               sl(),
             ));
 
@@ -181,6 +181,7 @@ class ServicesLocator {
 
     sl.registerFactory<ClientCubit>(
       () => ClientCubit(
+        sl(),
         sl(),
         sl(),
         sl(),

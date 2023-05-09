@@ -3,17 +3,15 @@ import 'package:solvers/client/data/models/order_model.dart';
 import 'package:solvers/core/assets/app_assets.dart';
 import 'package:solvers/core/global/resources/color_manager.dart';
 import 'package:solvers/core/global/resources/values_manger.dart';
+import 'package:solvers/solver/data/models/offer_model.dart';
 
-class RequestsListForTech extends StatelessWidget {
+class MainRequestsWidget extends StatelessWidget {
   final OrderModel orderModel;
-  final VoidCallback onIgnore;
-  final VoidCallback onAccept;
-
-  const RequestsListForTech({
+  // final OfferModel offerModel;
+  const MainRequestsWidget({
     super.key,
     required this.orderModel,
-    required this.onIgnore,
-    required this.onAccept,
+    // required this.offerModel,
   });
 
   @override
@@ -52,7 +50,7 @@ class RequestsListForTech extends StatelessWidget {
                       left: AppPadding.p35,
                     ),
                     child: Text(
-                      "Request number: ${orderModel.orderId.substring(0, 8)}",
+                      "Request number:  ${orderModel.orderId.substring(0, 8)}",
                       style: const TextStyle(
                         fontSize: AppSize.s15,
                         fontWeight: FontWeight.bold,
@@ -75,7 +73,9 @@ class RequestsListForTech extends StatelessWidget {
                           width: AppSize.s10,
                         ),
                         Text(
-                          orderModel.clientName,
+                          orderModel.techName != ""
+                              ? orderModel.techName
+                              : "Searching for Technician",
                           style: const TextStyle(
                             fontSize: AppSize.s15,
                           ),
@@ -112,11 +112,29 @@ class RequestsListForTech extends StatelessWidget {
                     padding: const EdgeInsets.only(
                       left: AppPadding.p35,
                     ),
-                    child: Text(
-                      "status: ${orderModel.status[0].toUpperCase() + orderModel.status.substring(1)}",
-                      style: const TextStyle(
-                        fontSize: AppSize.s15,
-                      ),
+                    child: Row(
+                      children: [
+                        Text(
+                          "Earnest: ${orderModel.earnest} SR",
+                          style: const TextStyle(
+                            fontSize: AppSize.s15,
+                          ),
+                        ),
+                        const SizedBox(
+                          width: AppSize.s10,
+                        ),
+                        Container(
+                          color: ColorManager.green,
+                          height: AppSize.s18,
+                          width: AppSize.s60,
+                          child: const Center(
+                            child: Text(
+                              "PAID",
+                              style: TextStyle(fontSize: AppSize.s13),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   const SizedBox(
@@ -128,62 +146,60 @@ class RequestsListForTech extends StatelessWidget {
                     ),
                     child: Row(
                       children: [
-                        Expanded(
-                          child: Text(
-                            "Problem: ${orderModel.problemDescription}",
-                            maxLines: 1,
-                            style: const TextStyle(
-                              fontSize: AppSize.s14,
-                              overflow: TextOverflow.ellipsis,
+                        Text(
+                          "Remaining amount: ${int.parse(orderModel.price) - int.parse(orderModel.earnest)} SR",
+                          style: const TextStyle(
+                            fontSize: AppSize.s15,
+                          ),
+                        ),
+                        const SizedBox(
+                          width: AppSize.s10,
+                        ),
+                        Container(
+                          color: ColorManager.grey,
+                          height: AppSize.s18,
+                          width: AppSize.s60,
+                          child: const Center(
+                            child: Text(
+                              "PAY NOW",
+                              style: TextStyle(fontSize: AppSize.s13),
                             ),
                           ),
                         ),
                       ],
                     ),
                   ),
-                  const SizedBox(
-                    height: AppSize.s5,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      if (orderModel.status == "new")
-                        InkWell(
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: AppPadding.p35,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Status:  ${orderModel.status[0].toUpperCase() + orderModel.status.substring(1)}",
+                          style: const TextStyle(
+                            fontSize: AppSize.s15,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 10),
                           child: Stack(
-                            alignment: Alignment.center,
+                            alignment: Alignment.topRight,
                             children: [
-                              Image.asset(
-                                ImageAssets.greenBox,
+                              Padding(
+                                padding: const EdgeInsets.all(AppPadding.p5),
+                                child: Image.asset(ImageAssets.chat),
                               ),
-                              Image.asset(
-                                ImageAssets.smallTrue,
+                              CircleAvatar(
+                                radius: 5,
+                                backgroundColor: ColorManager.red,
                               ),
                             ],
                           ),
-                          onTap: () => onAccept(),
                         ),
-                      const SizedBox(
-                        width: AppSize.s5,
-                      ),
-                      if (orderModel.status == "new")
-                        InkWell(
-                          child: Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              Image.asset(
-                                ImageAssets.redBox,
-                              ),
-                              Image.asset(
-                                ImageAssets.rightLine,
-                              ),
-                              Image.asset(
-                                ImageAssets.leftLine,
-                              ),
-                            ],
-                          ),
-                          onTap: () => onIgnore(),
-                        ),
-                    ],
+                      ],
+                    ),
                   ),
                 ],
               ),

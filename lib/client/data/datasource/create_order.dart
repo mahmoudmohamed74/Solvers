@@ -71,4 +71,30 @@ class FireStoreCreateOrder {
         .doc(techId)
         .update({'accepted': acceptedType});
   }
+
+  Future<void> updateOffer({
+    required String orderDocId,
+    required String status,
+    required String techName,
+    required String price,
+    required String earnest,
+    required String techId,
+    required String isAcceptedOffer,
+  }) async {
+    await _fireStoreCreateOrderCollection
+        .collection('order')
+        .doc(orderDocId)
+        .collection('offer')
+        .doc(techId)
+        .update({'accepted': isAcceptedOffer});
+    await _fireStoreCreateOrderCollection
+        .collection('order')
+        .doc(orderDocId)
+        .update({
+      'techName': techName,
+      'status': status,
+      'price': price,
+      'earnest': earnest,
+    });
+  }
 }

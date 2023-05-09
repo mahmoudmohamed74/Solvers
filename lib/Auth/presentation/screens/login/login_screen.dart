@@ -35,9 +35,8 @@ class LoginScreen extends StatelessWidget {
 
     return BlocConsumer<FirebaseAuthCubit, FirebaseAuthState>(
       listener: (context, state) async {
-        print("state is $state ");
         if (state is LogInSuccessState) {
-          print(state.user);
+          // print(state.user);
           if (state.user.emailVerified == true) {
             if (state.userRole == 'technician') {
               Navigator.pushReplacementNamed(
@@ -191,21 +190,14 @@ class LoginScreen extends StatelessWidget {
                         text: AppStrings.login,
                         fontWeight: FontWeight.normal,
                         onTap: () async {
-                          // if (_formKey.currentState!.validate()) {
-                          //   await FirebaseAuthCubit.get(context).signUp(
-                          //     RegisteredUser(
-                          //       email: "volt10@gmail.com",
-                          //       password: "a123456789",
-                          //     ),
-                          //   );
-                          // }
-
-                          await FirebaseAuthCubit.get(context).logIn(
-                            RegisteredUser(
-                              email: "mahmoudmohamed202074@gmail.com",
-                              password: "aa123456789",
-                            ),
-                          );
+                          if (_formKey.currentState!.validate()) {
+                            await FirebaseAuthCubit.get(context).logIn(
+                              RegisteredUser(
+                                email: _emailEditingController.text,
+                                password: _passwordEditingController.text,
+                              ),
+                            );
+                          }
                         },
                       ),
                       fallback: (context) => Center(

@@ -4,11 +4,11 @@ import 'package:solvers/core/global/resources/color_manager.dart';
 import 'package:solvers/core/global/resources/values_manger.dart';
 import 'package:solvers/solver/data/models/offer_model.dart';
 
-class OfferList extends StatelessWidget {
+class OfferListWidget extends StatelessWidget {
   final OfferModel offerModel;
   final VoidCallback onIgnore;
   final VoidCallback onAccept;
-  const OfferList({
+  const OfferListWidget({
     super.key,
     required this.offerModel,
     required this.onIgnore,
@@ -89,69 +89,92 @@ class OfferList extends StatelessWidget {
               ),
               Row(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      left: AppSize.s36,
+                  const Icon(Icons.attach_money_outlined),
+                  const SizedBox(
+                    width: AppSize.s10,
+                  ),
+                  Text(
+                    "${offerModel.price} SR",
+                    style: const TextStyle(
+                      fontSize: AppSize.s20,
                     ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: AppSize.s5,
+              ),
+              Row(
+                children: [
+                  const Icon(Icons.text_snippet_outlined),
+                  const SizedBox(
+                    width: AppSize.s10,
+                  ),
+                  InkWell(
+                    onTap: () {},
+                    child: Text(
+                      "view details",
+                      style: TextStyle(
+                        fontSize: AppSize.s14,
+                        color: ColorManager.purple,
+                      ),
+                    ),
+                  ),
+                  if (offerModel.accepted == 'true')
+                    const SizedBox(
+                      width: AppSize.s60,
+                    ),
+                  if (offerModel.accepted == 'true')
+                    Text(
+                      "Accepted Offer",
+                      style: TextStyle(
+                        fontSize: AppSize.s14,
+                        color: ColorManager.purple,
+                      ),
+                    ),
+                  if (offerModel.accepted == '')
+                    const SizedBox(
+                      width: AppSize.s60,
+                    ),
+                  if (offerModel.accepted == '')
+                    Row(
                       children: [
-                        Text(
-                          offerModel.price,
-                          style: const TextStyle(
-                            fontSize: AppSize.s20,
+                        InkWell(
+                          child: Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              Image.asset(
+                                ImageAssets.greenBox,
+                              ),
+                              Image.asset(
+                                ImageAssets.smallTrue,
+                              ),
+                            ],
                           ),
+                          onTap: () => onAccept(),
+                        ),
+                        const SizedBox(
+                          width: AppSize.s5,
                         ),
                         InkWell(
-                          onTap: () {},
-                          child: Text(
-                            "view details",
-                            style: TextStyle(
-                              fontSize: AppSize.s14,
-                              color: ColorManager.purple,
-                            ),
+                          child: Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              Image.asset(
+                                ImageAssets.redBox,
+                              ),
+                              Image.asset(
+                                ImageAssets.rightLine,
+                              ),
+                              Image.asset(
+                                ImageAssets.leftLine,
+                              ),
+                            ],
                           ),
+                          onTap: () => onIgnore(),
                         ),
                       ],
                     ),
-                  ),
-                  const SizedBox(
-                    width: AppSize.s60,
-                  ),
-                  InkWell(
-                    child: Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        Image.asset(
-                          ImageAssets.greenBox,
-                        ),
-                        Image.asset(
-                          ImageAssets.smallTrue,
-                        ),
-                      ],
-                    ),
-                    onTap: () => onAccept(),
-                  ),
-                  const SizedBox(
-                    width: AppSize.s5,
-                  ),
-                  InkWell(
-                    child: Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        Image.asset(
-                          ImageAssets.redBox,
-                        ),
-                        Image.asset(
-                          ImageAssets.rightLine,
-                        ),
-                        Image.asset(
-                          ImageAssets.leftLine,
-                        ),
-                      ],
-                    ),
-                    onTap: () => onIgnore(),
-                  ),
                 ],
               ),
             ],

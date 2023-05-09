@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:solvers/core/global/resources/color_manager.dart';
 import 'package:solvers/core/global/resources/values_manger.dart';
 import 'package:solvers/solver/presentation/controller/tech_cubit.dart';
+import 'package:solvers/solver/presentation/screens/create_offer_tech_page.dart';
 import 'package:solvers/solver/presentation/widgets/request_list.dart';
 
 class TechRequestStatusPage extends StatelessWidget {
@@ -46,13 +47,23 @@ class TechRequestStatusPage extends StatelessWidget {
                     shrinkWrap: true,
                     physics: const BouncingScrollPhysics(),
                     itemBuilder: (context, index) {
-                      return RequestList(
+                      return RequestsListForTech(
                         orderModel: cubit[index],
                         onAccept: () {
-                          TechCubit.get(context).updateOrderAccepted(
+                          // TechCubit.get(context).updateOrderAccepted(
+                          //   context,
+                          //   cubit[index].orderDocId,
+                          //   "true",
+                          // );
+
+                          Navigator.pushReplacement(
                             context,
-                            cubit[index].orderDocId,
-                            "true",
+                            MaterialPageRoute(
+                              builder: (_) => TechCreateOfferPage(
+                                orderId: cubit[index].orderId,
+                                orderDocId: cubit[index].orderDocId,
+                              ),
+                            ),
                           );
                         },
                         onIgnore: () {
