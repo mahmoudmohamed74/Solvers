@@ -68,11 +68,11 @@ class _TechnicianRegisterScreenState extends State<TechnicianRegisterScreen> {
         if (state is SignUpSuccessState) {
           FirebaseAuthCubit.get(context).createTech(
             TechModel(
-              firstName: "voltTech",
-              lastName: "mahmoud",
-              email: "mahmoudmohamed202074@gmail.com",
+              firstName: _firstNameEditingController.text,
+              lastName: _lastNameEditingController.text,
+              email: _emailEditingController.text,
               techId: state.user.uid,
-              phoneNumber: "01091402978",
+              phoneNumber: _phoneNumberEditingController.text,
               experience: _experienceEditingController.text,
               skills: _selectedItems,
             ),

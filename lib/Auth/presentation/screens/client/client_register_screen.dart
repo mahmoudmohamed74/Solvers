@@ -46,11 +46,11 @@ class ClientRegisterScreen extends StatelessWidget {
         if (state is SignUpSuccessState) {
           FirebaseAuthCubit.get(context).createClient(
             ClientModel(
-              firstName: "voltTech",
-              lastName: "mahmoud",
-              email: "mahmodhoda328@gmail.com",
+              firstName: _firstNameEditingController.text,
+              lastName: _lastNameEditingController.text,
+              email: _emailEditingController.text,
               clientId: state.user.uid,
-              phoneNumber: "01091402",
+              phoneNumber: _phoneNumberEditingController.text,
             ),
           );
           if (state.user.emailVerified == true) {
