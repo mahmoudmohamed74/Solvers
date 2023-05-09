@@ -196,8 +196,8 @@ class ClientRegisterScreen extends StatelessWidget {
                       controller: _passwordConfirmEditingController,
                       type: TextInputType.text,
                       validator: (String? s) {
-                        if (_passwordEditingController !=
-                            _passwordConfirmEditingController) {
+                        if (_passwordEditingController.text !=
+                            _passwordConfirmEditingController.text) {
                           return AppStrings.passwordConfirmationError;
                         }
                         return null;

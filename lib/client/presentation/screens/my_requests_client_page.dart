@@ -23,7 +23,7 @@ class ClientMyRequestPage extends StatelessWidget {
             );
           }
           return ConditionalBuilder(
-            condition: true,
+            condition: ordersList.isNotEmpty,
             builder: (context) {
               return ListView.builder(
                 physics: const BouncingScrollPhysics(),
