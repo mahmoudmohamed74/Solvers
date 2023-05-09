@@ -214,13 +214,14 @@ class ClientRegisterScreen extends StatelessWidget {
                       text: AppStrings.signUp,
                       fontWeight: FontWeight.normal,
                       onTap: () {
-                        // if (_formKey.currentState!.validate()) {}
-                        FirebaseAuthCubit.get(context).signUp(
-                          RegisteredUser(
-                            email: "mahmodhoda328@gmail.com",
-                            password: "a123456789",
-                          ),
-                        );
+                        if (_formKey.currentState!.validate()) {
+                          FirebaseAuthCubit.get(context).signUp(
+                            RegisteredUser(
+                              email: _emailEditingController.text,
+                              password: _passwordEditingController.text,
+                            ),
+                          );
+                        }
                       },
                     ),
                     const HorizontalOrLine(

@@ -289,13 +289,14 @@ class _TechnicianRegisterScreenState extends State<TechnicianRegisterScreen> {
                       text: AppStrings.signUp,
                       fontWeight: FontWeight.normal,
                       onTap: () {
-                        // if (_formKey.currentState!.validate()) {}
-                        FirebaseAuthCubit.get(context).signUp(
-                          RegisteredUser(
-                            email: "mahmoudmohamed202074@gmail.com",
-                            password: "a123456789",
-                          ),
-                        );
+                        if (_formKey.currentState!.validate()) {
+                          FirebaseAuthCubit.get(context).signUp(
+                            RegisteredUser(
+                              email: _emailEditingController.text,
+                              password: _passwordEditingController.text,
+                            ),
+                          );
+                        }
                       },
                     ),
                     const HorizontalOrLine(
