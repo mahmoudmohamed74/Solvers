@@ -41,7 +41,7 @@ class AppStrings {
   static const String signUpForFree = "Sign up for free";
 
   static const String firstNameHint = "First Name";
-  static const String lastNameHint = "Lase Name";
+  static const String lastNameHint = "Last Name";
   static const String userNameError = "Name must be more than 2 character";
   static const String emailError = "Email Invalid! check your email";
   static const String passwordError =
@@ -59,7 +59,7 @@ class AppStrings {
   static const String doNotHaveAccount = "Don't have  an account ? ";
   static const String haveAccount = "Already have an account ?";
   static const String or = "OR";
-  static const String loginAs = "Login as";
+  static const String signAs = "Sign up as";
   static const String individuals = "Individuals";
   static const String needHelp = "Need help";
   static const String technician = "Technician";

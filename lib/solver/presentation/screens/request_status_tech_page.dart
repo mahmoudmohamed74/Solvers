@@ -1,6 +1,7 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:solvers/Auth/presentation/controller/auth_cubit/auth_cubit.dart';
 import 'package:solvers/core/global/resources/color_manager.dart';
 import 'package:solvers/core/global/resources/values_manger.dart';
 import 'package:solvers/solver/presentation/controller/tech_cubit.dart';
@@ -50,12 +51,6 @@ class TechRequestStatusPage extends StatelessWidget {
                       return RequestsListForTech(
                         orderModel: cubit[index],
                         onAccept: () {
-                          // TechCubit.get(context).updateOrderAccepted(
-                          //   context,
-                          //   cubit[index].orderDocId,
-                          //   "true",
-                          // );
-
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
@@ -67,10 +62,10 @@ class TechRequestStatusPage extends StatelessWidget {
                           );
                         },
                         onIgnore: () {
-                          TechCubit.get(context).updateOrderAccepted(
+                          TechCubit.get(context).declineOrder(
                             context,
                             cubit[index].orderDocId,
-                            "false",
+                            FirebaseAuthCubit.get(context).techData!.techId,
                           );
                         },
                       );

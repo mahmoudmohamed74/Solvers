@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:solvers/client/domain/entities/update_order_offer.dart';
 import 'package:solvers/client/presentation/controller/client_cubit.dart';
-import 'package:solvers/client/presentation/widgets/appbar_widget.dart';
+import 'package:solvers/client/presentation/widgets/default_appbar.dart';
 import 'package:solvers/client/presentation/widgets/offers_list.dart';
 import 'package:solvers/core/global/resources/color_manager.dart';
 import 'package:solvers/core/global/resources/values_manger.dart';
+import 'package:solvers/core/routes/app_routes.dart';
 
 class ClientOffersPage extends StatelessWidget {
   final String? orderId;
@@ -17,8 +18,20 @@ class ClientOffersPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarWidget(
-        isBack: true,
+      appBar: DefaultAppBar(
+        leadingIconButton: IconButton(
+          onPressed: () {
+            Navigator.pushReplacementNamed(
+              context,
+              Routes.layoutClient,
+            );
+          },
+          icon: Icon(
+            Icons.arrow_back,
+            color: ColorManager.darkPrimary,
+            size: AppSize.s30,
+          ),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(AppPadding.p20),

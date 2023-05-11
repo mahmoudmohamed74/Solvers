@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:solvers/Auth/presentation/controller/auth_cubit/auth_cubit.dart';
 import 'package:solvers/client/data/models/order_model.dart';
+import 'package:solvers/solver/data/datasource/get_order.dart';
 import 'package:solvers/solver/data/models/offer_model.dart';
 import 'package:solvers/solver/domain/usecases/create_offer_use_case.dart';
 import 'package:solvers/solver/domain/usecases/get_order_to_tech_use_case.dart';
@@ -52,25 +52,27 @@ class TechCubit extends Cubit<TechState> {
     });
   }
 
+  List<OrderModel> allOrders = [];
   List<OrderModel> orderTech = [];
   List<OrderModel> acceptedOrders = [];
-  List<OrderModel> allOrders = [];
   Future<List<OrderModel>> getOrderTech(String techId) async {
     allOrders = [];
     orderTech = [];
-    allOrders = [];
+    acceptedOrders = [];
 
     emit(GetAllOrderTechLoadingState());
     return await _getOrderToTechUseCase.call(params: techId).then((value) {
       value.forEach((element) {
-        if (element.accepted == "" || element.accepted == "true") {
+        if (element.status == 'new' && !element.refusedIds.contains(techId)) {
           orderTech.add(element);
-        }
-        if (element.accepted == "true") {
-          acceptedOrders.add(element);
         }
       });
 
+      value.forEach((element) {
+        if (element.techId == techId) {
+          acceptedOrders.add(element);
+        }
+      });
       allOrders = value;
       // print("orderTech $orderTech");
       // print("acceptedOrders $acceptedOrders");
@@ -83,16 +85,16 @@ class TechCubit extends Cubit<TechState> {
     });
   }
 
-  Future<void> updateOrderAccepted(
+  Future<void> declineOrder(
     context,
     String orderDocId,
-    String acceptedType,
+    String techId,
   ) async {
     emit(UpdateOrderTechLoadingState());
     await _updateOrderAcceptedTypeUseCase
-        .call(paramsOne: orderDocId, paramsTwo: acceptedType)
-        .then((value) {
-      getOrderTech(FirebaseAuthCubit.get(context).techData!.techId);
+        .call(paramsOne: orderDocId, paramsTwo: techId)
+        .then((value) async {
+      await getOrderTech(techId);
 
       emit(UpdateOrderTechSuccessState(orderTech));
     }).catchError(

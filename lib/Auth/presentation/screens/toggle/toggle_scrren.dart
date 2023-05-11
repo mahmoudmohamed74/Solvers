@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:solvers/core/assets/app_assets.dart';
 import 'package:solvers/core/global/resources/color_manager.dart';
 import 'package:solvers/core/global/resources/strings_manger.dart';
@@ -11,6 +12,26 @@ class ToggleScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        systemOverlayStyle: const SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+          statusBarIconBrightness: Brightness.dark,
+        ),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pushReplacementNamed(
+              context,
+              Routes.userLoginRoute,
+            );
+          },
+          icon: Icon(
+            Icons.arrow_back,
+            color: ColorManager.darkPrimary,
+          ),
+        ),
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -61,7 +82,7 @@ class ToggleScreen extends StatelessWidget {
                     child: Padding(
                       padding: EdgeInsets.only(top: AppPadding.p30),
                       child: Text(
-                        AppStrings.loginAs,
+                        AppStrings.signAs,
                         style: TextStyle(
                           fontSize: AppSize.s20,
                           fontWeight: FontWeight.bold,
@@ -155,7 +176,7 @@ class ToggleScreen extends StatelessWidget {
                     child: Padding(
                       padding: EdgeInsets.only(top: AppPadding.p30),
                       child: Text(
-                        AppStrings.loginAs,
+                        AppStrings.signAs,
                         style: TextStyle(
                           fontSize: AppSize.s20,
                           fontWeight: FontWeight.bold,

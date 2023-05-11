@@ -11,9 +11,10 @@ class OrderModel extends Equatable {
   final String status;
   final String orderId;
   final String orderDocId;
-  final String accepted;
   final String earnest;
   final String price;
+  final String techId;
+  final List<String> refusedIds;
 
   const OrderModel({
     required this.clientName,
@@ -25,10 +26,11 @@ class OrderModel extends Equatable {
     required this.orderId,
     this.status = 'new',
     this.orderDocId = '',
-    this.accepted = '',
     this.techName = '',
     this.earnest = '0',
     this.price = '0',
+    this.techId = '',
+    this.refusedIds = const [],
   });
 
   factory OrderModel.fromJson(Map<String, dynamic> json) {
@@ -46,10 +48,13 @@ class OrderModel extends Equatable {
       status: json['status'],
       orderId: json['orderId'],
       orderDocId: json['orderDocId'],
-      accepted: json['accepted'],
       techName: json['techName'],
       earnest: json['earnest'],
       price: json['price'],
+      techId: json['techId'],
+      refusedIds: List<String>.from(
+        (json['refusedIds']),
+      ),
     );
   }
 
@@ -64,10 +69,11 @@ class OrderModel extends Equatable {
       'status': status,
       'orderId': orderId,
       'orderDocId': orderDocId,
-      'accepted': accepted,
       'techName': techName,
       'earnest': earnest,
       'price': price,
+      'techId': techId,
+      'refusedIds': refusedIds,
     };
   }
 
@@ -83,10 +89,11 @@ class OrderModel extends Equatable {
       status,
       orderId,
       orderDocId,
-      accepted,
       techName,
       earnest,
       price,
+      techId,
+      refusedIds,
     ];
   }
 }

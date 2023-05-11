@@ -4,8 +4,6 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:solvers/Auth/data/models/client_model.dart';
-import 'package:solvers/Auth/data/models/tech_model.dart';
 import 'package:solvers/Auth/domain/entities/registered_user.dart';
 import 'package:solvers/Auth/presentation/controller/auth_cubit/auth_cubit.dart';
 import 'package:solvers/Auth/presentation/widgets/default_form_field.dart';
@@ -79,13 +77,6 @@ class LoginScreen extends StatelessWidget {
             ),
             backgroundColor: Colors.transparent,
             elevation: 0,
-            leading: IconButton(
-              onPressed: () {},
-              icon: Icon(
-                Icons.arrow_back,
-                color: ColorManager.darkPrimary,
-              ),
-            ),
           ),
           body: SingleChildScrollView(
             child: Padding(
@@ -150,7 +141,7 @@ class LoginScreen extends StatelessWidget {
                       obscureText: authCubit.isPassword,
                       hintText: AppStrings.passwordHint,
                       controller: _passwordEditingController,
-                      type: TextInputType.number,
+                      type: TextInputType.text,
                       validator: (input) => input!.isValidPassword()
                           ? null
                           : AppStrings.passwordError,

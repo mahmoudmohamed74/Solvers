@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:solvers/client/presentation/screens/home_client_page.dart';
-import 'package:solvers/client/presentation/widgets/appbar_widget.dart';
+import 'package:solvers/client/presentation/widgets/default_appbar.dart';
 import 'package:solvers/client/presentation/widgets/drawer.dart';
 import 'package:solvers/core/global/resources/color_manager.dart';
 import 'package:solvers/core/services/card_form_screen.dart';
@@ -18,7 +18,9 @@ class _TestScreenState extends State<TestScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarWidget(),
+      appBar: DefaultAppBar(
+          leadingIconButton:
+              IconButton(onPressed: () {}, icon: Icon(Icons.abc_outlined))),
       body: Center(
         child: TextButton(
           child: const Text("pay"),

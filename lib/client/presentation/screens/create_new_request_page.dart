@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:solvers/client/presentation/widgets/default_appbar.dart';
+import 'package:solvers/core/routes/app_routes.dart';
 import 'package:uuid/uuid.dart';
 
 import 'package:solvers/Auth/presentation/controller/auth_cubit/auth_cubit.dart';
@@ -9,7 +11,6 @@ import 'package:solvers/Auth/presentation/widgets/multi_drop_down%20_button.dart
 import 'package:solvers/client/data/models/order_model.dart';
 import 'package:solvers/client/presentation/controller/client_cubit.dart';
 import 'package:solvers/client/presentation/screens/requst_done_page.dart';
-import 'package:solvers/client/presentation/widgets/appbar_widget.dart';
 import 'package:solvers/core/global/resources/color_manager.dart';
 import 'package:solvers/core/global/resources/strings_manger.dart';
 import 'package:solvers/core/global/resources/values_manger.dart';
@@ -69,8 +70,20 @@ class _ClientNewRequestPageState extends State<ClientNewRequestPage> {
       },
       builder: (context, state) {
         return Scaffold(
-          appBar: AppBarWidget(
-            isBack: true,
+          appBar: DefaultAppBar(
+            leadingIconButton: IconButton(
+              onPressed: () {
+                Navigator.pushReplacementNamed(
+                  context,
+                  Routes.layoutClient,
+                );
+              },
+              icon: Icon(
+                Icons.arrow_back,
+                color: ColorManager.darkPrimary,
+                size: AppSize.s30,
+              ),
+            ),
           ),
           body: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),

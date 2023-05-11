@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
 
 import 'package:solvers/Auth/data/datasource/firebase_auth.dart';
 import 'package:solvers/Auth/domain/entities/registered_user.dart';
@@ -19,7 +20,7 @@ class FirebaseAuthRepositoryImpl implements BaseFirebaseAuthRepository {
       );
       return userId;
     } on FirebaseAuthException catch (e) {
-      print("'The email address entered is already in use.'");
+      print("The email address entered is already in use.");
       return Future.error(e.message!);
     } catch (e) {
       return Future.error(e.toString());
@@ -43,9 +44,16 @@ class FirebaseAuthRepositoryImpl implements BaseFirebaseAuthRepository {
   @override
   Future<void> signOut({required String userId}) async {
     try {
-      await firebaseAuthentication.signOut();
+      return await firebaseAuthentication.signOut();
       // await FireStoreNotification.deleteDeviceToken(userId: userId);
-      return;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        return Future.error(e.message.toString());
+      } else {
+        return Future.error(e.message.toString());
+      }
+    } on PlatformException catch (e) {
+      return Future.error(e.message.toString());
     } catch (e) {
       return Future.error(e.toString());
     }

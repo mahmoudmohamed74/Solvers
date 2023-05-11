@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:solvers/Auth/presentation/controller/auth_cubit/auth_cubit.dart';
 import 'package:solvers/Auth/presentation/widgets/default_snack_bar.dart';
 import 'package:solvers/Auth/presentation/widgets/default_text_button.dart';
-import 'package:solvers/client/presentation/widgets/appbar_widget.dart';
+import 'package:solvers/client/presentation/widgets/default_appbar.dart';
 import 'package:solvers/core/global/resources/color_manager.dart';
 import 'package:solvers/core/global/resources/strings_manger.dart';
 import 'package:solvers/core/global/resources/values_manger.dart';
@@ -60,9 +60,22 @@ class TechCreateOfferPage extends StatelessWidget {
         }
       },
       builder: (context, state) {
+        final techCubit = TechCubit.get(context);
         return Scaffold(
-          appBar: AppBarWidget(
-            isBack: true,
+          appBar: DefaultAppBar(
+            leadingIconButton: IconButton(
+              onPressed: () {
+                Navigator.pushReplacementNamed(
+                  context,
+                  Routes.layoutTech,
+                );
+              },
+              icon: Icon(
+                Icons.arrow_back,
+                color: ColorManager.darkPrimary,
+                size: AppSize.s30,
+              ),
+            ),
           ),
           body: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
@@ -122,6 +135,11 @@ class TechCreateOfferPage extends StatelessWidget {
                           }
                           return null;
                         },
+                        onChanged: (value) {
+                          double price = double.tryParse(value) ?? 0.0;
+                          double earnest = price * 0.3;
+                          _earnestPrice.text = earnest.toStringAsFixed(2);
+                        },
                         decoration: InputDecoration(
                           filled: true,
                           fillColor: ColorManager.primary,
@@ -162,8 +180,11 @@ class TechCreateOfferPage extends StatelessWidget {
                       elevation: 3,
                       borderRadius: BorderRadius.circular(8),
                       child: TextFormField(
+                        enabled: false,
                         controller: _earnestPrice,
-                        keyboardType: TextInputType.number,
+                        keyboardType: const TextInputType.numberWithOptions(
+                          decimal: true,
+                        ),
                         validator: (String? s) {
                           if (s!.length < Constants.two) {
                             return "Earnest is required";
@@ -234,9 +255,9 @@ class TechCreateOfferPage extends StatelessWidget {
                       alignment: Alignment.center,
                       child: DefaultTextButton(
                         text: "Send",
-                        onTap: () {
+                        onTap: () async {
                           if (_formKey.currentState!.validate()) {
-                            TechCubit.get(context).createOffer(
+                            await TechCubit.get(context).createOffer(
                               OfferModel(
                                 techName: authCubit.firstName,
                                 techId: authCubit.techId,

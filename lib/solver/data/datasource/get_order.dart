@@ -40,13 +40,14 @@ class FireStoreGetOrderToTech {
     }
   }
 
-  Future<void> updateOrderAcceptedType(
+  Future<void> declineOrder(
     String orderDocId,
-    String isOrderAccepted,
+    String techId,
   ) async {
-    await _fireStoreTechCollection
-        .collection('order')
-        .doc(orderDocId)
-        .update({'accepted': isOrderAccepted});
+    await _fireStoreTechCollection.collection('order').doc(orderDocId).update(
+      {
+        'refusedIds': FieldValue.arrayUnion([techId]),
+      },
+    );
   }
 }

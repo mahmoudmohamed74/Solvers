@@ -12,6 +12,6 @@ class UpdateOrderAcceptedTypeUseCase
     required String paramsOne,
     required String paramsTwo,
   }) async {
-    await _baseTechRepo.updateOrderAcceptedType(paramsOne, paramsTwo);
+    await _baseTechRepo.declineOrder(paramsOne, paramsTwo);
   }
 }

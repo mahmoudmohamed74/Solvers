@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:solvers/Auth/presentation/controller/auth_cubit/auth_cubit.dart';
 import 'package:solvers/client/presentation/controller/client_cubit.dart';
-import 'package:solvers/client/presentation/widgets/appbar_widget.dart';
+import 'package:solvers/client/presentation/widgets/default_appbar.dart';
 import 'package:solvers/client/presentation/widgets/drawer.dart';
 import 'package:solvers/core/global/resources/color_manager.dart';
 import 'package:solvers/core/global/resources/values_manger.dart';
@@ -20,7 +20,9 @@ class ClientLayout extends StatelessWidget {
       builder: (context, state) {
         var clientCubit = ClientCubit.get(context);
         return Scaffold(
-          appBar: AppBarWidget(),
+          appBar: DefaultAppBar(
+            leadingIconButton: const ThreeBlackLinesWidget(),
+          ),
           drawer: const Align(
             alignment: Alignment.topLeft,
             child: MyDrawer(),

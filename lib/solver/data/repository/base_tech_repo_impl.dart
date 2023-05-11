@@ -9,14 +9,14 @@ class TechRepoImpl implements BaseTechRepo {
 
   TechRepoImpl(this._fireStoreGetOrderToTech);
   @override
-  Future<void> updateOrderAcceptedType(
+  Future<void> declineOrder(
     String orderDocId,
-    String acceptedType,
+    String techId,
   ) async {
     try {
-      await _fireStoreGetOrderToTech.updateOrderAcceptedType(
+      await _fireStoreGetOrderToTech.declineOrder(
         orderDocId,
-        acceptedType,
+        techId,
       );
     } catch (e) {
       print("Update Order error repo : ${e.toString()}");

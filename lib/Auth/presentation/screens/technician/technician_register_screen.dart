@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:solvers/Auth/data/models/tech_model.dart';
 import 'package:solvers/Auth/domain/entities/registered_user.dart';
@@ -99,6 +100,26 @@ class _TechnicianRegisterScreenState extends State<TechnicianRegisterScreen> {
       },
       builder: (context, state) {
         return Scaffold(
+          appBar: AppBar(
+            systemOverlayStyle: const SystemUiOverlayStyle(
+              statusBarColor: Colors.transparent,
+              statusBarIconBrightness: Brightness.dark,
+            ),
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            leading: IconButton(
+              onPressed: () {
+                Navigator.pushReplacementNamed(
+                  context,
+                  Routes.toggleRoute,
+                );
+              },
+              icon: Icon(
+                Icons.arrow_back,
+                color: ColorManager.darkPrimary,
+              ),
+            ),
+          ),
           body: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -201,7 +222,7 @@ class _TechnicianRegisterScreenState extends State<TechnicianRegisterScreen> {
                     DefaultFormField(
                       hintText: AppStrings.passwordHint,
                       controller: _passwordEditingController,
-                      type: TextInputType.number,
+                      type: TextInputType.text,
                       validator: (input) => input!.isValidPassword()
                           ? null
                           : AppStrings.passwordError,
@@ -209,7 +230,7 @@ class _TechnicianRegisterScreenState extends State<TechnicianRegisterScreen> {
                       suffixPressed: () {
                         // TODO
                       },
-                      obscureText: false,
+                      obscureText: true,
                     ),
                     const SizedBox(
                       height: AppSize.s12,
@@ -229,7 +250,7 @@ class _TechnicianRegisterScreenState extends State<TechnicianRegisterScreen> {
                       suffixPressed: () {
                         // TODO
                       },
-                      obscureText: false,
+                      obscureText: true,
                     ),
                     const SizedBox(
                       height: AppSize.s20,

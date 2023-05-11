@@ -86,15 +86,22 @@ class FireStoreCreateOrder {
         .doc(orderDocId)
         .collection('offer')
         .doc(techId)
-        .update({'accepted': isAcceptedOffer});
+        .update(
+      {
+        'accepted': isAcceptedOffer,
+      },
+    );
     await _fireStoreCreateOrderCollection
         .collection('order')
         .doc(orderDocId)
-        .update({
-      'techName': techName,
-      'status': status,
-      'price': price,
-      'earnest': earnest,
-    });
+        .update(
+      {
+        'techName': techName,
+        'techId': techId,
+        'status': status,
+        'price': price,
+        'earnest': earnest,
+      },
+    );
   }
 }

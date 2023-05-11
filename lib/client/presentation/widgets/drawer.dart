@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:solvers/core/global/resources/color_manager.dart';
 import 'package:solvers/core/global/resources/values_manger.dart';
+import 'package:solvers/core/routes/app_routes.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
@@ -68,7 +69,12 @@ class MyDrawer extends StatelessWidget {
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.pushReplacementNamed(
+                          context,
+                          Routes.help,
+                        );
+                      },
                       splashColor: ColorManager.selectedItem,
                     ),
                     ListTile(
@@ -84,7 +90,12 @@ class MyDrawer extends StatelessWidget {
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                      onTap: () {},
+                      onTap: () {
+                        //      Navigator.pushReplacementNamed(
+                        //   context,
+                        // Routes.contactUs,  // TODO
+                        // );
+                      },
                       splashColor: ColorManager.selectedItem,
                     ),
                     ListTile(

@@ -9,8 +9,8 @@ abstract class BaseTechRepo {
     String orderDocId,
   );
 
-  Future<void> updateOrderAcceptedType(
+  Future<void> declineOrder(
     String orderDocId,
-    String acceptedType,
+    String techId,
   );
 }

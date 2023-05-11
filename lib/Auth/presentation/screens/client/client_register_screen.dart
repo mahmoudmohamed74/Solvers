@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:solvers/Auth/data/models/client_model.dart';
 import 'package:solvers/Auth/domain/entities/registered_user.dart';
@@ -75,6 +76,26 @@ class ClientRegisterScreen extends StatelessWidget {
       },
       builder: (context, state) {
         return Scaffold(
+          appBar: AppBar(
+            systemOverlayStyle: const SystemUiOverlayStyle(
+              statusBarColor: Colors.transparent,
+              statusBarIconBrightness: Brightness.dark,
+            ),
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            leading: IconButton(
+              onPressed: () {
+                Navigator.pushReplacementNamed(
+                  context,
+                  Routes.toggleRoute,
+                );
+              },
+              icon: Icon(
+                Icons.arrow_back,
+                color: ColorManager.darkPrimary,
+              ),
+            ),
+          ),
           body: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -175,7 +196,7 @@ class ClientRegisterScreen extends StatelessWidget {
                       height: AppSize.s12,
                     ),
                     DefaultFormField(
-                      obscureText: false,
+                      obscureText: true,
                       hintText: AppStrings.passwordHint,
                       controller: _passwordEditingController,
                       type: TextInputType.number,
@@ -191,7 +212,7 @@ class ClientRegisterScreen extends StatelessWidget {
                       height: AppSize.s12,
                     ),
                     DefaultFormField(
-                      obscureText: false,
+                      obscureText: true,
                       hintText: AppStrings.confirmPasswordHint,
                       controller: _passwordConfirmEditingController,
                       type: TextInputType.text,
