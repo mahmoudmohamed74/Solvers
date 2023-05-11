@@ -7,11 +7,9 @@ import 'package:solvers/solver/data/models/offer_model.dart';
 
 class MainRequestsWidget extends StatelessWidget {
   final OrderModel orderModel;
-  // final OfferModel offerModel;
   const MainRequestsWidget({
     super.key,
     required this.orderModel,
-    // required this.offerModel,
   });
 
   @override
@@ -147,7 +145,7 @@ class MainRequestsWidget extends StatelessWidget {
                     child: Row(
                       children: [
                         Text(
-                          "Remaining amount: ${int.parse(orderModel.price) - int.parse(orderModel.earnest)} SR",
+                          "Remaining amount: ${double.parse(orderModel.price) - double.parse(orderModel.earnest)} SR",
                           style: const TextStyle(
                             fontSize: AppSize.s15,
                           ),
