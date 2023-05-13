@@ -3,9 +3,9 @@ import 'package:solvers/client/presentation/screens/home_client_page.dart';
 import 'package:solvers/client/presentation/widgets/default_appbar.dart';
 import 'package:solvers/client/presentation/widgets/drawer.dart';
 import 'package:solvers/core/global/resources/color_manager.dart';
-import 'package:solvers/core/services/stripe_payment.dart';
+import 'package:solvers/core/services/payment/stripe_payment.dart';
 
-import 'core/services/paypal_payment.dart';
+import 'core/services/payment/paypal_payment.dart';
 
 class TestScreen extends StatefulWidget {
   const TestScreen({Key? key}) : super(key: key);
