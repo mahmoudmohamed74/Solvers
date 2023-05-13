@@ -39,9 +39,9 @@ class _MyAppState extends State<MyApp> {
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
-        // home: TestScreen(),
-        onGenerateRoute: RouteGenerator.getRoute,
-        initialRoute: Routes.splashRoute,
+        home: TestScreen(),
+        // onGenerateRoute: RouteGenerator.getRoute,
+        // initialRoute: Routes.splashRoute,
       ),
     );
   }

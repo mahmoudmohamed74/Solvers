@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:solvers/client/presentation/screens/home_client_page.dart';
+import 'package:solvers/client/presentation/screens/payment_method.dart';
 import 'package:solvers/client/presentation/widgets/default_appbar.dart';
 import 'package:solvers/client/presentation/widgets/drawer.dart';
 import 'package:solvers/core/global/resources/color_manager.dart';
@@ -18,15 +19,13 @@ class _TestScreenState extends State<TestScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: DefaultAppBar(
-          leadingIconButton:
-              IconButton(onPressed: () {}, icon: Icon(Icons.abc_outlined))),
+      appBar: DefaultAppBar(leadingIconButton: ThreeBlackLinesWidget()),
       body: Center(
         child: TextButton(
           child: const Text("pay"),
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(
-                builder: (BuildContext context) => const StripePayment()));
+                builder: (BuildContext context) => const PaymentMethod()));
           },
         ),
       ),
