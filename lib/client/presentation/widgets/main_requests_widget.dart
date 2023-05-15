@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:solvers/client/data/models/order_model.dart';
+import 'package:solvers/client/presentation/screens/chat_page_client_page.dart';
+import 'package:solvers/client/presentation/screens/payment_method.dart';
 import 'package:solvers/core/assets/app_assets.dart';
 import 'package:solvers/core/global/resources/color_manager.dart';
 import 'package:solvers/core/global/resources/values_manger.dart';
-import 'package:solvers/solver/data/models/offer_model.dart';
 
 class MainRequestsWidget extends StatelessWidget {
   final OrderModel orderModel;
@@ -14,6 +15,7 @@ class MainRequestsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final navigator = Navigator.of(context);
     return Stack(
       children: [
         Padding(
