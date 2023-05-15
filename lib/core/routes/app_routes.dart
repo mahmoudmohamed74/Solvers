@@ -83,7 +83,8 @@ class RouteGenerator {
         return MaterialPageRoute(
             builder: (_) => const PhoneVerificationScreen());
       case Routes.emailVerificationRoute:
-        return MaterialPageRoute(builder: (_) => EmailVerificationScreen());
+        return MaterialPageRoute(
+            builder: (_) => const EmailVerificationScreen());
       case Routes.forgotPasswordRoute:
         return MaterialPageRoute(builder: (_) => ForgotPasswordScreen());
       case Routes.resetPasswordRoute:

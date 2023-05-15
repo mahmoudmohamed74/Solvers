@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:solvers/client/data/models/order_model.dart';
-import 'package:solvers/client/presentation/screens/chat_page_client_page.dart';
 import 'package:solvers/core/assets/app_assets.dart';
 import 'package:solvers/core/global/resources/color_manager.dart';
 import 'package:solvers/core/global/resources/values_manger.dart';
@@ -15,8 +14,6 @@ class MainRequestsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final navigator = Navigator.of(context);
-
     return Stack(
       children: [
         Padding(
@@ -124,14 +121,24 @@ class MainRequestsWidget extends StatelessWidget {
                         const SizedBox(
                           width: AppSize.s10,
                         ),
-                        Container(
-                          color: ColorManager.green,
-                          height: AppSize.s18,
-                          width: AppSize.s60,
-                          child: const Center(
-                            child: Text(
-                              "PAID",
-                              style: TextStyle(fontSize: AppSize.s13),
+                        InkWell(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => PaymentMethod(
+                                        amount:
+                                            double.parse(orderModel.earnest))));
+                          },
+                          child: Container(
+                            color: ColorManager.green,
+                            height: AppSize.s18,
+                            width: AppSize.s60,
+                            child: const Center(
+                              child: Text(
+                                "PAID",
+                                style: TextStyle(fontSize: AppSize.s13),
+                              ),
                             ),
                           ),
                         ),
@@ -156,14 +163,27 @@ class MainRequestsWidget extends StatelessWidget {
                         const SizedBox(
                           width: AppSize.s10,
                         ),
-                        Container(
-                          color: ColorManager.grey,
-                          height: AppSize.s18,
-                          width: AppSize.s60,
-                          child: const Center(
-                            child: Text(
-                              "PAY NOW",
-                              style: TextStyle(fontSize: AppSize.s13),
+                        InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => PaymentMethod(
+                                  amount: double.parse(orderModel.price) -
+                                      double.parse(orderModel.earnest),
+                                ),
+                              ),
+                            );
+                          },
+                          child: Container(
+                            color: ColorManager.grey,
+                            height: AppSize.s18,
+                            width: AppSize.s60,
+                            child: const Center(
+                              child: Text(
+                                "PAY NOW",
+                                style: TextStyle(fontSize: AppSize.s13),
+                              ),
                             ),
                           ),
                         ),

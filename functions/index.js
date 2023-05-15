@@ -25,7 +25,7 @@ exports.stripePaymentIntentRequest = functions.https.onRequest(async (req, res) 
         //Creates a temporary secret key linked with the customer
         const ephemeralKey = await stripe.ephemeralKeys.create(
             { customer: customerId },
-            { apiVersion: '2020-08-27' }
+            { apiVersion: '2023-05-14' }
         );
 
         //Creates a new payment intent with amount passed in from the client

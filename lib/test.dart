@@ -25,7 +25,9 @@ class _TestScreenState extends State<TestScreen> {
           child: const Text("pay"),
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(
-                builder: (BuildContext context) => const PaymentMethod()));
+                builder: (BuildContext context) => const PaymentMethod(
+                      amount: 300,
+                    )));
           },
         ),
       ),
