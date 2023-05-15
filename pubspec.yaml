@@ -33,6 +33,7 @@ dependencies:
   webview_flutter_x5: ^2.0.8+9
   flutter_stripe: ^9.2.0
   http: ^0.13.5
+  intl: ^0.18.1
 
 
 

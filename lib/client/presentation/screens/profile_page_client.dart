@@ -38,9 +38,6 @@ class ClientProfilePage extends StatelessWidget {
     return BlocConsumer<ClientCubit, ClientState>(
       listener: (context, state) {
         if (state is IsFirstNameValid) {
-          _firstNameEditingController.clear();
-          _lastNameEditingController.clear();
-          _phoneNumberEditingController.clear();
           ScaffoldMessenger.of(context).showSnackBar(
             DefaultSnackbar(
               text: Text(
@@ -59,9 +56,6 @@ class ClientProfilePage extends StatelessWidget {
         }
 
         if (state is IsLastNameValid) {
-          _firstNameEditingController.clear();
-          _lastNameEditingController.clear();
-          _phoneNumberEditingController.clear();
           ScaffoldMessenger.of(context).showSnackBar(
             DefaultSnackbar(
               text: Text(
@@ -78,10 +72,7 @@ class ClientProfilePage extends StatelessWidget {
             ),
           );
         }
-        if (state is IsFirstNameValid) {
-          _firstNameEditingController.clear();
-          _lastNameEditingController.clear();
-          _phoneNumberEditingController.clear();
+        if (state is IsPhoneNumberValid) {
           ScaffoldMessenger.of(context).showSnackBar(
             DefaultSnackbar(
               text: Text(
@@ -232,6 +223,9 @@ class ClientProfilePage extends StatelessWidget {
                                         ),
                                         context,
                                       );
+                                      _firstNameEditingController.clear();
+                                      _lastNameEditingController.clear();
+                                      _phoneNumberEditingController.clear();
                                       _focusNode.unfocus();
                                     },
                                   );
