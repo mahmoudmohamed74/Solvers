@@ -8,14 +8,10 @@ import 'package:solvers/core/global/resources/values_manger.dart';
 class DefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
   DefaultAppBar({
     Key? key,
-    // required this.leadingIcon,
     required this.leadingIconButton,
-    // this.onLeadingIconPressed,
   }) : super(key: key);
 
-  // final IconData leadingIcon;
   final Widget leadingIconButton;
-  // final void Function()? onLeadingIconPressed;
 
   @override
   Size get preferredSize => const Size.fromHeight(70);

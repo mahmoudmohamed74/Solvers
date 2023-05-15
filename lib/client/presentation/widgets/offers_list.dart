@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:solvers/client/presentation/screens/chat_page_client_page.dart';
 import 'package:solvers/core/assets/app_assets.dart';
 import 'package:solvers/core/global/resources/color_manager.dart';
 import 'package:solvers/core/global/resources/values_manger.dart';
@@ -17,6 +18,8 @@ class OfferListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final navigator = Navigator.of(context);
+
     return Padding(
       padding: const EdgeInsets.all(AppPadding.p20),
       child: Container(
@@ -111,7 +114,16 @@ class OfferListWidget extends StatelessWidget {
                     width: AppSize.s10,
                   ),
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      navigator.pushReplacement(
+                        MaterialPageRoute(
+                          builder: (_) => ClientChatPage(
+                            offerModel: offerModel,
+                            clientId: "sender id (userId)",
+                          ),
+                        ),
+                      );
+                    },
                     child: Text(
                       "view details",
                       style: TextStyle(

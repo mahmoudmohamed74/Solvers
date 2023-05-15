@@ -48,7 +48,7 @@ class TechRequestStatusPage extends StatelessWidget {
                     shrinkWrap: true,
                     physics: const BouncingScrollPhysics(),
                     itemBuilder: (context, index) {
-                      return RequestsListForTech(
+                      return RequestsListForTechWidget(
                         orderModel: cubit[index],
                         onAccept: () {
                           Navigator.pushReplacement(

@@ -1,22 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:solvers/client/data/models/order_model.dart';
-import 'package:solvers/client/presentation/screens/chat_page_client_page.dart';
 import 'package:solvers/core/assets/app_assets.dart';
 import 'package:solvers/core/global/resources/color_manager.dart';
 import 'package:solvers/core/global/resources/values_manger.dart';
-import 'package:solvers/solver/data/models/offer_model.dart';
 
-class MainRequestsWidget extends StatelessWidget {
+class MyRequestsWidget extends StatelessWidget {
   final OrderModel orderModel;
-  const MainRequestsWidget({
-    super.key,
-    required this.orderModel,
-  });
+
+  const MyRequestsWidget({super.key, required this.orderModel});
 
   @override
   Widget build(BuildContext context) {
-    final navigator = Navigator.of(context);
-
     return Stack(
       children: [
         Padding(
@@ -51,7 +45,7 @@ class MainRequestsWidget extends StatelessWidget {
                       left: AppPadding.p35,
                     ),
                     child: Text(
-                      "Request number:  ${orderModel.orderId.substring(0, 8)}",
+                      "Request number: ${orderModel.orderId.substring(0, 8)}",
                       style: const TextStyle(
                         fontSize: AppSize.s15,
                         fontWeight: FontWeight.bold,
@@ -74,9 +68,7 @@ class MainRequestsWidget extends StatelessWidget {
                           width: AppSize.s10,
                         ),
                         Text(
-                          orderModel.techName != ""
-                              ? orderModel.techName
-                              : "Searching for Technician",
+                          orderModel.clientName,
                           style: const TextStyle(
                             fontSize: AppSize.s15,
                           ),
@@ -116,7 +108,7 @@ class MainRequestsWidget extends StatelessWidget {
                     child: Row(
                       children: [
                         Text(
-                          "Earnest: ${orderModel.earnest} SR",
+                          "Earnest: ${orderModel.earnest}",
                           style: const TextStyle(
                             fontSize: AppSize.s15,
                           ),
@@ -159,10 +151,10 @@ class MainRequestsWidget extends StatelessWidget {
                         Container(
                           color: ColorManager.grey,
                           height: AppSize.s18,
-                          width: AppSize.s60,
+                          width: AppSize.s90,
                           child: const Center(
                             child: Text(
-                              "PAY NOW",
+                              "NOT PAID YET",
                               style: TextStyle(fontSize: AppSize.s13),
                             ),
                           ),
@@ -175,41 +167,33 @@ class MainRequestsWidget extends StatelessWidget {
                       left: AppPadding.p35,
                     ),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "Status:  ${orderModel.status[0].toUpperCase() + orderModel.status.substring(1)}",
+                          "status: ${orderModel.status[0].toUpperCase() + orderModel.status.substring(1)}",
                           style: const TextStyle(
                             fontSize: AppSize.s15,
                           ),
                         ),
-                        GestureDetector(
-                          onTap: () {
-                            navigator.pushReplacement(
-                              MaterialPageRoute(
-                                builder: (_) => ClientChatPage(
-                                  // orderModel: orderModel,
-                                  clientId: "sender id (userId)",
-                                ),
+                        const SizedBox(
+                          width: AppSize.s5,
+                        ),
+                        const Icon(Icons.edit),
+                        Stack(
+                          alignment: Alignment.topRight,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                left: AppPadding.p20,
+                                top: AppPadding.p5,
+                                bottom: AppPadding.p5,
                               ),
-                            );
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.only(right: 10),
-                            child: Stack(
-                              alignment: Alignment.topRight,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(AppPadding.p5),
-                                  child: Image.asset(ImageAssets.chat),
-                                ),
-                                CircleAvatar(
-                                  radius: 5,
-                                  backgroundColor: ColorManager.red,
-                                ),
-                              ],
+                              child: Image.asset(ImageAssets.chat),
                             ),
-                          ),
+                            CircleAvatar(
+                              radius: 5,
+                              backgroundColor: ColorManager.red,
+                            ),
+                          ],
                         ),
                       ],
                     ),

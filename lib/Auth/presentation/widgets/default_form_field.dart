@@ -9,16 +9,18 @@ class DefaultFormField extends StatelessWidget {
     super.key,
     this.hintText,
     this.labelText,
-    this.onChanged,
+    this.onTap,
     this.obscureText = false,
+    this.isClickable = true,
     required this.controller,
     required this.type,
     this.suffix,
     this.suffixPressed,
     this.navigator,
     required this.validator,
+    this.focusNode,
   });
-  Function(String)? onChanged;
+  Function()? onTap;
   String? hintText;
   String? labelText;
   IconData? suffix;
@@ -28,7 +30,8 @@ class DefaultFormField extends StatelessWidget {
   Function? navigator;
   String? Function(String? val)? validator;
   bool? obscureText;
-  bool isClickable = true;
+  bool? isClickable;
+  final FocusNode? focusNode;
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +48,7 @@ class DefaultFormField extends StatelessWidget {
             keyboardType: type,
             obscureText: obscureText!,
             validator: validator,
-            onChanged: onChanged,
+            onTap: onTap,
             style: const TextStyle(fontSize: AppSize.s20),
             enabled: isClickable,
             decoration: InputDecoration(

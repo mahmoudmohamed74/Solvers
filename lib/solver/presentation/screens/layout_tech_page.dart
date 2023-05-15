@@ -13,10 +13,13 @@ class TechLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final authCubit = BlocProvider.of<FirebaseAuthCubit>(context);
+
     return BlocConsumer<TechCubit, TechState>(
       listener: (context, state) {},
       builder: (context, state) {
-        var clientCubit = TechCubit.get(context);
+        final techCubit = TechCubit.get(context);
+        techCubit.getId();
         return Scaffold(
           appBar: DefaultAppBar(
             leadingIconButton: const ThreeBlackLinesWidget(),
@@ -25,7 +28,7 @@ class TechLayout extends StatelessWidget {
             alignment: Alignment.topLeft,
             child: MyDrawer(),
           ),
-          body: clientCubit.screens[clientCubit.currentIndex],
+          body: techCubit.screens[techCubit.currentIndex],
           bottomNavigationBar: ClipRRect(
             borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(AppSize.s18),
@@ -40,55 +43,61 @@ class TechLayout extends StatelessWidget {
                   children: [
                     MaterialButton(
                       onPressed: () {
-                        clientCubit.changeBottomNav(0);
+                        techCubit.changeBottomNav(0);
                       },
                       minWidth: 100,
                       child: Icon(
                         Icons.home,
                         size: 35,
-                        color: clientCubit.currentIndex == 0
+                        color: techCubit.currentIndex == 0
                             ? ColorManager.black
                             : ColorManager.white,
                       ),
                     ),
                     MaterialButton(
-                      onPressed: () {
-                        clientCubit.changeBottomNav(1);
+                      onPressed: () async {
+                        techCubit.changeBottomNav(1);
+                        await techCubit.getAcceptedOrders(
+                          techCubit.techId!,
+                        );
                       },
                       minWidth: 100,
                       child: Icon(
                         Icons.chat,
                         size: 35,
-                        color: clientCubit.currentIndex == 1
+                        color: techCubit.currentIndex == 1
                             ? ColorManager.black
                             : ColorManager.white,
                       ),
                     ),
                     MaterialButton(
                       onPressed: () {
-                        clientCubit.changeBottomNav(2);
-                        clientCubit.getOrderTech(
-                          FirebaseAuthCubit.get(context).techData!.techId,
+                        techCubit.changeBottomNav(2);
+                        techCubit.getOrderTech(
+                          techCubit.techId!,
                         );
                       },
                       minWidth: 100,
                       child: Icon(
                         Icons.mark_as_unread,
                         size: 35,
-                        color: clientCubit.currentIndex == 2
+                        color: techCubit.currentIndex == 2
                             ? ColorManager.black
                             : ColorManager.white,
                       ),
                     ),
                     MaterialButton(
-                      onPressed: () {
-                        clientCubit.changeBottomNav(3);
+                      onPressed: () async {
+                        techCubit.changeBottomNav(3);
+                        await authCubit.getTechCubit(
+                          techId: techCubit.techId!,
+                        );
                       },
                       minWidth: 70,
                       child: Icon(
                         Icons.person_outline_outlined,
                         size: 35,
-                        color: clientCubit.currentIndex == 3
+                        color: techCubit.currentIndex == 3
                             ? ColorManager.black
                             : ColorManager.white,
                       ),

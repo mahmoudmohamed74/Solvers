@@ -16,21 +16,24 @@ import 'package:solvers/Auth/domain/usecases/reset_password_use_case.dart';
 import 'package:solvers/Auth/domain/usecases/signout_use_case.dart';
 import 'package:solvers/Auth/domain/usecases/signup_use_case.dart';
 import 'package:solvers/Auth/presentation/controller/auth_cubit/auth_cubit.dart';
-import 'package:solvers/client/data/datasource/create_order.dart';
+import 'package:solvers/client/data/datasource/client_firestore.dart';
 import 'package:solvers/client/data/repository/create_order_repo_impl.dart';
 import 'package:solvers/client/domain/repository/base_create_order_repo.dart';
 import 'package:solvers/client/domain/usecases/create_order_use_case.dart';
 import 'package:solvers/client/domain/usecases/get_all_offers_use_case.dart';
 import 'package:solvers/client/domain/usecases/get_order_use_case.dart';
+import 'package:solvers/client/domain/usecases/update_client_data_use_case.dart';
 import 'package:solvers/client/domain/usecases/update_order_offer_use_case.dart';
 import 'package:solvers/client/presentation/controller/client_cubit.dart';
 import 'package:solvers/core/app/app_prefs.dart';
-import 'package:solvers/solver/data/datasource/get_order.dart';
+import 'package:solvers/solver/data/datasource/technician_firestore.dart';
 import 'package:solvers/solver/data/repository/base_tech_repo_impl.dart';
 import 'package:solvers/solver/domain/repository/base_tech_repo.dart';
 import 'package:solvers/solver/domain/usecases/create_offer_use_case.dart';
+import 'package:solvers/solver/domain/usecases/get_accepted_orders_use_case.dart';
 import 'package:solvers/solver/domain/usecases/get_order_to_tech_use_case.dart';
 import 'package:solvers/solver/domain/usecases/update_order_accepted_type_use_case.dart';
+import 'package:solvers/solver/domain/usecases/update_tech_data_use_case.dart';
 import 'package:solvers/solver/presentation/controller/tech_cubit.dart';
 
 final sl = GetIt.instance;
@@ -60,8 +63,8 @@ class ServicesLocator {
     );
 
     // order's tech
-    sl.registerLazySingleton<FireStoreGetOrderToTech>(
-      () => FireStoreGetOrderToTech(),
+    sl.registerLazySingleton<FireStoreTechnician>(
+      () => FireStoreTechnician(),
     );
 
     // Repository
@@ -80,8 +83,8 @@ class ServicesLocator {
     );
 
     // order's client
-    sl.registerLazySingleton<BaseCreateOrderRepo>(
-      () => CreateOrderRepoImpl(sl()),
+    sl.registerLazySingleton<BaseClientRepo>(
+      () => ClientRepoImpl(sl()),
     );
 
     // order's offer's tech
@@ -155,11 +158,31 @@ class ServicesLocator {
         sl(),
       ),
     );
+    sl.registerLazySingleton<GetAcceptedOrdersUseCase>(
+      () => GetAcceptedOrdersUseCase(
+        sl(),
+      ),
+    );
 
     // offers's tech usecases
 
     sl.registerLazySingleton<CreateOfferUseCase>(
       () => CreateOfferUseCase(
+        sl(),
+      ),
+    );
+    // update Client's data use case
+
+    sl.registerLazySingleton<UpdateClientDataUseCase>(
+      () => UpdateClientDataUseCase(
+        sl(),
+      ),
+    );
+
+    // update Tech's data use case
+
+    sl.registerLazySingleton<UpdateTechDataUseCase>(
+      () => UpdateTechDataUseCase(
         sl(),
       ),
     );
@@ -186,10 +209,14 @@ class ServicesLocator {
         sl(),
         sl(),
         sl(),
+        sl(),
       ),
     );
     sl.registerFactory<TechCubit>(
       () => TechCubit(
+        sl(),
+        sl(),
+        sl(),
         sl(),
         sl(),
         sl(),

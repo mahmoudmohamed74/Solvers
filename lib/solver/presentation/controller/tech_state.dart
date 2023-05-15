@@ -31,6 +31,20 @@ class GetAllOrderTechErrorState extends TechState {
   GetAllOrderTechErrorState(this.error);
 }
 
+class GetAcceptedOrdersLoadingState extends TechState {}
+
+class GetAcceptedOrdersSuccessState extends TechState {
+  final List<OrderModel> acceptedOrders;
+
+  GetAcceptedOrdersSuccessState(this.acceptedOrders);
+}
+
+class GetAcceptedOrdersErrorState extends TechState {
+  final String error;
+
+  GetAcceptedOrdersErrorState(this.error);
+}
+
 class UpdateOrderTechLoadingState extends TechState {}
 
 class UpdateOrderTechSuccessState extends TechState {
@@ -43,4 +57,46 @@ class UpdateOrderTechErrorState extends TechState {
   final String error;
 
   UpdateOrderTechErrorState(this.error);
+}
+
+class UpdateTechDataLoadingState extends TechState {}
+
+class UpdateTechDataSuccessState extends TechState {}
+
+class UpdateTechDataErrorState extends TechState {}
+
+class IsFirstNameValid extends TechState {
+  final bool isValid;
+
+  IsFirstNameValid(this.isValid);
+}
+
+class IsLastNameValid extends TechState {
+  final bool isValid;
+
+  IsLastNameValid(this.isValid);
+}
+
+class IsPhoneNumberValid extends TechState {
+  final bool isValid;
+
+  IsPhoneNumberValid(this.isValid);
+}
+
+class OnFirstNameClicked extends TechState {
+  final bool isClicked;
+
+  OnFirstNameClicked(this.isClicked);
+}
+
+class OnLastNameClicked extends TechState {
+  final bool isClicked;
+
+  OnLastNameClicked(this.isClicked);
+}
+
+class OnPhoneClicked extends TechState {
+  final bool isClicked;
+
+  OnPhoneClicked(this.isClicked);
 }

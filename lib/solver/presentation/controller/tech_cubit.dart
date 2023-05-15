@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:solvers/Auth/presentation/controller/auth_cubit/auth_cubit.dart';
 import 'package:solvers/client/data/models/order_model.dart';
-import 'package:solvers/solver/data/datasource/get_order.dart';
+import 'package:solvers/core/app/app_prefs.dart';
+import 'package:solvers/core/services/services_locator.dart';
+import 'package:solvers/core/utils/functions.dart';
+import 'package:solvers/solver/data/datasource/technician_firestore.dart';
 import 'package:solvers/solver/data/models/offer_model.dart';
+import 'package:solvers/solver/data/requests/update_tech_data_request.dart';
 import 'package:solvers/solver/domain/usecases/create_offer_use_case.dart';
+import 'package:solvers/solver/domain/usecases/get_accepted_orders_use_case.dart';
 import 'package:solvers/solver/domain/usecases/get_order_to_tech_use_case.dart';
 import 'package:solvers/solver/domain/usecases/update_order_accepted_type_use_case.dart';
+import 'package:solvers/solver/domain/usecases/update_tech_data_use_case.dart';
 import 'package:solvers/solver/presentation/screens/home_tech_page.dart';
 import 'package:solvers/solver/presentation/screens/my_request_tech_page.dart';
 import 'package:solvers/solver/presentation/screens/profile_page_tech.dart';
@@ -17,10 +24,17 @@ class TechCubit extends Cubit<TechState> {
   final GetOrderToTechUseCase _getOrderToTechUseCase;
   final CreateOfferUseCase _createOfferUseCase;
   final UpdateOrderAcceptedTypeUseCase _updateOrderAcceptedTypeUseCase;
+  final GetAcceptedOrdersUseCase _getAcceptedOrdersUseCase;
+  final UpdateTechDataUseCase _updateTechDataUseCase;
+  final AppPreferences _appPreferences = sl<AppPreferences>();
+  final FireStoreTechnician _fireStoreTechnician;
   TechCubit(
     this._getOrderToTechUseCase,
     this._createOfferUseCase,
     this._updateOrderAcceptedTypeUseCase,
+    this._getAcceptedOrdersUseCase,
+    this._updateTechDataUseCase,
+    this._fireStoreTechnician,
   ) : super(TechInitial());
 
   static TechCubit get(context) => BlocProvider.of(context);
@@ -36,6 +50,11 @@ class TechCubit extends Cubit<TechState> {
   void changeBottomNav(int index) {
     currentIndex = index;
     emit(AppChangeBottomNavStates());
+  }
+
+  String? techId;
+  void getId() async {
+    techId = await _appPreferences.getTechnicianId();
   }
 
   Future<void> createOffer(
@@ -54,11 +73,9 @@ class TechCubit extends Cubit<TechState> {
 
   List<OrderModel> allOrders = [];
   List<OrderModel> orderTech = [];
-  List<OrderModel> acceptedOrders = [];
   Future<List<OrderModel>> getOrderTech(String techId) async {
     allOrders = [];
     orderTech = [];
-    acceptedOrders = [];
 
     emit(GetAllOrderTechLoadingState());
     return await _getOrderToTechUseCase.call(params: techId).then((value) {
@@ -68,20 +85,27 @@ class TechCubit extends Cubit<TechState> {
         }
       });
 
-      value.forEach((element) {
-        if (element.techId == techId) {
-          acceptedOrders.add(element);
-        }
-      });
       allOrders = value;
-      // print("orderTech $orderTech");
-      // print("acceptedOrders $acceptedOrders");
-      // print("orderRequestList $orderTech");
 
       emit(GetAllOrderTechSuccessState(allOrders));
       return allOrders;
     }).catchError((error) {
       emit(GetAllOrderTechErrorState(error));
+    });
+  }
+
+  List<OrderModel> acceptedOrders = [];
+
+  Future<List<OrderModel>> getAcceptedOrders(String techId) async {
+    acceptedOrders = [];
+    emit(GetAcceptedOrdersLoadingState());
+    return await _getAcceptedOrdersUseCase.call(params: techId).then((value) {
+      acceptedOrders = value;
+      emit(GetAcceptedOrdersSuccessState(acceptedOrders));
+      return acceptedOrders;
+    }).catchError((error) {
+      print(error.toString());
+      emit(GetAcceptedOrdersErrorState(error));
     });
   }
 
@@ -103,5 +127,75 @@ class TechCubit extends Cubit<TechState> {
         print("Cubit Update offer error: ${error.toString()}");
       },
     );
+  }
+
+  void onFirstNameFieldClicked() {
+    emit(OnFirstNameClicked(true));
+  }
+
+  void onLastNameFieldClicked() {
+    emit(OnLastNameClicked(true));
+  }
+
+  void onPhoneFieldClicked() {
+    emit(OnPhoneClicked(true));
+  }
+
+  Future<String> validFirstName(String firstName) async {
+    if (state is OnFirstNameClicked) {
+      if (firstName.isNotEmpty && firstName.length >= 3) {
+        emit(IsFirstNameValid(true));
+        return firstName;
+      } else {
+        emit(IsFirstNameValid(false));
+        return "";
+      }
+    } else {
+      return "";
+    }
+  }
+
+  Future<String> validLastName(String lastName) async {
+    if (state is OnLastNameClicked) {
+      if (lastName.isNotEmpty && lastName.length >= 3) {
+        emit(IsLastNameValid(true));
+        return lastName;
+      } else {
+        emit(IsLastNameValid(false));
+        return "";
+      }
+    } else {
+      return "";
+    }
+  }
+
+  Future<String> validPhoneNumber(String phoneNumber) async {
+    if (state is OnPhoneClicked) {
+      if (phoneNumber.isValidPhone()) {
+        emit(IsPhoneNumberValid(true));
+        return phoneNumber;
+      } else {
+        emit(IsPhoneNumberValid(false));
+        return "";
+      }
+    } else {
+      return "";
+    }
+  }
+
+  Future<void> updateTechData(
+    UpdateTechDataRequest updateTechData,
+    context,
+  ) async {
+    emit(UpdateTechDataLoadingState());
+    await _updateTechDataUseCase
+        .call(params: updateTechData)
+        .then((value) async {
+      await FirebaseAuthCubit.get(context).getTechCubit(techId: techId!);
+      emit(UpdateTechDataSuccessState());
+    }).catchError((error) {
+      print(error.toString());
+      emit(UpdateTechDataErrorState());
+    });
   }
 }

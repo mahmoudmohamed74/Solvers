@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:solvers/client/data/datasource/create_order.dart';
+import 'package:solvers/Auth/presentation/controller/auth_cubit/auth_cubit.dart';
+import 'package:solvers/client/data/datasource/client_firestore.dart';
 
 import 'package:solvers/client/data/models/order_model.dart';
-import 'package:solvers/client/domain/entities/update_order_offer.dart';
+import 'package:solvers/client/data/requests/update_client_data_request.dart';
+import 'package:solvers/client/data/requests/update_order_offer_request.dart';
 import 'package:solvers/client/domain/usecases/create_order_use_case.dart';
 import 'package:solvers/client/domain/usecases/get_all_offers_use_case.dart';
 import 'package:solvers/client/domain/usecases/get_order_use_case.dart';
+import 'package:solvers/client/domain/usecases/update_client_data_use_case.dart';
 import 'package:solvers/client/domain/usecases/update_order_offer_use_case.dart';
 import 'package:solvers/client/presentation/screens/home_client_page.dart';
 import 'package:solvers/client/presentation/screens/my_requests_client_page.dart';
 import 'package:solvers/client/presentation/screens/profile_page_client.dart';
 import 'package:solvers/client/presentation/screens/request_status_client_page.dart';
+import 'package:solvers/core/app/app_prefs.dart';
+import 'package:solvers/core/services/services_locator.dart';
 import 'package:solvers/solver/data/models/offer_model.dart';
+import 'package:solvers/core/utils/functions.dart';
 
 part 'client_state.dart';
 
@@ -21,12 +27,18 @@ class ClientCubit extends Cubit<ClientState> {
   final GetOrderToClientUseCase _getOrderToClientUseCase;
   final GetAllOffersToClientUseCase _getAllOffersToClientUseCase;
   final UpdateOrderOfferUseCase _updateOrderOfferUseCase;
+  final UpdateClientDataUseCase _updateClientDataUseCase;
+  final AppPreferences _appPreferences = sl<AppPreferences>();
+
   final FireStoreCreateOrder _fireStoreCreateOrder;
+  final authCubit = BlocProvider.of<FirebaseAuthCubit>;
+
   ClientCubit(
     this._createOrderUseCase,
     this._getOrderToClientUseCase,
     this._getAllOffersToClientUseCase,
     this._updateOrderOfferUseCase,
+    this._updateClientDataUseCase,
     this._fireStoreCreateOrder,
   ) : super(ClientInitial());
 
@@ -43,6 +55,11 @@ class ClientCubit extends Cubit<ClientState> {
   void changeBottomNav(int index) {
     currentIndex = index;
     emit(AppChangeBottomNavStates());
+  }
+
+  String? clientId;
+  void getId() async {
+    clientId = await _appPreferences.getClientId();
   }
 
   Future<void> createOrder(
@@ -120,7 +137,6 @@ class ClientCubit extends Cubit<ClientState> {
     await _updateOrderOfferUseCase.call(params: updateOrderOffer).then(
       (value) {
         getOffer(updateOrderOffer.orderDocId);
-
         emit(
           UpdateOfferClientSuccessState(updatedOfferModelList: clientOffers),
         );
@@ -130,5 +146,75 @@ class ClientCubit extends Cubit<ClientState> {
         emit(UpdateOfferClientErrorState(error.toString()));
       },
     );
+  }
+
+  void onFirstNameFieldClicked() {
+    emit(OnFirstNameClicked(true));
+  }
+
+  void onLastNameFieldClicked() {
+    emit(OnLastNameClicked(true));
+  }
+
+  void onPhoneFieldClicked() {
+    emit(OnPhoneClicked(true));
+  }
+
+  Future<String> validFirstName(String firstName) async {
+    if (state is OnFirstNameClicked) {
+      if (firstName.isNotEmpty && firstName.length >= 3) {
+        emit(IsFirstNameValid(true));
+        return firstName;
+      } else {
+        emit(IsFirstNameValid(false));
+        return "";
+      }
+    } else {
+      return "";
+    }
+  }
+
+  Future<String> validLastName(String lastName) async {
+    if (state is OnLastNameClicked) {
+      if (lastName.isNotEmpty && lastName.length >= 3) {
+        emit(IsLastNameValid(true));
+        return lastName;
+      } else {
+        emit(IsLastNameValid(false));
+        return "";
+      }
+    } else {
+      return "";
+    }
+  }
+
+  Future<String> validPhoneNumber(String phoneNumber) async {
+    if (state is OnPhoneClicked) {
+      if (phoneNumber.isValidPhone()) {
+        emit(IsPhoneNumberValid(true));
+        return phoneNumber;
+      } else {
+        emit(IsPhoneNumberValid(false));
+        return "";
+      }
+    } else {
+      return "";
+    }
+  }
+
+  Future<void> updateClientData(
+    UpdateClientDataRequest updateClientData,
+    context,
+  ) async {
+    emit(UpdateClientDataLoadingState());
+    await _updateClientDataUseCase
+        .call(params: updateClientData)
+        .then((value) async {
+      await FirebaseAuthCubit.get(context).getClientCubit(clientId: clientId!);
+      emit(UpdateClientDataSuccessState());
+    }).catchError((error) {
+      print(error.toString());
+      emit(UpdateClientDataErrorState());
+    });
   }
 }

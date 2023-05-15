@@ -9,16 +9,18 @@ import 'package:solvers/core/global/resources/values_manger.dart';
 import 'package:solvers/core/routes/app_routes.dart';
 
 class ClientLayout extends StatelessWidget {
-  const ClientLayout({Key? key}) : super(key: key);
+  ClientLayout({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // final authCubit = BlocProvider.of<FirebaseAuthCubit>(context);
+    final authCubit = BlocProvider.of<FirebaseAuthCubit>(context);
 
     return BlocConsumer<ClientCubit, ClientState>(
       listener: (context, state) {},
       builder: (context, state) {
-        var clientCubit = ClientCubit.get(context);
+        final clientCubit = ClientCubit.get(context);
+        clientCubit.getId();
+
         return Scaffold(
           appBar: DefaultAppBar(
             leadingIconButton: const ThreeBlackLinesWidget(),
@@ -79,12 +81,10 @@ class ClientLayout extends StatelessWidget {
                           ),
                         ),
                         MaterialButton(
-                          onPressed: () {
+                          onPressed: () async {
                             clientCubit.changeBottomNav(1);
-                            clientCubit.getOrder(
-                              FirebaseAuthCubit.get(context)
-                                  .clientData!
-                                  .clientId,
+                            await clientCubit.getOrder(
+                              clientCubit.clientId!,
                             );
                           },
                           minWidth: 40,
@@ -102,12 +102,10 @@ class ClientLayout extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         MaterialButton(
-                          onPressed: () {
+                          onPressed: () async {
                             clientCubit.changeBottomNav(2);
-                            clientCubit.getOrder(
-                              FirebaseAuthCubit.get(context)
-                                  .clientData!
-                                  .clientId,
+                            await clientCubit.getOrder(
+                              clientCubit.clientId!,
                             );
                           },
                           minWidth: 40,
@@ -120,8 +118,11 @@ class ClientLayout extends StatelessWidget {
                           ),
                         ),
                         MaterialButton(
-                          onPressed: () {
+                          onPressed: () async {
                             clientCubit.changeBottomNav(3);
+                            await authCubit.getClientCubit(
+                              clientId: clientCubit.clientId!,
+                            );
                           },
                           minWidth: 40,
                           child: Icon(

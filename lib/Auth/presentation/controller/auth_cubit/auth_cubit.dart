@@ -16,11 +16,7 @@ import 'package:solvers/Auth/domain/usecases/login_use_case.dart';
 import 'package:solvers/Auth/domain/usecases/reset_password_use_case.dart';
 import 'package:solvers/Auth/domain/usecases/signout_use_case.dart';
 import 'package:solvers/Auth/domain/usecases/signup_use_case.dart';
-import 'package:solvers/Auth/presentation/widgets/default_snack_bar.dart';
 import 'package:solvers/core/app/app_prefs.dart';
-import 'package:solvers/core/global/resources/color_manager.dart';
-import 'package:solvers/core/global/resources/strings_manger.dart';
-import 'package:solvers/core/global/resources/values_manger.dart';
 import 'package:solvers/core/services/services_locator.dart';
 
 part 'auth_state.dart';

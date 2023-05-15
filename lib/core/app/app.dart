@@ -35,7 +35,7 @@ class _MyAppState extends State<MyApp> {
         BlocProvider<ClientCubit>(
             create: (BuildContext context) => sl<ClientCubit>()),
         BlocProvider<TechCubit>(
-            create: (BuildContext context) => sl<TechCubit>()),
+            create: (BuildContext context) => sl<TechCubit>())
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,

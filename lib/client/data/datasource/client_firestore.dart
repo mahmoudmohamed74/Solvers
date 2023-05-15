@@ -59,19 +59,6 @@ class FireStoreCreateOrder {
     }
   }
 
-  Future<void> updateOfferAcceptedType(
-    String orderDocId,
-    String techId,
-    String acceptedType,
-  ) async {
-    await _fireStoreCreateOrderCollection
-        .collection('order')
-        .doc(orderDocId)
-        .collection('offer')
-        .doc(techId)
-        .update({'accepted': acceptedType});
-  }
-
   Future<void> updateOffer({
     required String orderDocId,
     required String status,
@@ -103,5 +90,27 @@ class FireStoreCreateOrder {
         'earnest': earnest,
       },
     );
+  }
+
+  Future<void> updateClientData({
+    required String clientId,
+    required String firstName,
+    required String lastName,
+    required String phoneNumber,
+  }) async {
+    final clientDoc =
+        _fireStoreCreateOrderCollection.collection("client").doc(clientId);
+    print("firstName: $firstName");
+    print("lastName: $lastName");
+    print("phoneNumber: $phoneNumber");
+    if (firstName != "") {
+      await clientDoc.update({'firstName': firstName});
+    }
+    if (lastName != "") {
+      await clientDoc.update({'lastName': lastName});
+    }
+    if (phoneNumber != "") {
+      await clientDoc.update({'phoneNumber': phoneNumber});
+    }
   }
 }

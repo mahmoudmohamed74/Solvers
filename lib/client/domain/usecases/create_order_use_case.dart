@@ -3,11 +3,11 @@ import 'package:solvers/client/domain/repository/base_create_order_repo.dart';
 import 'package:solvers/core/usecase/base_usecase.dart';
 
 class CreateOrderUseCase implements BaseUseCase<void, OrderModel> {
-  final BaseCreateOrderRepo _baseCreateOrderRepo;
+  final BaseClientRepo _baseClientRepo;
 
-  CreateOrderUseCase(this._baseCreateOrderRepo);
+  CreateOrderUseCase(this._baseClientRepo);
   @override
   Future<void> call({required OrderModel params}) async {
-    return await _baseCreateOrderRepo.createOrder(params);
+    return await _baseClientRepo.createOrder(params);
   }
 }

@@ -93,7 +93,7 @@ class RouteGenerator {
 
       // client routes
       case Routes.layoutClient:
-        return MaterialPageRoute(builder: (_) => const ClientLayout());
+        return MaterialPageRoute(builder: (_) => ClientLayout());
       case Routes.createNewRequest:
         return MaterialPageRoute(builder: (_) => const ClientNewRequestPage());
       case Routes.homeClient:

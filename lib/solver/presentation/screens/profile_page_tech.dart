@@ -1,9 +1,17 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:solvers/Auth/presentation/controller/auth_cubit/auth_cubit.dart';
 import 'package:solvers/Auth/presentation/widgets/default_form_field.dart';
+import 'package:solvers/Auth/presentation/widgets/default_snack_bar.dart';
+import 'package:solvers/Auth/presentation/widgets/default_text_button.dart';
+import 'package:solvers/core/global/resources/color_manager.dart';
 import 'package:solvers/core/global/resources/strings_manger.dart';
 import 'package:solvers/core/global/resources/values_manger.dart';
 import 'package:solvers/core/utils/constants.dart';
 import 'package:solvers/core/utils/functions.dart';
+import 'package:solvers/solver/data/requests/update_tech_data_request.dart';
+import 'package:solvers/solver/presentation/controller/tech_cubit.dart';
 import 'package:solvers/solver/presentation/widgets/skills_form_widget.dart';
 
 class TechProfilePage extends StatefulWidget {
@@ -14,8 +22,8 @@ class TechProfilePage extends StatefulWidget {
 }
 
 class _TechProfilePageState extends State<TechProfilePage> {
-  List<String> _skills = ['Flutter', 'Dart', 'Firebase'];
   final _formKey = GlobalKey<FormState>();
+  List<String> updatedSkills = [];
 
   // create validation
   final TextEditingController _firstNameEditingController =
@@ -23,144 +31,237 @@ class _TechProfilePageState extends State<TechProfilePage> {
 
   final TextEditingController _lastNameEditingController =
       TextEditingController();
-
   final TextEditingController _emailEditingController = TextEditingController();
-
-  final TextEditingController _passwordEditingController =
-      TextEditingController();
 
   final TextEditingController _phoneNumberEditingController =
       TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.only(
-            top: AppSize.s20,
-            right: AppSize.s20,
-            left: AppSize.s20,
-          ),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+    final authCubit = BlocProvider.of<FirebaseAuthCubit>(context);
+    List<String> techSkills = authCubit.techData!.skills;
+
+    final techCubit = TechCubit.get(context);
+    return BlocConsumer<TechCubit, TechState>(
+      listener: (context, state) {
+        if (state is IsFirstNameValid) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            DefaultSnackbar(
+              text: Text(
+                state.isValid
+                    ? "First Name updated successfully!"
+                    : AppStrings.userNameError,
+                style: TextStyle(
+                  color: ColorManager.white,
+                  fontSize: AppSize.s16,
+                ),
+              ),
+              backGroundColor:
+                  state.isValid ? ColorManager.green : ColorManager.red,
+            ),
+          );
+        }
+
+        if (state is IsLastNameValid) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            DefaultSnackbar(
+              text: Text(
+                state.isValid
+                    ? "Last Name updated successfully!"
+                    : AppStrings.userNameError,
+                style: TextStyle(
+                  color: ColorManager.white,
+                  fontSize: AppSize.s16,
+                ),
+              ),
+              backGroundColor:
+                  state.isValid ? ColorManager.green : ColorManager.red,
+            ),
+          );
+        }
+        if (state is IsPhoneNumberValid) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            DefaultSnackbar(
+              text: Text(
+                state.isValid
+                    ? "Phone Number updated successfully!"
+                    : AppStrings.phoneError,
+                style: TextStyle(
+                  color: ColorManager.white,
+                  fontSize: AppSize.s16,
+                ),
+              ),
+              backGroundColor:
+                  state.isValid ? ColorManager.green : ColorManager.red,
+            ),
+          );
+        }
+      },
+      builder: (context, state) {
+        return Scaffold(
+          body: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.only(
+                top: AppSize.s20,
+                right: AppSize.s20,
+                left: AppSize.s20,
+              ),
+              child: Column(
                 children: [
-                  Image.asset("assets/images/person_ic.png"),
-                  const SizedBox(
-                    width: 20,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset("assets/images/person_ic.png"),
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      Text(
+                        authCubit.techData!.firstName,
+                        style: const TextStyle(
+                          fontSize: 36,
+                        ),
+                      ),
+                    ],
                   ),
-                  const Text(
-                    "tech name",
-                    style: TextStyle(
-                      fontSize: 36,
+                  Form(
+                    key: _formKey,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const SizedBox(
+                          height: AppSize.s33,
+                        ),
+                        DefaultFormField(
+                          obscureText: false,
+                          hintText: authCubit.techData!.firstName,
+                          controller: _firstNameEditingController,
+                          type: TextInputType.name,
+                          validator: (String? s) {
+                            if (s!.length < Constants.three) {
+                              return AppStrings.userNameError;
+                            }
+                            return null;
+                          },
+                          suffix: Icons.edit,
+                          suffixPressed: () {},
+                          onTap: () => techCubit.onFirstNameFieldClicked(),
+                        ),
+                        const SizedBox(
+                          height: AppSize.s12,
+                        ),
+                        DefaultFormField(
+                          hintText: authCubit.techData!.lastName,
+                          controller: _lastNameEditingController,
+                          type: TextInputType.name,
+                          validator: (String? s) {
+                            if (s!.length < Constants.three) {
+                              return AppStrings.userNameError;
+                            }
+                            return null;
+                          },
+                          obscureText: false,
+                          suffix: Icons.edit,
+                          suffixPressed: () {},
+                          onTap: () => techCubit.onLastNameFieldClicked(),
+                        ),
+                        const SizedBox(
+                          height: AppSize.s12,
+                        ),
+                        DefaultFormField(
+                          obscureText: false,
+                          hintText: authCubit.techData!.phoneNumber,
+                          controller: _phoneNumberEditingController,
+                          type: TextInputType.text,
+                          validator: (input) => input!.isValidPhone()
+                              ? null
+                              : AppStrings.phoneError,
+                          suffix: Icons.edit,
+                          suffixPressed: () {},
+                          onTap: () => techCubit.onPhoneFieldClicked(),
+                        ),
+                        const SizedBox(
+                          height: AppSize.s12,
+                        ),
+                        DefaultFormField(
+                          isClickable: false,
+                          obscureText: false,
+                          hintText: authCubit.techData!.email,
+                          controller: _emailEditingController,
+                          type: TextInputType.emailAddress,
+                          validator: (value) {
+                            return null;
+                          },
+                          suffixPressed: () {},
+                        ),
+                        const SizedBox(
+                          height: AppSize.s12,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            left: 30,
+                          ),
+                          child: SkillsForm(
+                            skills: techSkills,
+                            onSkillsChanged: (skills) => setState(() {
+                              techSkills = skills;
+                              updatedSkills = skills;
+                              print("update: $updatedSkills");
+                            }),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: AppSize.s12,
+                        ),
+                        ConditionalBuilder(
+                          condition: state is! UpdateTechDataLoadingState,
+                          builder: (context) {
+                            return DefaultTextButton(
+                              text: "Update",
+                              onTap: () async {
+                                await techCubit.updateTechData(
+                                  UpdateTechDataRequest(
+                                    techId: techCubit.techId!,
+                                    firstName: await techCubit.validFirstName(
+                                      _firstNameEditingController.text,
+                                    ),
+                                    lastName: await techCubit.validLastName(
+                                      _lastNameEditingController.text,
+                                    ),
+                                    phoneNumber:
+                                        await techCubit.validPhoneNumber(
+                                      _phoneNumberEditingController.text,
+                                    ),
+                                    skills: updatedSkills,
+                                  ),
+                                  context,
+                                );
+                                _firstNameEditingController.clear();
+                                _lastNameEditingController.clear();
+                                _phoneNumberEditingController.clear();
+                              },
+                            );
+                          },
+                          fallback: (context) {
+                            return Center(
+                              child: CircularProgressIndicator(
+                                color: ColorManager.purple,
+                              ),
+                            );
+                          },
+                        ),
+                        const SizedBox(
+                          height: AppSize.s12,
+                        ),
+                      ],
                     ),
                   ),
                 ],
               ),
-              Form(
-                key: _formKey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(
-                      height: AppSize.s33,
-                    ),
-                    DefaultFormField(
-                      obscureText: false,
-                      hintText: AppStrings.firstNameHint,
-                      controller: _firstNameEditingController,
-                      type: TextInputType.name,
-                      validator: (String? s) {
-                        if (s!.length < Constants.three) {
-                          return AppStrings.userNameError;
-                        }
-                        return null;
-                      },
-                      suffix: Icons.edit,
-                      suffixPressed: () {},
-                    ),
-                    const SizedBox(
-                      height: AppSize.s12,
-                    ),
-                    DefaultFormField(
-                      hintText: AppStrings.lastNameHint,
-                      controller: _lastNameEditingController,
-                      type: TextInputType.name,
-                      validator: (String? s) {
-                        if (s!.length < Constants.three) {
-                          return AppStrings.userNameError;
-                        }
-                        return null;
-                      },
-                      obscureText: false,
-                      suffix: Icons.edit,
-                      suffixPressed: () {},
-                    ),
-                    const SizedBox(
-                      height: AppSize.s12,
-                    ),
-                    DefaultFormField(
-                      obscureText: false,
-                      hintText: AppStrings.phoneNumberHint,
-                      controller: _phoneNumberEditingController,
-                      type: TextInputType.text,
-                      validator: (input) =>
-                          input!.isValidPhone() ? null : AppStrings.phoneError,
-                      suffix: Icons.edit,
-                      suffixPressed: () {},
-                    ),
-                    const SizedBox(
-                      height: AppSize.s12,
-                    ),
-                    DefaultFormField(
-                      obscureText: false,
-                      hintText: AppStrings.emailHint,
-                      controller: _emailEditingController,
-                      type: TextInputType.emailAddress,
-                      validator: (input) =>
-                          input!.isValidEmail() ? null : AppStrings.emailError,
-                      suffix: Icons.edit,
-                      suffixPressed: () {},
-                    ),
-                    const SizedBox(
-                      height: AppSize.s12,
-                    ),
-                    DefaultFormField(
-                      obscureText: false,
-                      hintText: AppStrings.passwordHint,
-                      controller: _passwordEditingController,
-                      type: TextInputType.number,
-                      validator: (input) => input!.isValidPassword()
-                          ? null
-                          : AppStrings.passwordError,
-                      suffix: Icons.edit,
-                      suffixPressed: () {
-                        // TODO
-                      },
-                    ),
-                    const SizedBox(
-                      height: AppSize.s12,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        left: 30,
-                      ),
-                      child: SkillsForm(
-                        skills: _skills,
-                        onSkillsChanged: (skills) =>
-                            setState(() => _skills = skills),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

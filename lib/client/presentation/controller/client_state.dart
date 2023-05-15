@@ -7,8 +7,43 @@ class ClientInitial extends ClientState {}
 
 class AppChangeBottomNavStates extends ClientState {}
 
-// order
+class IsFirstNameValid extends ClientState {
+  final bool isValid;
 
+  IsFirstNameValid(this.isValid);
+}
+
+class IsLastNameValid extends ClientState {
+  final bool isValid;
+
+  IsLastNameValid(this.isValid);
+}
+
+class IsPhoneNumberValid extends ClientState {
+  final bool isValid;
+
+  IsPhoneNumberValid(this.isValid);
+}
+
+class OnFirstNameClicked extends ClientState {
+  final bool isClicked;
+
+  OnFirstNameClicked(this.isClicked);
+}
+
+class OnLastNameClicked extends ClientState {
+  final bool isClicked;
+
+  OnLastNameClicked(this.isClicked);
+}
+
+class OnPhoneClicked extends ClientState {
+  final bool isClicked;
+
+  OnPhoneClicked(this.isClicked);
+}
+
+// order
 class CreateOrderLoadingState extends ClientState {}
 
 class CreateOrderSuccessState extends ClientState {
@@ -64,3 +99,9 @@ class UpdateOfferClientErrorState extends ClientState {
 
   UpdateOfferClientErrorState(this.error);
 }
+
+class UpdateClientDataLoadingState extends ClientState {}
+
+class UpdateClientDataSuccessState extends ClientState {}
+
+class UpdateClientDataErrorState extends ClientState {}

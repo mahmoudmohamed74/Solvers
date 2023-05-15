@@ -3,12 +3,12 @@ import 'package:solvers/client/domain/repository/base_create_order_repo.dart';
 import 'package:solvers/core/usecase/base_usecase.dart';
 
 class GetOrderToClientUseCase implements BaseUseCase<List<OrderModel>, String> {
-  final BaseCreateOrderRepo _baseCreateOrderRepo;
+  final BaseClientRepo _baseClientRepo;
 
-  GetOrderToClientUseCase(this._baseCreateOrderRepo);
+  GetOrderToClientUseCase(this._baseClientRepo);
 
   @override
   Future<List<OrderModel>> call({required String params}) async {
-    return await _baseCreateOrderRepo.getOrderToClient(params);
+    return await _baseClientRepo.getOrderToClient(params);
   }
 }

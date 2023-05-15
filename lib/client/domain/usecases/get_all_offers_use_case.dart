@@ -4,12 +4,12 @@ import 'package:solvers/solver/data/models/offer_model.dart';
 
 class GetAllOffersToClientUseCase
     implements BaseUseCase<List<OfferModel>, String> {
-  final BaseCreateOrderRepo _baseCreateOrderRepo;
+  final BaseClientRepo _baseClientRepo;
 
-  GetAllOffersToClientUseCase(this._baseCreateOrderRepo);
+  GetAllOffersToClientUseCase(this._baseClientRepo);
 
   @override
   Future<List<OfferModel>> call({required String params}) async {
-    return await _baseCreateOrderRepo.getOrderAllOffersTOClient(params);
+    return await _baseClientRepo.getOrderAllOffersTOClient(params);
   }
 }

@@ -4,12 +4,12 @@ import 'package:solvers/core/assets/app_assets.dart';
 import 'package:solvers/core/global/resources/color_manager.dart';
 import 'package:solvers/core/global/resources/values_manger.dart';
 
-class RequestsListForTech extends StatelessWidget {
+class RequestsListForTechWidget extends StatelessWidget {
   final OrderModel orderModel;
   final VoidCallback onIgnore;
   final VoidCallback onAccept;
 
-  const RequestsListForTech({
+  const RequestsListForTechWidget({
     super.key,
     required this.orderModel,
     required this.onIgnore,

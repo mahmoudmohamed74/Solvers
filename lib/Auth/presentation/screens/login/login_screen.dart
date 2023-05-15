@@ -30,7 +30,6 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final authCubit = BlocProvider.of<FirebaseAuthCubit>(context);
-
     return BlocConsumer<FirebaseAuthCubit, FirebaseAuthState>(
       listener: (context, state) async {
         if (state is LogInSuccessState) {
@@ -41,11 +40,15 @@ class LoginScreen extends StatelessWidget {
                 context,
                 Routes.layoutTech,
               );
+              // await _appPreferences.setIsTechnicianLoggedIn();
+              await _appPreferences.saveTechnicianId(state.user.uid);
             } else if (state.userRole == 'client') {
               Navigator.pushReplacementNamed(
                 context,
                 Routes.layoutClient,
               );
+              // await _appPreferences.setIsClientLoggedIn();
+              await _appPreferences.saveClientId(state.user.uid);
             }
           } else {
             Navigator.pushReplacementNamed(

@@ -1,14 +1,15 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:solvers/client/data/datasource/create_order.dart';
+import 'package:solvers/client/data/datasource/client_firestore.dart';
 import 'package:solvers/client/data/models/order_model.dart';
-import 'package:solvers/client/domain/entities/update_order_offer.dart';
+import 'package:solvers/client/data/requests/update_client_data_request.dart';
+import 'package:solvers/client/data/requests/update_order_offer_request.dart';
 import 'package:solvers/client/domain/repository/base_create_order_repo.dart';
 import 'package:solvers/solver/data/models/offer_model.dart';
 
-class CreateOrderRepoImpl implements BaseCreateOrderRepo {
+class ClientRepoImpl implements BaseClientRepo {
   final FireStoreCreateOrder _fireStoreCreateOrder;
 
-  CreateOrderRepoImpl(this._fireStoreCreateOrder);
+  ClientRepoImpl(this._fireStoreCreateOrder);
 
   @override
   Future<void> createOrder(OrderModel order) async {
@@ -64,7 +65,22 @@ class CreateOrderRepoImpl implements BaseCreateOrderRepo {
         isAcceptedOffer: updateOrderOffer.isAcceptedOffer,
       );
     } catch (e) {
-      print("Update Offer error repo : ${e.toString()}");
+      print("Update Offer repo error: ${e.toString()}");
+    }
+  }
+
+  @override
+  Future<void> updateClientData(
+      UpdateClientDataRequest updateClientData) async {
+    try {
+      await _fireStoreCreateOrder.updateClientData(
+        clientId: updateClientData.clientId,
+        firstName: updateClientData.firstName,
+        lastName: updateClientData.lastName,
+        phoneNumber: updateClientData.phoneNumber,
+      );
+    } catch (e) {
+      print("Update client data repo error: ${e.toString()}");
     }
   }
 }
