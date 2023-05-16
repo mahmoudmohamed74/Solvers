@@ -16,10 +16,7 @@ class HelpPage extends StatelessWidget {
       appBar: DefaultAppBar(
         leadingIconButton: IconButton(
           onPressed: () {
-            Navigator.pushReplacementNamed(
-              context,
-              Routes.layoutClient,
-            );
+            Navigator.pop(context);
           },
           icon: Icon(
             Icons.arrow_back,

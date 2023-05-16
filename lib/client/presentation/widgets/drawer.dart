@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:solvers/client/presentation/controller/client_cubit.dart';
+import 'package:solvers/client/presentation/screens/help_page.dart';
 import 'package:solvers/core/global/resources/color_manager.dart';
 import 'package:solvers/core/global/resources/values_manger.dart';
 import 'package:solvers/core/routes/app_routes.dart';
 import 'package:solvers/solver/presentation/controller/tech_cubit.dart';
+import 'package:solvers/solver/presentation/screens/contact%20_us_page.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
@@ -75,9 +77,11 @@ class MyDrawer extends StatelessWidget {
                         ),
                       ),
                       onTap: () {
-                        Navigator.pushReplacementNamed(
+                        Navigator.push(
                           context,
-                          Routes.help,
+                          MaterialPageRoute(
+                            builder: (context) => HelpPage(),
+                          ),
                         );
                       },
                       splashColor: ColorManager.selectedItem,
@@ -96,9 +100,11 @@ class MyDrawer extends StatelessWidget {
                         ),
                       ),
                       onTap: () {
-                        Navigator.pushReplacementNamed(
+                        Navigator.push(
                           context,
-                          Routes.contactUs,
+                          MaterialPageRoute(
+                            builder: (context) => const ContactUsScreen(),
+                          ),
                         );
                       },
                       splashColor: ColorManager.selectedItem,
