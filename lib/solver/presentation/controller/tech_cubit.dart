@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:solvers/Auth/data/models/tech_model.dart';
-import 'package:solvers/Auth/presentation/controller/auth_cubit/auth_cubit.dart';
+import 'package:solvers/core/app/app.dart';
+
 import 'package:solvers/client/data/models/order_model.dart';
 import 'package:solvers/core/app/app_prefs.dart';
 import 'package:solvers/core/services/services_locator.dart';
@@ -19,6 +21,8 @@ import 'package:solvers/solver/presentation/screens/home_tech_page.dart';
 import 'package:solvers/solver/presentation/screens/my_request_tech_page.dart';
 import 'package:solvers/solver/presentation/screens/profile_page_tech.dart';
 import 'package:solvers/solver/presentation/screens/request_status_tech_page.dart';
+
+import '../../../core/routes/app_routes.dart';
 
 part 'tech_state.dart';
 
@@ -215,5 +219,12 @@ class TechCubit extends Cubit<TechState> {
       print(error.toString());
       emit(UpdateTechDataErrorState());
     });
+  }
+
+  void techSignOut({required BuildContext context}) {
+    FirebaseAuth.instance.signOut();
+    _appPreferences.sharedPreferences.clear();
+    runApp(MyApp());
+    Navigator.pushReplacementNamed(context, Routes.userLoginRoute);
   }
 }

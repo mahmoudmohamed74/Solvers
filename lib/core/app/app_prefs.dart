@@ -1,8 +1,6 @@
 // ignore_for_file: constant_identifier_names
 
-import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:solvers/Auth/presentation/screens/login/login_screen.dart';
 
 const String PREFS_KEY_IS_CLIENT_LOGGED_IN = "PREFS_KEY_IS_CLIENT_LOGGED_IN";
 const String PREFS_KEY_IS_TECHNICIAN_LOGGED_IN =
@@ -11,65 +9,49 @@ const String PREFS_KEY_CLIENT_ID = "PREFS_KEY_CLIENT_ID";
 const String PREFS_KEY_TECHNICIAN_ID = "PREFS_KEY_TECHNICIAN_ID";
 
 class AppPreferences {
-  final SharedPreferences _sharedPreferences;
-  AppPreferences(this._sharedPreferences);
+  SharedPreferences sharedPreferences;
+  AppPreferences(this.sharedPreferences);
 
   Future<void> setIsClientLoggedIn() async {
-    _sharedPreferences.setBool(PREFS_KEY_IS_CLIENT_LOGGED_IN, true);
+    sharedPreferences.setBool(PREFS_KEY_IS_CLIENT_LOGGED_IN, true);
   }
 
   Future<bool> isClientLoggedIn() async {
-    return _sharedPreferences.getBool(PREFS_KEY_IS_CLIENT_LOGGED_IN) ?? false;
+    return sharedPreferences.getBool(PREFS_KEY_IS_CLIENT_LOGGED_IN) ?? false;
   }
 
   Future<void> saveClientId(String id) async {
-    _sharedPreferences.setString(PREFS_KEY_CLIENT_ID, id);
+    sharedPreferences.setString(PREFS_KEY_CLIENT_ID, id);
   }
 
   Future<String?> getClientId() async {
-    return _sharedPreferences.getString(PREFS_KEY_CLIENT_ID);
+    return sharedPreferences.getString(PREFS_KEY_CLIENT_ID);
   }
 
   Future<void> setIsTechnicianLoggedIn() async {
-    _sharedPreferences.setBool(PREFS_KEY_IS_TECHNICIAN_LOGGED_IN, true);
+    sharedPreferences.setBool(PREFS_KEY_IS_TECHNICIAN_LOGGED_IN, true);
   }
 
   Future<bool> isTechnicianLoggedIn() async {
-    return _sharedPreferences.getBool(PREFS_KEY_IS_TECHNICIAN_LOGGED_IN) ??
+    return sharedPreferences.getBool(PREFS_KEY_IS_TECHNICIAN_LOGGED_IN) ??
         false;
   }
 
   Future<void> saveTechnicianId(String id) async {
-    _sharedPreferences.setString(PREFS_KEY_TECHNICIAN_ID, id);
+    sharedPreferences.setString(PREFS_KEY_TECHNICIAN_ID, id);
   }
 
   Future<String?> getTechnicianId() async {
-    return _sharedPreferences.getString(PREFS_KEY_TECHNICIAN_ID);
+    return sharedPreferences.getString(PREFS_KEY_TECHNICIAN_ID);
   }
 
   Future<void> logoutTech() async {
-    _sharedPreferences.remove(PREFS_KEY_IS_TECHNICIAN_LOGGED_IN);
-    _sharedPreferences.remove(PREFS_KEY_TECHNICIAN_ID);
+    sharedPreferences.remove(PREFS_KEY_IS_TECHNICIAN_LOGGED_IN);
+    sharedPreferences.remove(PREFS_KEY_TECHNICIAN_ID);
   }
 
   Future<void> logoutClient() async {
-    _sharedPreferences.remove(PREFS_KEY_IS_CLIENT_LOGGED_IN);
-    _sharedPreferences.remove(PREFS_KEY_CLIENT_ID);
+    sharedPreferences.remove(PREFS_KEY_IS_CLIENT_LOGGED_IN);
+    sharedPreferences.remove(PREFS_KEY_CLIENT_ID);
   }
-
-  void clearCache() {
-    _sharedPreferences.clear();
-    runApp(
-      MaterialApp(
-        home: LoginScreen(),
-      ),
-    );
-  }
-
-  // Future<bool> removeData({
-  //   // user id TODO
-  //   required String key,
-  // }) async {
-  //   return await _sharedPreferences.remove(key);
-  // }
 }

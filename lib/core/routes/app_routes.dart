@@ -20,6 +20,7 @@ import 'package:solvers/client/presentation/screens/profile_page_client.dart';
 import 'package:solvers/client/presentation/screens/request_status_client_page.dart';
 import 'package:solvers/client/presentation/screens/requst_done_page.dart';
 import 'package:solvers/core/global/resources/strings_manger.dart';
+import 'package:solvers/solver/presentation/screens/contact%20_us_page.dart';
 import 'package:solvers/solver/presentation/screens/create_offer_tech_page.dart';
 import 'package:solvers/solver/presentation/screens/home_tech_page.dart';
 import 'package:solvers/solver/presentation/screens/layout_tech_page.dart';
@@ -63,6 +64,7 @@ class Routes {
   static const String createOffersTech = "/createOffersTech";
   static const String profileTech = "/profileTech";
   static const String requestStatusTech = "/requestStatusTech";
+  static const String contactUs = "/contactUs";
 }
 
 class RouteGenerator {
@@ -132,6 +134,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => TechProfilePage());
       case Routes.requestStatusTech:
         return MaterialPageRoute(builder: (_) => const TechRequestStatusPage());
+      case Routes.contactUs:
+        return MaterialPageRoute(builder: (_) => const ContactUsScreen());
 
       case Routes.testRoute:
         return MaterialPageRoute(builder: (_) => const TestScreen());

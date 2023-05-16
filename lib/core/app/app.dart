@@ -42,9 +42,8 @@ class _MyAppState extends State<MyApp> {
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: ContactUsScreen(),
-        // onGenerateRoute: RouteGenerator.getRoute,
-        // initialRoute: Routes.splashRoute,
+        onGenerateRoute: RouteGenerator.getRoute,
+        initialRoute: Routes.splashRoute,
       ),
     );
   }

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:solvers/Auth/data/models/client_model.dart';
@@ -17,7 +18,9 @@ import 'package:solvers/client/presentation/screens/home_client_page.dart';
 import 'package:solvers/client/presentation/screens/my_requests_client_page.dart';
 import 'package:solvers/client/presentation/screens/profile_page_client.dart';
 import 'package:solvers/client/presentation/screens/request_status_client_page.dart';
+import 'package:solvers/core/app/app.dart';
 import 'package:solvers/core/app/app_prefs.dart';
+import 'package:solvers/core/routes/app_routes.dart';
 import 'package:solvers/core/services/services_locator.dart';
 import 'package:solvers/core/utils/constants.dart';
 import 'package:solvers/solver/data/models/offer_model.dart';
@@ -238,5 +241,12 @@ class ClientCubit extends Cubit<ClientState> {
       print(error.toString());
       emit(UpdateClientDataErrorState());
     });
+  }
+
+  void clientSignOut({required BuildContext context}) {
+    FirebaseAuth.instance.signOut();
+    _appPreferences.sharedPreferences.clear();
+    runApp(MyApp());
+    Navigator.pushReplacementNamed(context, Routes.userLoginRoute);
   }
 }

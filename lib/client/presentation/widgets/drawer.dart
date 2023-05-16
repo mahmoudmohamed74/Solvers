@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:solvers/Auth/presentation/controller/auth_cubit/auth_cubit.dart';
+import 'package:solvers/client/presentation/controller/client_cubit.dart';
 import 'package:solvers/core/global/resources/color_manager.dart';
 import 'package:solvers/core/global/resources/values_manger.dart';
 import 'package:solvers/core/routes/app_routes.dart';
+import 'package:solvers/solver/presentation/controller/tech_cubit.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final authCubit = BlocProvider.of<FirebaseAuthCubit>(context);
+    final clientCubit = BlocProvider.of<ClientCubit>(context);
+    final techCubit = BlocProvider.of<TechCubit>(context);
     return Container(
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.only(
@@ -94,10 +96,10 @@ class MyDrawer extends StatelessWidget {
                         ),
                       ),
                       onTap: () {
-                        //      Navigator.pushReplacementNamed(
-                        //   context,
-                        // Routes.contactUs,  // TODO
-                        // );
+                        Navigator.pushReplacementNamed(
+                          context,
+                          Routes.contactUs,
+                        );
                       },
                       splashColor: ColorManager.selectedItem,
                     ),
@@ -114,9 +116,9 @@ class MyDrawer extends StatelessWidget {
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                      onTap: () async {
-                        await authCubit.signOut();
-// await
+                      onTap: () {
+                        clientCubit.clientSignOut(context: context);
+                        techCubit.techSignOut(context: context);
                       },
                       splashColor: ColorManager.selectedItem,
                     ),

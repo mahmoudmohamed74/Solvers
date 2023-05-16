@@ -43,10 +43,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
       appBar: DefaultAppBar(
         leadingIconButton: IconButton(
           onPressed: () {
-            Navigator.pushReplacementNamed(
-              context,
-              Routes.layoutClient,
-            );
+            Navigator.pop(context);
           },
           icon: Icon(
             Icons.arrow_back,

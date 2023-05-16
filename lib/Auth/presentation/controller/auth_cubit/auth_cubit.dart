@@ -15,11 +15,8 @@ import 'package:solvers/Auth/domain/usecases/login_use_case.dart';
 import 'package:solvers/Auth/domain/usecases/reset_password_use_case.dart';
 import 'package:solvers/Auth/domain/usecases/signout_use_case.dart';
 import 'package:solvers/Auth/domain/usecases/signup_use_case.dart';
-import 'package:solvers/Auth/presentation/screens/login/login_screen.dart';
 import 'package:solvers/core/app/app_prefs.dart';
-import 'package:solvers/core/routes/app_routes.dart';
 import 'package:solvers/core/services/services_locator.dart';
-import 'package:solvers/core/usecase/base_usecase.dart';
 import 'package:solvers/core/utils/constants.dart';
 
 part 'auth_state.dart';
@@ -86,23 +83,6 @@ class FirebaseAuthCubit extends Cubit<FirebaseAuthState> {
       emit(LogInSuccessState(user, userRole));
     }).catchError((e) {
       print("${e.toString()} login user error cubit");
-      emit(CubitAuthFailed(e.toString()));
-    });
-  }
-
-  Future<void> signOut() async {
-    emit(CubitAuthLoadingState());
-    await _signOutAuthUseCase.call(const NoParameters()).then((value) async {
-      Constants.techId = "";
-      Constants.clientId = "";
-      _appPreferences.clearCache();
-      // await Navigator.pushNamedAndRemoveUntil(
-      //   navigatorKey.currentContext!,
-      //   Routes.userLoginRoute,
-      //   (route) => false,
-      // );
-      emit(CubitAuthSignOut());
-    }).catchError((e) {
       emit(CubitAuthFailed(e.toString()));
     });
   }
