@@ -40,7 +40,7 @@ class _MyAppState extends State<MyApp> {
           create: (BuildContext context) => sl<TechCubit>()..getTechCubit(),
         )
       ],
-      child: MaterialApp(
+      child: const MaterialApp(
         debugShowCheckedModeBanner: false,
         home: ContactUsScreen(),
         // onGenerateRoute: RouteGenerator.getRoute,
