@@ -1,6 +1,8 @@
 // ignore_for_file: constant_identifier_names
 
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:solvers/Auth/presentation/screens/login/login_screen.dart';
 
 const String PREFS_KEY_IS_CLIENT_LOGGED_IN = "PREFS_KEY_IS_CLIENT_LOGGED_IN";
 const String PREFS_KEY_IS_TECHNICIAN_LOGGED_IN =
@@ -57,6 +59,11 @@ class AppPreferences {
 
   void clearCache() {
     _sharedPreferences.clear();
+    runApp(
+      MaterialApp(
+        home: LoginScreen(),
+      ),
+    );
   }
 
   // Future<bool> removeData({

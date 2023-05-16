@@ -9,6 +9,7 @@ import 'package:solvers/client/presentation/screens/request_status_client_page.d
 import 'package:solvers/core/routes/app_routes.dart';
 import 'package:solvers/core/services/services_locator.dart';
 import 'package:solvers/solver/presentation/controller/tech_cubit.dart';
+import 'package:solvers/solver/presentation/screens/contact%20_us_page.dart';
 import 'package:solvers/solver/presentation/screens/my_request_tech_page.dart';
 import 'package:solvers/solver/presentation/screens/request_status_tech_page.dart';
 import 'package:solvers/test.dart';
@@ -39,11 +40,11 @@ class _MyAppState extends State<MyApp> {
           create: (BuildContext context) => sl<TechCubit>()..getTechCubit(),
         )
       ],
-      child: const MaterialApp(
+      child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        // home: TestScreen(),
-        onGenerateRoute: RouteGenerator.getRoute,
-        initialRoute: Routes.splashRoute,
+        home: ContactUsScreen(),
+        // onGenerateRoute: RouteGenerator.getRoute,
+        // initialRoute: Routes.splashRoute,
       ),
     );
   }
