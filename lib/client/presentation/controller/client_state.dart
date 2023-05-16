@@ -7,6 +7,28 @@ class ClientInitial extends ClientState {}
 
 class AppChangeBottomNavStates extends ClientState {}
 
+// get client
+
+class GetClientLoading extends ClientState {}
+
+class GetClientSuccess extends ClientState {
+  final ClientModel? clientModel;
+
+  GetClientSuccess(this.clientModel);
+}
+
+class GetClientError extends ClientState {
+  final String error;
+
+  GetClientError(this.error);
+}
+
+class GetClientFailed extends ClientState {
+  final String error;
+
+  GetClientFailed(this.error);
+}
+
 class IsFirstNameValid extends ClientState {
   final bool isValid;
 

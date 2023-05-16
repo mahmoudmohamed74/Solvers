@@ -1,9 +1,24 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:solvers/Auth/data/models/tech_model.dart';
 import 'package:solvers/client/data/models/order_model.dart';
 import 'package:solvers/solver/data/models/offer_model.dart';
 
-class FireStoreTechnician {
+class TechnicianFireStore {
   static final _fireStoreTechCollection = FirebaseFirestore.instance;
+
+  Future<TechModel?> getTech(String techId) async {
+    DocumentSnapshot<Map<String, dynamic>> snapshot =
+        await _fireStoreTechCollection
+            .collection('technician')
+            .doc(techId)
+            .get();
+    Map<String, dynamic> techData = snapshot.data()!;
+    if (snapshot.exists) {
+      return TechModel.fromJson(techData);
+    } else {
+      return null;
+    }
+  }
 
   Future<void> createOffer(OfferModel offerModel, String orderDocId) async {
     await _fireStoreTechCollection

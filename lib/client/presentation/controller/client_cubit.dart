@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:solvers/Auth/data/models/client_model.dart';
 import 'package:solvers/Auth/presentation/controller/auth_cubit/auth_cubit.dart';
 import 'package:solvers/client/data/datasource/client_firestore.dart';
 
@@ -8,6 +9,7 @@ import 'package:solvers/client/data/requests/update_client_data_request.dart';
 import 'package:solvers/client/data/requests/update_order_offer_request.dart';
 import 'package:solvers/client/domain/usecases/create_order_use_case.dart';
 import 'package:solvers/client/domain/usecases/get_all_offers_use_case.dart';
+import 'package:solvers/client/domain/usecases/get_client_use_case.dart';
 import 'package:solvers/client/domain/usecases/get_order_use_case.dart';
 import 'package:solvers/client/domain/usecases/update_client_data_use_case.dart';
 import 'package:solvers/client/domain/usecases/update_order_offer_use_case.dart';
@@ -17,6 +19,7 @@ import 'package:solvers/client/presentation/screens/profile_page_client.dart';
 import 'package:solvers/client/presentation/screens/request_status_client_page.dart';
 import 'package:solvers/core/app/app_prefs.dart';
 import 'package:solvers/core/services/services_locator.dart';
+import 'package:solvers/core/utils/constants.dart';
 import 'package:solvers/solver/data/models/offer_model.dart';
 import 'package:solvers/core/utils/functions.dart';
 
@@ -28,9 +31,10 @@ class ClientCubit extends Cubit<ClientState> {
   final GetAllOffersToClientUseCase _getAllOffersToClientUseCase;
   final UpdateOrderOfferUseCase _updateOrderOfferUseCase;
   final UpdateClientDataUseCase _updateClientDataUseCase;
+  final GetClientUseCase _getClientUseCase;
   final AppPreferences _appPreferences = sl<AppPreferences>();
 
-  final FireStoreCreateOrder _fireStoreCreateOrder;
+  final ClientFireStore _fireStoreCreateOrder;
   final authCubit = BlocProvider.of<FirebaseAuthCubit>;
 
   ClientCubit(
@@ -39,6 +43,7 @@ class ClientCubit extends Cubit<ClientState> {
     this._getAllOffersToClientUseCase,
     this._updateOrderOfferUseCase,
     this._updateClientDataUseCase,
+    this._getClientUseCase,
     this._fireStoreCreateOrder,
   ) : super(ClientInitial());
 
@@ -58,8 +63,25 @@ class ClientCubit extends Cubit<ClientState> {
   }
 
   String? clientId;
-  void getId() async {
+
+  ClientModel? clientData;
+
+  Future<ClientModel?> getClientCubit() async {
+    emit(GetClientLoading());
     clientId = await _appPreferences.getClientId();
+    return await _getClientUseCase
+        .call(params: Constants.clientId!)
+        .then((value) async {
+      clientData = value;
+      if (clientData != null) {
+        emit(GetClientSuccess(clientData));
+      } else {
+        emit(GetClientFailed("client data is null"));
+      }
+    }).catchError((e) {
+      print("cubit error failed to retrieve client data ${e.toString()}");
+      emit(GetClientError(e.toString()));
+    });
   }
 
   Future<void> createOrder(
@@ -210,7 +232,7 @@ class ClientCubit extends Cubit<ClientState> {
     await _updateClientDataUseCase
         .call(params: updateClientData)
         .then((value) async {
-      await FirebaseAuthCubit.get(context).getClientCubit(clientId: clientId!);
+      await getClientCubit();
       emit(UpdateClientDataSuccessState());
     }).catchError((error) {
       print(error.toString());

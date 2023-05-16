@@ -32,7 +32,7 @@ class ClientProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final authCubit = BlocProvider.of<FirebaseAuthCubit>(context);
+    // final authCubit = BlocProvider.of<FirebaseAuthCubit>(context);
     final clientCubit = ClientCubit.get(context);
 
     return BlocConsumer<ClientCubit, ClientState>(
@@ -109,7 +109,7 @@ class ClientProfilePage extends StatelessWidget {
                         width: 20,
                       ),
                       Text(
-                        authCubit.clientData!.firstName,
+                        clientCubit.clientData!.firstName,
                         style: const TextStyle(
                           fontSize: 36,
                         ),
@@ -131,7 +131,7 @@ class ClientProfilePage extends StatelessWidget {
                               ),
                               DefaultFormField(
                                 obscureText: false,
-                                hintText: authCubit.clientData!.firstName,
+                                hintText: clientCubit.clientData!.firstName,
                                 controller: _firstNameEditingController,
                                 type: TextInputType.name,
                                 validator: (String? s) {
@@ -149,7 +149,7 @@ class ClientProfilePage extends StatelessWidget {
                                 height: AppSize.s12,
                               ),
                               DefaultFormField(
-                                hintText: authCubit.clientData!.lastName,
+                                hintText: clientCubit.clientData!.lastName,
                                 controller: _lastNameEditingController,
                                 type: TextInputType.name,
                                 validator: (String? s) {
@@ -170,7 +170,7 @@ class ClientProfilePage extends StatelessWidget {
                               ),
                               DefaultFormField(
                                 obscureText: false,
-                                hintText: authCubit.clientData!.phoneNumber,
+                                hintText: clientCubit.clientData!.phoneNumber,
                                 controller: _phoneNumberEditingController,
                                 type: TextInputType.text,
                                 validator: (input) => input!.isValidPhone()
@@ -184,7 +184,7 @@ class ClientProfilePage extends StatelessWidget {
                                 height: AppSize.s12,
                               ),
                               DefaultFormField(
-                                hintText: authCubit.clientData!.email,
+                                hintText: clientCubit.clientData!.email,
                                 controller: _emailEditingController,
                                 type: TextInputType.emailAddress,
                                 validator: (value) {
@@ -207,7 +207,7 @@ class ClientProfilePage extends StatelessWidget {
                                     onTap: () async {
                                       await clientCubit.updateClientData(
                                         UpdateClientDataRequest(
-                                          clientId: clientCubit.clientId!,
+                                          clientId: Constants.clientId!,
                                           firstName:
                                               await clientCubit.validFirstName(
                                             _firstNameEditingController.text,

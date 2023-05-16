@@ -19,28 +19,26 @@ class FireStoreCreateUser {
         .set(tech.toJson());
   }
 
-  Future<ClientModel?> getClient(String clientId) async {
-    DocumentSnapshot<Map<String, dynamic>> snapshot =
-        await _fireStoreUserCollection.collection('client').doc(clientId).get();
-    Map<String, dynamic> clientData = snapshot.data()!;
-    if (snapshot.exists) {
-      return ClientModel.fromJson(clientData);
-    } else {
-      return null;
-    }
-  }
+  Future<String> checkUser(String userId) async {
+    String userType;
 
-  Future<TechModel?> getTech(String techId) async {
-    DocumentSnapshot<Map<String, dynamic>> snapshot =
+    DocumentSnapshot<Map<String, dynamic>> clientSnapshot =
+        await _fireStoreUserCollection.collection('client').doc(userId).get();
+
+    DocumentSnapshot<Map<String, dynamic>> techSnapshot =
         await _fireStoreUserCollection
             .collection('technician')
-            .doc(techId)
+            .doc(userId)
             .get();
-    Map<String, dynamic> techData = snapshot.data()!;
-    if (snapshot.exists) {
-      return TechModel.fromJson(techData);
+
+    if (clientSnapshot.exists) {
+      userType = "client";
+      return userType;
+    } else if (techSnapshot.exists) {
+      userType = "technician";
+      return userType;
     } else {
-      return null;
+      return "";
     }
   }
 }

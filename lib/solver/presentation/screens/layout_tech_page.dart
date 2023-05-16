@@ -6,6 +6,7 @@ import 'package:solvers/client/presentation/widgets/drawer.dart';
 import 'package:solvers/core/global/resources/color_manager.dart';
 import 'package:solvers/core/global/resources/values_manger.dart';
 import 'package:solvers/core/services/services_locator.dart';
+import 'package:solvers/core/utils/constants.dart';
 import 'package:solvers/solver/presentation/controller/tech_cubit.dart';
 
 class TechLayout extends StatelessWidget {
@@ -13,13 +14,10 @@ class TechLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final authCubit = BlocProvider.of<FirebaseAuthCubit>(context);
-
+    final techCubit = TechCubit.get(context);
     return BlocConsumer<TechCubit, TechState>(
       listener: (context, state) {},
       builder: (context, state) {
-        final techCubit = TechCubit.get(context);
-        techCubit.getId();
         return Scaffold(
           appBar: DefaultAppBar(
             leadingIconButton: const ThreeBlackLinesWidget(),
@@ -89,9 +87,7 @@ class TechLayout extends StatelessWidget {
                     MaterialButton(
                       onPressed: () async {
                         techCubit.changeBottomNav(3);
-                        await authCubit.getTechCubit(
-                          techId: techCubit.techId!,
-                        );
+                        await techCubit.getTechCubit();
                       },
                       minWidth: 70,
                       child: Icon(

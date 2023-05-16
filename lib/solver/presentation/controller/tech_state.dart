@@ -7,6 +7,28 @@ class TechInitial extends TechState {}
 
 class AppChangeBottomNavStates extends TechState {}
 
+// get tech
+
+class GetTechLoading extends TechState {}
+
+class GetTechSuccess extends TechState {
+  final TechModel? techModel;
+
+  GetTechSuccess(this.techModel);
+}
+
+class GetTechFailed extends TechState {
+  final String error;
+
+  GetTechFailed(this.error);
+}
+
+class GetTechError extends TechState {
+  final String error;
+
+  GetTechError(this.error);
+}
+
 class CreateOfferLoadingState extends TechState {}
 
 class CreateOfferSuccessState extends TechState {}

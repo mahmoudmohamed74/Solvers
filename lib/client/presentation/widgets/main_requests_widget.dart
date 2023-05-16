@@ -210,9 +210,9 @@ class MainRequestsWidget extends StatelessWidget {
                             navigator.pushReplacement(
                               MaterialPageRoute(
                                 builder: (_) => ClientChatPage(
-                                  // orderModel: orderModel,
-                                  clientId: "sender id (userId)",
-                                ),
+                                    // orderModel: orderModel,
+
+                                    ),
                               ),
                             );
                           },

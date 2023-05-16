@@ -40,15 +40,13 @@ class LoginScreen extends StatelessWidget {
                 context,
                 Routes.layoutTech,
               );
-              // await _appPreferences.setIsTechnicianLoggedIn();
-              await _appPreferences.saveTechnicianId(state.user.uid);
+              await _appPreferences.setIsTechnicianLoggedIn();
             } else if (state.userRole == 'client') {
               Navigator.pushReplacementNamed(
                 context,
                 Routes.layoutClient,
               );
-              // await _appPreferences.setIsClientLoggedIn();
-              await _appPreferences.saveClientId(state.user.uid);
+              await _appPreferences.setIsClientLoggedIn();
             }
           } else {
             Navigator.pushReplacementNamed(

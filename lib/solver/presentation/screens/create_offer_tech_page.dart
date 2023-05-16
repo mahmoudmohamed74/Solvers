@@ -33,12 +33,13 @@ class TechCreateOfferPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final navigator = Navigator.of(context);
-    final authCubit = FirebaseAuthCubit.get(context).techData!;
+
     var dateTime = DateTime.now();
     var dateTimeFormatted =
         DateFormat('dd/MM/yyyy HH:mm:ss a').format(dateTime);
     return BlocConsumer<TechCubit, TechState>(
       listener: (context, state) async {
+        final techCubit = TechCubit.get(context);
         if (state is CreateOfferSuccessState) {
           ScaffoldMessenger.of(context).showSnackBar(
             DefaultSnackbar(
@@ -259,8 +260,8 @@ class TechCreateOfferPage extends StatelessWidget {
                           if (_formKey.currentState!.validate()) {
                             await TechCubit.get(context).createOffer(
                               OfferModel(
-                                techName: authCubit.firstName,
-                                techId: authCubit.techId,
+                                techName: techCubit.techData!.firstName,
+                                techId: techCubit.techData!.techId,
                                 price: _price.text,
                                 earnest: _earnestPrice.text,
                                 offerDescription: _textarea.text,

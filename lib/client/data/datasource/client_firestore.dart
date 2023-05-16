@@ -1,13 +1,28 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:solvers/Auth/data/models/client_model.dart';
 import 'package:solvers/client/data/models/order_model.dart';
 import 'package:solvers/solver/data/models/offer_model.dart';
 
-class FireStoreCreateOrder {
-  static final _fireStoreCreateOrderCollection = FirebaseFirestore.instance;
+class ClientFireStore {
+  static final _fireStoreClientCollection = FirebaseFirestore.instance;
+
+  Future<ClientModel?> getClient(String clientId) async {
+    DocumentSnapshot<Map<String, dynamic>> snapshot =
+        await _fireStoreClientCollection
+            .collection('client')
+            .doc(clientId)
+            .get();
+    Map<String, dynamic> clientData = snapshot.data()!;
+    if (snapshot.exists) {
+      return ClientModel.fromJson(clientData);
+    } else {
+      return null;
+    }
+  }
 
   Future<void> addOrderToFireStore(OrderModel order) async {
     CollectionReference ordersCollection =
-        _fireStoreCreateOrderCollection.collection('order');
+        _fireStoreClientCollection.collection('order');
     DocumentReference newOrderRef = ordersCollection.doc();
     String newOrderId = newOrderRef.id;
 
@@ -29,7 +44,7 @@ class FireStoreCreateOrder {
     String clientId,
   ) async {
     QuerySnapshot<Map<String, dynamic>> querySnapshot =
-        await _fireStoreCreateOrderCollection
+        await _fireStoreClientCollection
             .collection('order')
             .where('clientId', isEqualTo: clientId)
             .get();
@@ -45,7 +60,7 @@ class FireStoreCreateOrder {
 
   Future<List<OfferModel>> getAllOffersToClient(String orderDocId) async {
     QuerySnapshot<Map<String, dynamic>> offerSnapshot =
-        await _fireStoreCreateOrderCollection
+        await _fireStoreClientCollection
             .collection('order')
             .doc(orderDocId)
             .collection('offer')
@@ -68,7 +83,7 @@ class FireStoreCreateOrder {
     required String techId,
     required String isAcceptedOffer,
   }) async {
-    await _fireStoreCreateOrderCollection
+    await _fireStoreClientCollection
         .collection('order')
         .doc(orderDocId)
         .collection('offer')
@@ -78,10 +93,7 @@ class FireStoreCreateOrder {
         'accepted': isAcceptedOffer,
       },
     );
-    await _fireStoreCreateOrderCollection
-        .collection('order')
-        .doc(orderDocId)
-        .update(
+    await _fireStoreClientCollection.collection('order').doc(orderDocId).update(
       {
         'techName': techName,
         'techId': techId,
@@ -99,7 +111,7 @@ class FireStoreCreateOrder {
     required String phoneNumber,
   }) async {
     final clientDoc =
-        _fireStoreCreateOrderCollection.collection("client").doc(clientId);
+        _fireStoreClientCollection.collection("client").doc(clientId);
     print("firstName: $firstName");
     print("lastName: $lastName");
     print("phoneNumber: $phoneNumber");

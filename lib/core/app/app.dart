@@ -33,9 +33,11 @@ class _MyAppState extends State<MyApp> {
           create: (BuildContext context) => sl<FirebaseAuthCubit>(),
         ),
         BlocProvider<ClientCubit>(
-            create: (BuildContext context) => sl<ClientCubit>()),
+          create: (BuildContext context) => sl<ClientCubit>()..getClientCubit(),
+        ),
         BlocProvider<TechCubit>(
-            create: (BuildContext context) => sl<TechCubit>())
+          create: (BuildContext context) => sl<TechCubit>()..getTechCubit(),
+        )
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,

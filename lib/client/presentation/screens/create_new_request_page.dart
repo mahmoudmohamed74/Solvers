@@ -49,11 +49,11 @@ class _ClientNewRequestPageState extends State<ClientNewRequestPage> {
 
   @override
   Widget build(BuildContext context) {
-    final authCubit = BlocProvider.of<FirebaseAuthCubit>(context);
     var dateTime = DateTime.now();
     var dateTimeFormatted =
         DateFormat('dd/MM/yyyy HH:mm:ss a').format(dateTime);
     final orderId = const Uuid().v4();
+    final clientCubit = ClientCubit.get(context);
 
     return BlocConsumer<ClientCubit, ClientState>(
       listener: (context, state) {
@@ -171,8 +171,8 @@ class _ClientNewRequestPageState extends State<ClientNewRequestPage> {
                   onTap: () async {
                     await ClientCubit.get(context).createOrder(
                       OrderModel(
-                        clientName: authCubit.clientData!.firstName,
-                        clientId: authCubit.clientData!.clientId,
+                        clientName: clientCubit.clientData!.firstName,
+                        clientId: clientCubit.clientData!.clientId,
                         dateTime: dateTimeFormatted.toString(),
                         mainProblem: _selectedMainProblemItems,
                         specificProblem: _selectedSpecificProblemItems,

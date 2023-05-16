@@ -1,9 +1,9 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:solvers/Auth/presentation/controller/auth_cubit/auth_cubit.dart';
 import 'package:solvers/core/global/resources/color_manager.dart';
 import 'package:solvers/core/global/resources/values_manger.dart';
+import 'package:solvers/core/utils/constants.dart';
 import 'package:solvers/solver/presentation/controller/tech_cubit.dart';
 import 'package:solvers/solver/presentation/screens/create_offer_tech_page.dart';
 import 'package:solvers/solver/presentation/widgets/request_list.dart';
@@ -65,7 +65,7 @@ class TechRequestStatusPage extends StatelessWidget {
                           TechCubit.get(context).declineOrder(
                             context,
                             cubit[index].orderDocId,
-                            FirebaseAuthCubit.get(context).techData!.techId,
+                            TechCubit.get(context).techId!,
                           );
                         },
                       );

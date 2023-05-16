@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:solvers/Auth/presentation/controller/auth_cubit/auth_cubit.dart';
 import 'package:solvers/core/global/resources/color_manager.dart';
 import 'package:solvers/core/global/resources/values_manger.dart';
 import 'package:solvers/core/routes/app_routes.dart';
@@ -8,6 +10,7 @@ class MyDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final authCubit = BlocProvider.of<FirebaseAuthCubit>(context);
     return Container(
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.only(
@@ -111,7 +114,10 @@ class MyDrawer extends StatelessWidget {
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                      onTap: () {},
+                      onTap: () async {
+                        await authCubit.signOut();
+// await
+                      },
                       splashColor: ColorManager.selectedItem,
                     ),
                   ],

@@ -3,24 +3,23 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:solvers/Auth/data/datasource/firebase_auth.dart';
 import 'package:solvers/Auth/data/datasource/firestore_create_user.dart';
 import 'package:solvers/Auth/data/repository/auth_repo_impl.dart';
-import 'package:solvers/Auth/data/repository/create_client_repo_impl.dart';
-import 'package:solvers/Auth/data/repository/create_tech_repo_impl.dart';
+import 'package:solvers/Auth/data/repository/create_user_repo_impl.dart';
 import 'package:solvers/Auth/domain/repository/base_auth_repo.dart';
 import 'package:solvers/Auth/domain/repository/base_create_user_repo.dart';
+import 'package:solvers/Auth/domain/usecases/check_user_use_case.dart';
 import 'package:solvers/Auth/domain/usecases/create_client_use_case.dart';
 import 'package:solvers/Auth/domain/usecases/create_tech_use_case.dart';
-import 'package:solvers/Auth/domain/usecases/get_client_use_case.dart';
-import 'package:solvers/Auth/domain/usecases/get_tech_use_case.dart';
 import 'package:solvers/Auth/domain/usecases/login_use_case.dart';
 import 'package:solvers/Auth/domain/usecases/reset_password_use_case.dart';
 import 'package:solvers/Auth/domain/usecases/signout_use_case.dart';
 import 'package:solvers/Auth/domain/usecases/signup_use_case.dart';
 import 'package:solvers/Auth/presentation/controller/auth_cubit/auth_cubit.dart';
 import 'package:solvers/client/data/datasource/client_firestore.dart';
-import 'package:solvers/client/data/repository/create_order_repo_impl.dart';
-import 'package:solvers/client/domain/repository/base_create_order_repo.dart';
+import 'package:solvers/client/data/repository/client_repo_impl.dart';
+import 'package:solvers/client/domain/repository/base_client_repo.dart';
 import 'package:solvers/client/domain/usecases/create_order_use_case.dart';
 import 'package:solvers/client/domain/usecases/get_all_offers_use_case.dart';
+import 'package:solvers/client/domain/usecases/get_client_use_case.dart';
 import 'package:solvers/client/domain/usecases/get_order_use_case.dart';
 import 'package:solvers/client/domain/usecases/update_client_data_use_case.dart';
 import 'package:solvers/client/domain/usecases/update_order_offer_use_case.dart';
@@ -32,6 +31,7 @@ import 'package:solvers/solver/domain/repository/base_tech_repo.dart';
 import 'package:solvers/solver/domain/usecases/create_offer_use_case.dart';
 import 'package:solvers/solver/domain/usecases/get_accepted_orders_use_case.dart';
 import 'package:solvers/solver/domain/usecases/get_order_to_tech_use_case.dart';
+import 'package:solvers/solver/domain/usecases/get_tech_use_case.dart';
 import 'package:solvers/solver/domain/usecases/update_order_accepted_type_use_case.dart';
 import 'package:solvers/solver/domain/usecases/update_tech_data_use_case.dart';
 import 'package:solvers/solver/presentation/controller/tech_cubit.dart';
@@ -58,13 +58,13 @@ class ServicesLocator {
     // order
 
     // order's client
-    sl.registerLazySingleton<FireStoreCreateOrder>(
-      () => FireStoreCreateOrder(),
+    sl.registerLazySingleton<ClientFireStore>(
+      () => ClientFireStore(),
     );
 
     // order's tech
-    sl.registerLazySingleton<FireStoreTechnician>(
-      () => FireStoreTechnician(),
+    sl.registerLazySingleton<TechnicianFireStore>(
+      () => TechnicianFireStore(),
     );
 
     // Repository
@@ -74,12 +74,8 @@ class ServicesLocator {
       () => FirebaseAuthRepositoryImpl(sl()),
     );
 
-    sl.registerLazySingleton<BaseCreateClientRepo>(
-      () => CreateClientRepoImpl(sl()),
-    );
-
-    sl.registerLazySingleton<BaseCreateTechRepo>(
-      () => CreateTechRepoImpl(sl()),
+    sl.registerLazySingleton<BaseCreateUserRepo>(
+      () => CreateUserRepoImpl(sl()),
     );
 
     // order's client
@@ -107,6 +103,9 @@ class ServicesLocator {
     sl.registerLazySingleton<ResetPasswordUseCase>(() => ResetPasswordUseCase(
           sl(),
         ));
+    sl.registerLazySingleton<CheckUserUseCase>(() => CheckUserUseCase(
+          sl(),
+        ));
 
     // client use cases
 
@@ -127,7 +126,6 @@ class ServicesLocator {
     sl.registerLazySingleton<GetTechUseCase>(() => GetTechUseCase(
           sl(),
         ));
-
     // order's  client usecases
     sl.registerLazySingleton<CreateOrderUseCase>(() => CreateOrderUseCase(
           sl(),
@@ -198,7 +196,6 @@ class ServicesLocator {
         sl(),
         sl(),
         sl(),
-        sl(),
       ),
     );
 
@@ -210,10 +207,12 @@ class ServicesLocator {
         sl(),
         sl(),
         sl(),
+        sl(),
       ),
     );
     sl.registerFactory<TechCubit>(
       () => TechCubit(
+        sl(),
         sl(),
         sl(),
         sl(),

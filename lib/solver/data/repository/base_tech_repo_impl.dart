@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:solvers/Auth/data/models/tech_model.dart';
 import 'package:solvers/client/data/models/order_model.dart';
 import 'package:solvers/solver/data/datasource/technician_firestore.dart';
 import 'package:solvers/solver/data/models/offer_model.dart';
@@ -6,7 +7,7 @@ import 'package:solvers/solver/data/requests/update_tech_data_request.dart';
 import 'package:solvers/solver/domain/repository/base_tech_repo.dart';
 
 class TechRepoImpl implements BaseTechRepo {
-  final FireStoreTechnician _fireStoreTechnician;
+  final TechnicianFireStore _fireStoreTechnician;
 
   TechRepoImpl(this._fireStoreTechnician);
   @override
@@ -75,6 +76,20 @@ class TechRepoImpl implements BaseTechRepo {
       );
     } catch (e) {
       print("Update tech data repo error: ${e.toString()}");
+    }
+  }
+
+  @override
+  Future<TechModel?> getTech(String techId) async {
+    try {
+      final techInfo = await _fireStoreTechnician.getTech(techId);
+      return techInfo;
+    } on FirebaseException catch (e) {
+      print('FirebaseException while fetching technician: ${e.message}');
+      return Future.error(e.message!);
+    } catch (e) {
+      print('Unknown error while fetching technician: $e');
+      return null;
     }
   }
 }

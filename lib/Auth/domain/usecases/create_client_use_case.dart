@@ -3,12 +3,12 @@ import 'package:solvers/Auth/domain/repository/base_create_user_repo.dart';
 import 'package:solvers/core/usecase/base_usecase.dart';
 
 class CreateClientUseCase implements BaseUseCase<void, ClientModel> {
-  final BaseCreateClientRepo _baseCreateClientRepo;
+  final BaseCreateUserRepo _baseCreateUserRepo;
 
-  CreateClientUseCase(this._baseCreateClientRepo);
+  CreateClientUseCase(this._baseCreateUserRepo);
 
   @override
   Future<void> call({required ClientModel params}) {
-    return _baseCreateClientRepo.createClient(params);
+    return _baseCreateUserRepo.createClient(params);
   }
 }

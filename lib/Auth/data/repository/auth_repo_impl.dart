@@ -42,10 +42,9 @@ class FirebaseAuthRepositoryImpl implements BaseFirebaseAuthRepository {
   }
 
   @override
-  Future<void> signOut({required String userId}) async {
+  Future<void> signOut() async {
     try {
       return await firebaseAuthentication.signOut();
-      // await FireStoreNotification.deleteDeviceToken(userId: userId);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         return Future.error(e.message.toString());

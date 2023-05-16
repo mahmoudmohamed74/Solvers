@@ -3,6 +3,8 @@
 class Constants {
   // static const String empty = "";
   // static const String token = "SEND TOKEN HERE";
+  static String? clientId;
+  static String? techId;
   static const String empty = "";
   static const int zero = 0;
   static const int two = 2;

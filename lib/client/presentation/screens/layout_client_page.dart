@@ -7,20 +7,18 @@ import 'package:solvers/client/presentation/widgets/drawer.dart';
 import 'package:solvers/core/global/resources/color_manager.dart';
 import 'package:solvers/core/global/resources/values_manger.dart';
 import 'package:solvers/core/routes/app_routes.dart';
+import 'package:solvers/core/utils/constants.dart';
 
 class ClientLayout extends StatelessWidget {
   ClientLayout({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final authCubit = BlocProvider.of<FirebaseAuthCubit>(context);
-
     return BlocConsumer<ClientCubit, ClientState>(
       listener: (context, state) {},
       builder: (context, state) {
         final clientCubit = ClientCubit.get(context);
-        clientCubit.getId();
-
+        // clientCubit.getId;
         return Scaffold(
           appBar: DefaultAppBar(
             leadingIconButton: const ThreeBlackLinesWidget(),
@@ -84,7 +82,7 @@ class ClientLayout extends StatelessWidget {
                           onPressed: () async {
                             clientCubit.changeBottomNav(1);
                             await clientCubit.getOrder(
-                              clientCubit.clientId!,
+                              Constants.clientId!,
                             );
                           },
                           minWidth: 40,
@@ -105,7 +103,7 @@ class ClientLayout extends StatelessWidget {
                           onPressed: () async {
                             clientCubit.changeBottomNav(2);
                             await clientCubit.getOrder(
-                              clientCubit.clientId!,
+                              Constants.clientId!,
                             );
                           },
                           minWidth: 40,
@@ -120,9 +118,7 @@ class ClientLayout extends StatelessWidget {
                         MaterialButton(
                           onPressed: () async {
                             clientCubit.changeBottomNav(3);
-                            await authCubit.getClientCubit(
-                              clientId: clientCubit.clientId!,
-                            );
+                            await clientCubit.getClientCubit();
                           },
                           minWidth: 40,
                           child: Icon(

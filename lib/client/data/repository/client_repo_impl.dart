@@ -1,20 +1,21 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:solvers/Auth/data/models/client_model.dart';
 import 'package:solvers/client/data/datasource/client_firestore.dart';
 import 'package:solvers/client/data/models/order_model.dart';
 import 'package:solvers/client/data/requests/update_client_data_request.dart';
 import 'package:solvers/client/data/requests/update_order_offer_request.dart';
-import 'package:solvers/client/domain/repository/base_create_order_repo.dart';
+import 'package:solvers/client/domain/repository/base_client_repo.dart';
 import 'package:solvers/solver/data/models/offer_model.dart';
 
 class ClientRepoImpl implements BaseClientRepo {
-  final FireStoreCreateOrder _fireStoreCreateOrder;
+  final ClientFireStore _clientFireStore;
 
-  ClientRepoImpl(this._fireStoreCreateOrder);
+  ClientRepoImpl(this._clientFireStore);
 
   @override
   Future<void> createOrder(OrderModel order) async {
     try {
-      await _fireStoreCreateOrder.addOrderToFireStore(order);
+      await _clientFireStore.addOrderToFireStore(order);
     } catch (e) {
       print("create order error repo : ${e.toString()}");
     }
@@ -23,7 +24,7 @@ class ClientRepoImpl implements BaseClientRepo {
   @override
   Future<List<OrderModel>> getOrderToClient(String clientId) async {
     try {
-      return await _fireStoreCreateOrder.getOrderToClientFromFireStore(
+      return await _clientFireStore.getOrderToClientFromFireStore(
         clientId,
       );
     } on FirebaseException catch (e) {
@@ -38,7 +39,7 @@ class ClientRepoImpl implements BaseClientRepo {
   @override
   Future<List<OfferModel>> getOrderAllOffersTOClient(String orderDocId) async {
     try {
-      return await _fireStoreCreateOrder.getAllOffersToClient(
+      return await _clientFireStore.getAllOffersToClient(
         orderDocId,
       );
     } on FirebaseException catch (e) {
@@ -55,7 +56,7 @@ class ClientRepoImpl implements BaseClientRepo {
     UpdateOrderOffer updateOrderOffer,
   ) async {
     try {
-      await _fireStoreCreateOrder.updateOffer(
+      await _clientFireStore.updateOffer(
         orderDocId: updateOrderOffer.orderDocId,
         status: updateOrderOffer.status,
         techName: updateOrderOffer.techName,
@@ -73,7 +74,7 @@ class ClientRepoImpl implements BaseClientRepo {
   Future<void> updateClientData(
       UpdateClientDataRequest updateClientData) async {
     try {
-      await _fireStoreCreateOrder.updateClientData(
+      await _clientFireStore.updateClientData(
         clientId: updateClientData.clientId,
         firstName: updateClientData.firstName,
         lastName: updateClientData.lastName,
@@ -81,6 +82,20 @@ class ClientRepoImpl implements BaseClientRepo {
       );
     } catch (e) {
       print("Update client data repo error: ${e.toString()}");
+    }
+  }
+
+  @override
+  Future<ClientModel?> getClient(String clientId) async {
+    try {
+      final clientInfo = await _clientFireStore.getClient(clientId);
+      return clientInfo;
+    } on FirebaseException catch (e) {
+      print('FirebaseException while fetching client: ${e.message}');
+      return Future.error(e.message!);
+    } catch (e) {
+      print('Unknown error while fetching client: $e');
+      return null;
     }
   }
 }

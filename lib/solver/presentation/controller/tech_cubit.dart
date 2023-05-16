@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:solvers/Auth/data/models/tech_model.dart';
 import 'package:solvers/Auth/presentation/controller/auth_cubit/auth_cubit.dart';
 import 'package:solvers/client/data/models/order_model.dart';
 import 'package:solvers/core/app/app_prefs.dart';
@@ -11,6 +12,7 @@ import 'package:solvers/solver/data/requests/update_tech_data_request.dart';
 import 'package:solvers/solver/domain/usecases/create_offer_use_case.dart';
 import 'package:solvers/solver/domain/usecases/get_accepted_orders_use_case.dart';
 import 'package:solvers/solver/domain/usecases/get_order_to_tech_use_case.dart';
+import 'package:solvers/solver/domain/usecases/get_tech_use_case.dart';
 import 'package:solvers/solver/domain/usecases/update_order_accepted_type_use_case.dart';
 import 'package:solvers/solver/domain/usecases/update_tech_data_use_case.dart';
 import 'package:solvers/solver/presentation/screens/home_tech_page.dart';
@@ -21,20 +23,22 @@ import 'package:solvers/solver/presentation/screens/request_status_tech_page.dar
 part 'tech_state.dart';
 
 class TechCubit extends Cubit<TechState> {
+  final GetTechUseCase _getTechUseCase;
   final GetOrderToTechUseCase _getOrderToTechUseCase;
   final CreateOfferUseCase _createOfferUseCase;
   final UpdateOrderAcceptedTypeUseCase _updateOrderAcceptedTypeUseCase;
   final GetAcceptedOrdersUseCase _getAcceptedOrdersUseCase;
   final UpdateTechDataUseCase _updateTechDataUseCase;
   final AppPreferences _appPreferences = sl<AppPreferences>();
-  final FireStoreTechnician _fireStoreTechnician;
+  final TechnicianFireStore _fireStoreTechnician;
   TechCubit(
+    this._fireStoreTechnician,
+    this._getTechUseCase,
     this._getOrderToTechUseCase,
     this._createOfferUseCase,
     this._updateOrderAcceptedTypeUseCase,
     this._getAcceptedOrdersUseCase,
     this._updateTechDataUseCase,
-    this._fireStoreTechnician,
   ) : super(TechInitial());
 
   static TechCubit get(context) => BlocProvider.of(context);
@@ -53,8 +57,22 @@ class TechCubit extends Cubit<TechState> {
   }
 
   String? techId;
-  void getId() async {
+
+  TechModel? techData;
+  Future<TechModel?> getTechCubit() async {
+    emit(GetTechLoading());
     techId = await _appPreferences.getTechnicianId();
+    return await _getTechUseCase.call(params: techId!).then((value) async {
+      techData = value;
+      if (techData != null) {
+        emit(GetTechSuccess(techData));
+      } else {
+        emit(GetTechFailed("technician data is null"));
+      }
+    }).catchError((e) {
+      print("cubit error failed to retrieve tech data ${e.toString()}");
+      emit(GetTechError(e.toString()));
+    });
   }
 
   Future<void> createOffer(
@@ -191,7 +209,7 @@ class TechCubit extends Cubit<TechState> {
     await _updateTechDataUseCase
         .call(params: updateTechData)
         .then((value) async {
-      await FirebaseAuthCubit.get(context).getTechCubit(techId: techId!);
+      await getTechCubit();
       emit(UpdateTechDataSuccessState());
     }).catchError((error) {
       print(error.toString());

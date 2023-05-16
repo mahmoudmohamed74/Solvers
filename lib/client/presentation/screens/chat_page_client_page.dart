@@ -8,11 +8,9 @@ import 'package:solvers/solver/data/models/offer_model.dart';
 
 class ClientChatPage extends StatelessWidget {
   final OfferModel? offerModel;
-  final String? clientId;
   const ClientChatPage({
     Key? key,
     this.offerModel,
-    this.clientId,
   }) : super(key: key);
 
   @override

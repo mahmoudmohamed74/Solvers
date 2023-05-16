@@ -119,7 +119,6 @@ class OfferListWidget extends StatelessWidget {
                         MaterialPageRoute(
                           builder: (_) => ClientChatPage(
                             offerModel: offerModel,
-                            clientId: "sender id (userId)",
                           ),
                         ),
                       );

@@ -1,7 +1,6 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:solvers/Auth/presentation/controller/auth_cubit/auth_cubit.dart';
 import 'package:solvers/Auth/presentation/widgets/default_form_field.dart';
 import 'package:solvers/Auth/presentation/widgets/default_snack_bar.dart';
 import 'package:solvers/Auth/presentation/widgets/default_text_button.dart';
@@ -39,10 +38,10 @@ class _TechProfilePageState extends State<TechProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    final authCubit = BlocProvider.of<FirebaseAuthCubit>(context);
-    List<String> techSkills = authCubit.techData!.skills;
-
     final techCubit = TechCubit.get(context);
+
+    List<String> techSkills = techCubit.techData!.skills;
+
     return BlocConsumer<TechCubit, TechState>(
       listener: (context, state) {
         if (state is IsFirstNameValid) {
@@ -117,7 +116,7 @@ class _TechProfilePageState extends State<TechProfilePage> {
                         width: 20,
                       ),
                       Text(
-                        authCubit.techData!.firstName,
+                        techCubit.techData!.firstName,
                         style: const TextStyle(
                           fontSize: 36,
                         ),
@@ -137,7 +136,7 @@ class _TechProfilePageState extends State<TechProfilePage> {
                           ),
                           DefaultFormField(
                             obscureText: false,
-                            hintText: authCubit.techData!.firstName,
+                            hintText: techCubit.techData!.firstName,
                             controller: _firstNameEditingController,
                             type: TextInputType.name,
                             validator: (String? s) {
@@ -154,7 +153,7 @@ class _TechProfilePageState extends State<TechProfilePage> {
                             height: AppSize.s12,
                           ),
                           DefaultFormField(
-                            hintText: authCubit.techData!.lastName,
+                            hintText: techCubit.techData!.lastName,
                             controller: _lastNameEditingController,
                             type: TextInputType.name,
                             validator: (String? s) {
@@ -173,7 +172,7 @@ class _TechProfilePageState extends State<TechProfilePage> {
                           ),
                           DefaultFormField(
                             obscureText: false,
-                            hintText: authCubit.techData!.phoneNumber,
+                            hintText: techCubit.techData!.phoneNumber,
                             controller: _phoneNumberEditingController,
                             type: TextInputType.text,
                             validator: (input) => input!.isValidPhone()
@@ -189,7 +188,7 @@ class _TechProfilePageState extends State<TechProfilePage> {
                           DefaultFormField(
                             isClickable: false,
                             obscureText: false,
-                            hintText: authCubit.techData!.email,
+                            hintText: techCubit.techData!.email,
                             controller: _emailEditingController,
                             type: TextInputType.emailAddress,
                             validator: (value) {
