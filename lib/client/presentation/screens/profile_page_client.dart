@@ -207,7 +207,7 @@ class ClientProfilePage extends StatelessWidget {
                                     onTap: () async {
                                       await clientCubit.updateClientData(
                                         UpdateClientDataRequest(
-                                          clientId: Constants.clientId!,
+                                          clientId: clientCubit.clientId!,
                                           firstName:
                                               await clientCubit.validFirstName(
                                             _firstNameEditingController.text,

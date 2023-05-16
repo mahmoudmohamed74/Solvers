@@ -72,9 +72,7 @@ class ClientCubit extends Cubit<ClientState> {
   Future<ClientModel?> getClientCubit() async {
     emit(GetClientLoading());
     clientId = await _appPreferences.getClientId();
-    return await _getClientUseCase
-        .call(params: Constants.clientId!)
-        .then((value) async {
+    return await _getClientUseCase.call(params: clientId!).then((value) async {
       clientData = value;
       if (clientData != null) {
         emit(GetClientSuccess(clientData));

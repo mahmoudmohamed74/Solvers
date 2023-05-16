@@ -77,7 +77,7 @@ class FirebaseAuthCubit extends Cubit<FirebaseAuthState> {
       if (userRole == "technician") {
         await _appPreferences.saveTechnicianId(user.uid);
         Constants.techId = await _appPreferences.getTechnicianId();
-        print("Constants.techId ${Constants.clientId} ....");
+        print("Constants.techId ${Constants.techId} ....");
       }
 
       emit(LogInSuccessState(user, userRole));
