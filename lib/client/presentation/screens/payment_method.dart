@@ -26,10 +26,11 @@ class PaymentMethod extends StatelessWidget {
           ),
         ),
       ),
-      body: Column(
-        children: [
-          SingleChildScrollView(
-            child: Padding(
+      body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Column(
+          children: [
+            Padding(
               padding: const EdgeInsets.all(AppPadding.p20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -87,7 +88,7 @@ class PaymentMethod extends StatelessWidget {
                                 await initPayment(
                                   amount: amount * 100,
                                   context: context,
-                                  email: 'fezo10@test.com',
+                                  email: 'solvers10@test.com',
                                 );
                               },
                               style: ButtonStyle(
@@ -185,55 +186,54 @@ class PaymentMethod extends StatelessWidget {
                 ],
               ),
             ),
+          ],
+        ),
+      ),
+      bottomNavigationBar: Container(
+        height: AppSize.s150,
+        width: MediaQuery.of(context).size.width / 1,
+        decoration: BoxDecoration(
+          color: ColorManager.selectedItem,
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(AppSize.s25),
+            topRight: Radius.circular(AppSize.s25),
           ),
-          const Spacer(),
-          Container(
-            height: AppSize.s150,
-            width: MediaQuery.of(context).size.width / 1,
-            decoration: BoxDecoration(
-              color: ColorManager.selectedItem,
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(AppSize.s25),
-                topRight: Radius.circular(AppSize.s25),
-              ),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.only(
-                left: AppPadding.p30,
-                right: AppPadding.p30,
-              ),
-              child: Row(
-                children: [
-                  Container(
-                    height: AppSize.s60,
-                    width: AppSize.s150,
-                    decoration: BoxDecoration(
-                      color: ColorManager.white,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: const Align(
-                      alignment: Alignment.center,
-                      child: Text(
-                        'Pay',
-                        style: TextStyle(
-                          fontSize: AppSize.s40,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const Spacer(),
-                  Text(
-                    '$amount USD',
+        ),
+        child: Padding(
+          padding: const EdgeInsets.only(
+            left: AppPadding.p30,
+            right: AppPadding.p30,
+          ),
+          child: Row(
+            children: [
+              Container(
+                height: AppSize.s60,
+                width: AppSize.s150,
+                decoration: BoxDecoration(
+                  color: ColorManager.white,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: const Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    'Pay',
                     style: TextStyle(
                       fontSize: AppSize.s40,
-                      color: ColorManager.white,
                     ),
                   ),
-                ],
+                ),
               ),
-            ),
+              const Spacer(),
+              Text(
+                '$amount USD',
+                style: TextStyle(
+                  fontSize: AppSize.s40,
+                  color: ColorManager.white,
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
