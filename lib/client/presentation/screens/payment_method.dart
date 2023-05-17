@@ -248,7 +248,7 @@ class PaymentMethod extends StatelessWidget {
               Text(
                 '$amount USD',
                 style: TextStyle(
-                  fontSize: amount > 1000 ? AppSize.s36 : AppSize.s40,
+                  fontSize: amount > 1000 ? AppSize.s30 : AppSize.s36,
                   color: ColorManager.white,
                 ),
               ),
