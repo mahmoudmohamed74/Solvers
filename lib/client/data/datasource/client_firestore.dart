@@ -86,6 +86,8 @@ class ClientFireStore {
     required String earnest,
     required String techId,
     required String isAcceptedOffer,
+    required String priceIsPaid,
+    required String earnestIsPaid,
   }) async {
     await _fireStoreClientCollection
         .collection('order')
@@ -104,6 +106,8 @@ class ClientFireStore {
         'status': status,
         'price': price,
         'earnest': earnest,
+        "priceIsPaid": priceIsPaid,
+        "earnestIsPaid": earnestIsPaid,
       },
     );
   }

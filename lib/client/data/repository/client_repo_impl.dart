@@ -65,6 +65,8 @@ class ClientRepoImpl implements BaseClientRepo {
         earnest: updateOrderOffer.earnest,
         techId: updateOrderOffer.techId,
         isAcceptedOffer: updateOrderOffer.isAcceptedOffer,
+        earnestIsPaid: updateOrderOffer.earnestIsPaid,
+        priceIsPaid: updateOrderOffer.priceIsPaid,
       );
     } catch (e) {
       print("Update Offer repo error: ${e.toString()}");
