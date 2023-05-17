@@ -119,7 +119,7 @@ class MyRequestsWidget extends StatelessWidget {
                         const SizedBox(
                           width: AppSize.s10,
                         ),
-                        if (orderModel.priceIsPaid == "true")
+                        if (orderModel.earnestIsPaid == "true")
                           Container(
                             color: ColorManager.green,
                             height: AppSize.s18,
@@ -131,7 +131,7 @@ class MyRequestsWidget extends StatelessWidget {
                               ),
                             ),
                           ),
-                        if (orderModel.priceIsPaid == "false")
+                        if (orderModel.earnestIsPaid == "false")
                           Container(
                             color: ColorManager.grey,
                             height: AppSize.s18,
@@ -164,7 +164,7 @@ class MyRequestsWidget extends StatelessWidget {
                         const SizedBox(
                           width: AppSize.s10,
                         ),
-                        if (orderModel.earnestIsPaid == "true")
+                        if (orderModel.priceIsPaid == "true")
                           Container(
                             color: ColorManager.green,
                             height: AppSize.s18,
@@ -176,7 +176,7 @@ class MyRequestsWidget extends StatelessWidget {
                               ),
                             ),
                           ),
-                        if (orderModel.earnestIsPaid == "false")
+                        if (orderModel.priceIsPaid == "false")
                           Container(
                             color: ColorManager.grey,
                             height: AppSize.s18,
