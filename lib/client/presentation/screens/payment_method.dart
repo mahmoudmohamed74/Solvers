@@ -241,11 +241,14 @@ class PaymentMethod extends StatelessWidget {
                   ),
                 ),
               ),
+              const SizedBox(
+                width: AppSize.s5,
+              ),
               const Spacer(),
               Text(
                 '$amount USD',
                 style: TextStyle(
-                  fontSize: AppSize.s40,
+                  fontSize: amount > 1000 ? AppSize.s36 : AppSize.s40,
                   color: ColorManager.white,
                 ),
               ),
