@@ -6,6 +6,7 @@ import 'package:solvers/core/app/app.dart';
 
 import 'package:solvers/client/data/models/order_model.dart';
 import 'package:solvers/core/app/app_prefs.dart';
+import 'package:solvers/core/messages/message_model.dart';
 import 'package:solvers/core/services/services_locator.dart';
 import 'package:solvers/core/utils/functions.dart';
 import 'package:solvers/solver/data/datasource/technician_firestore.dart';
@@ -13,8 +14,10 @@ import 'package:solvers/solver/data/models/offer_model.dart';
 import 'package:solvers/solver/data/requests/update_tech_data_request.dart';
 import 'package:solvers/solver/domain/usecases/create_offer_use_case.dart';
 import 'package:solvers/solver/domain/usecases/get_accepted_orders_use_case.dart';
+import 'package:solvers/solver/domain/usecases/get_message_use_case.dart';
 import 'package:solvers/solver/domain/usecases/get_order_to_tech_use_case.dart';
 import 'package:solvers/solver/domain/usecases/get_tech_use_case.dart';
+import 'package:solvers/solver/domain/usecases/send_message_use_case.dart';
 import 'package:solvers/solver/domain/usecases/update_order_accepted_type_use_case.dart';
 import 'package:solvers/solver/domain/usecases/update_tech_data_use_case.dart';
 import 'package:solvers/solver/presentation/screens/home_tech_page.dart';
@@ -33,16 +36,19 @@ class TechCubit extends Cubit<TechState> {
   final UpdateOrderAcceptedTypeUseCase _updateOrderAcceptedTypeUseCase;
   final GetAcceptedOrdersUseCase _getAcceptedOrdersUseCase;
   final UpdateTechDataUseCase _updateTechDataUseCase;
+  final TechSendMessageUseCase _techSendMessageUseCase;
+  final TechGetMessagesUseCase _techGetMessagesUseCase;
   final AppPreferences _appPreferences = sl<AppPreferences>();
-  final TechnicianFireStore _fireStoreTechnician;
+
   TechCubit(
-    this._fireStoreTechnician,
     this._getTechUseCase,
     this._getOrderToTechUseCase,
     this._createOfferUseCase,
     this._updateOrderAcceptedTypeUseCase,
     this._getAcceptedOrdersUseCase,
     this._updateTechDataUseCase,
+    this._techSendMessageUseCase,
+    this._techGetMessagesUseCase,
   ) : super(TechInitial());
 
   static TechCubit get(context) => BlocProvider.of(context);
@@ -226,5 +232,30 @@ class TechCubit extends Cubit<TechState> {
     _appPreferences.sharedPreferences.clear();
     runApp(MyApp());
     Navigator.pushReplacementNamed(context, Routes.userLoginRoute);
+  }
+
+  Future<void> techSendMessage({
+    required String receiverId,
+    required String message,
+  }) async {
+    MessageModel messageModel = MessageModel(
+      message: message,
+      senderId: techId,
+      receiverId: receiverId,
+      messageDate: DateTime.now().toString(),
+    );
+    await _techSendMessageUseCase.call(params: messageModel);
+  }
+
+  void techGetMessages(String receiverId) {
+    emit(ChatLoading());
+    _techGetMessagesUseCase.execute(techId!, receiverId).listen(
+      (messages) {
+        emit(ChatLoaded(messages));
+      },
+      onError: (error) {
+        emit(ChatError(error.toString()));
+      },
+    );
   }
 }

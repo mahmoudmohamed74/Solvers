@@ -1,20 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:solvers/client/presentation/controller/client_cubit.dart';
 import 'package:solvers/client/presentation/screens/help_page.dart';
 import 'package:solvers/core/global/resources/color_manager.dart';
 import 'package:solvers/core/global/resources/values_manger.dart';
-import 'package:solvers/core/routes/app_routes.dart';
-import 'package:solvers/solver/presentation/controller/tech_cubit.dart';
 import 'package:solvers/solver/presentation/screens/contact%20_us_page.dart';
 
 class MyDrawer extends StatelessWidget {
-  const MyDrawer({super.key});
+  VoidCallback? onTap;
+  MyDrawer({super.key, this.onTap});
 
   @override
   Widget build(BuildContext context) {
-    final clientCubit = BlocProvider.of<ClientCubit>(context);
-    final techCubit = BlocProvider.of<TechCubit>(context);
     return Container(
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.only(
@@ -122,10 +117,7 @@ class MyDrawer extends StatelessWidget {
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                      onTap: () {
-                        clientCubit.clientSignOut(context: context);
-                        techCubit.techSignOut(context: context);
-                      },
+                      onTap: onTap,
                       splashColor: ColorManager.selectedItem,
                     ),
                   ],

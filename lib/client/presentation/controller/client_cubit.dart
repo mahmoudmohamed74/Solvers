@@ -11,7 +11,9 @@ import 'package:solvers/client/data/requests/update_order_offer_request.dart';
 import 'package:solvers/client/domain/usecases/create_order_use_case.dart';
 import 'package:solvers/client/domain/usecases/get_all_offers_use_case.dart';
 import 'package:solvers/client/domain/usecases/get_client_use_case.dart';
+import 'package:solvers/client/domain/usecases/get_message_use_case.dart';
 import 'package:solvers/client/domain/usecases/get_order_use_case.dart';
+import 'package:solvers/client/domain/usecases/send_message_use_case.dart';
 import 'package:solvers/client/domain/usecases/update_client_data_use_case.dart';
 import 'package:solvers/client/domain/usecases/update_order_offer_use_case.dart';
 import 'package:solvers/client/presentation/screens/home_client_page.dart';
@@ -20,9 +22,9 @@ import 'package:solvers/client/presentation/screens/profile_page_client.dart';
 import 'package:solvers/client/presentation/screens/request_status_client_page.dart';
 import 'package:solvers/core/app/app.dart';
 import 'package:solvers/core/app/app_prefs.dart';
+import 'package:solvers/core/messages/message_model.dart';
 import 'package:solvers/core/routes/app_routes.dart';
 import 'package:solvers/core/services/services_locator.dart';
-import 'package:solvers/core/utils/constants.dart';
 import 'package:solvers/solver/data/models/offer_model.dart';
 import 'package:solvers/core/utils/functions.dart';
 
@@ -35,9 +37,10 @@ class ClientCubit extends Cubit<ClientState> {
   final UpdateOrderOfferUseCase _updateOrderOfferUseCase;
   final UpdateClientDataUseCase _updateClientDataUseCase;
   final GetClientUseCase _getClientUseCase;
+  final ClientSendMessageUseCase _clientSendMessageUseCase;
+  final ClientGetMessagesUseCase _clientGetMessagesUseCase;
   final AppPreferences _appPreferences = sl<AppPreferences>();
 
-  final ClientFireStore _fireStoreCreateOrder;
   final authCubit = BlocProvider.of<FirebaseAuthCubit>;
 
   ClientCubit(
@@ -47,7 +50,8 @@ class ClientCubit extends Cubit<ClientState> {
     this._updateOrderOfferUseCase,
     this._updateClientDataUseCase,
     this._getClientUseCase,
-    this._fireStoreCreateOrder,
+    this._clientSendMessageUseCase,
+    this._clientGetMessagesUseCase,
   ) : super(ClientInitial());
 
   static ClientCubit get(context) => BlocProvider.of(context);
@@ -72,6 +76,7 @@ class ClientCubit extends Cubit<ClientState> {
   Future<ClientModel?> getClientCubit() async {
     emit(GetClientLoading());
     clientId = await _appPreferences.getClientId();
+    print("clientIdin get $clientId .......");
     return await _getClientUseCase.call(params: clientId!).then((value) async {
       clientData = value;
       if (clientData != null) {
@@ -241,10 +246,36 @@ class ClientCubit extends Cubit<ClientState> {
     });
   }
 
-  void clientSignOut({required BuildContext context}) {
+  void clientSignOut({required BuildContext context}) async {
     FirebaseAuth.instance.signOut();
     _appPreferences.sharedPreferences.clear();
+    // ClientCubit.get(context).close();
     runApp(MyApp());
     Navigator.pushReplacementNamed(context, Routes.userLoginRoute);
+  }
+
+  Future<void> clientSendMessage({
+    required String receiverId,
+    required String message,
+  }) async {
+    MessageModel messageModel = MessageModel(
+      message: message,
+      senderId: clientId,
+      receiverId: receiverId,
+      messageDate: DateTime.now().toString(),
+    );
+    await _clientSendMessageUseCase.call(params: messageModel);
+  }
+
+  void clientGetMessages(String receiverId) {
+    emit(ChatLoading());
+    _clientGetMessagesUseCase.execute(clientId!, receiverId).listen(
+      (messages) {
+        emit(ChatLoaded(messages));
+      },
+      onError: (error) {
+        emit(ChatError(error.toString()));
+      },
+    );
   }
 }

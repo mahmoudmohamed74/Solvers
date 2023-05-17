@@ -54,4 +54,8 @@ class AppPreferences {
     sharedPreferences.remove(PREFS_KEY_IS_CLIENT_LOGGED_IN);
     sharedPreferences.remove(PREFS_KEY_CLIENT_ID);
   }
+
+  // Future<void> clean() async {
+  //   sharedPreferences.clear();
+  // }
 }

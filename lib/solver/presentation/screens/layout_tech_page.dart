@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:solvers/Auth/presentation/controller/auth_cubit/auth_cubit.dart';
 import 'package:solvers/client/presentation/widgets/default_appbar.dart';
 import 'package:solvers/client/presentation/widgets/drawer.dart';
 import 'package:solvers/core/global/resources/color_manager.dart';
 import 'package:solvers/core/global/resources/values_manger.dart';
-import 'package:solvers/core/services/services_locator.dart';
-import 'package:solvers/core/utils/constants.dart';
+
 import 'package:solvers/solver/presentation/controller/tech_cubit.dart';
 
 class TechLayout extends StatelessWidget {
@@ -15,6 +13,7 @@ class TechLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final techCubit = TechCubit.get(context);
+
     return BlocConsumer<TechCubit, TechState>(
       listener: (context, state) {},
       builder: (context, state) {
@@ -22,9 +21,13 @@ class TechLayout extends StatelessWidget {
           appBar: DefaultAppBar(
             leadingIconButton: const ThreeBlackLinesWidget(),
           ),
-          drawer: const Align(
+          drawer: Align(
             alignment: Alignment.topLeft,
-            child: MyDrawer(),
+            child: MyDrawer(
+              onTap: () {
+                TechCubit.get(context).techSignOut(context: context);
+              },
+            ),
           ),
           body: techCubit.screens[techCubit.currentIndex],
           bottomNavigationBar: ClipRRect(

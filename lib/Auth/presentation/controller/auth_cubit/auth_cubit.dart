@@ -13,7 +13,6 @@ import 'package:solvers/Auth/domain/usecases/create_client_use_case.dart';
 import 'package:solvers/Auth/domain/usecases/create_tech_use_case.dart';
 import 'package:solvers/Auth/domain/usecases/login_use_case.dart';
 import 'package:solvers/Auth/domain/usecases/reset_password_use_case.dart';
-import 'package:solvers/Auth/domain/usecases/signout_use_case.dart';
 import 'package:solvers/Auth/domain/usecases/signup_use_case.dart';
 import 'package:solvers/core/app/app_prefs.dart';
 import 'package:solvers/core/services/services_locator.dart';
@@ -24,13 +23,11 @@ part 'auth_state.dart';
 class FirebaseAuthCubit extends Cubit<FirebaseAuthState> {
   final SignUpAuthUseCase _signUpAuthUseCase;
   final LogInAuthUseCase _logInAuthUseCase;
-  final SignOutAuthUseCase _signOutAuthUseCase;
   final CreateClientUseCase _createClientUseCase;
   final CreateTechUseCase _createTechUseCase;
   final ResetPasswordUseCase _restPasswordUseCase;
   final CheckUserUseCase _checkUserUseCase;
   final AppPreferences _appPreferences = sl<AppPreferences>();
-  final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
   User? user;
   String? userRole;
@@ -38,7 +35,6 @@ class FirebaseAuthCubit extends Cubit<FirebaseAuthState> {
   FirebaseAuthCubit(
     this._signUpAuthUseCase,
     this._logInAuthUseCase,
-    this._signOutAuthUseCase,
     this._createClientUseCase,
     this._createTechUseCase,
     this._restPasswordUseCase,

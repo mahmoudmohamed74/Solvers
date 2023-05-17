@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:solvers/Auth/data/models/tech_model.dart';
 import 'package:solvers/client/data/models/order_model.dart';
+import 'package:solvers/core/messages/message_model.dart';
 import 'package:solvers/solver/data/datasource/technician_firestore.dart';
 import 'package:solvers/solver/data/models/offer_model.dart';
 import 'package:solvers/solver/data/requests/update_tech_data_request.dart';
@@ -91,5 +92,22 @@ class TechRepoImpl implements BaseTechRepo {
       print('Unknown error while fetching technician: $e');
       return null;
     }
+  }
+
+  @override
+  Future<void> techSendMessage(MessageModel messageModel) async {
+    try {
+      await _fireStoreTechnician.techSendMessage(messageModel);
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  @override
+  Stream<List<MessageModel>> techGetMessage(
+    String senderId,
+    String receiverId,
+  ) {
+    return _fireStoreTechnician.techGetMessages(senderId, receiverId);
   }
 }

@@ -1,6 +1,10 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:solvers/Auth/data/models/client_model.dart';
 import 'package:solvers/client/data/models/order_model.dart';
+import 'package:solvers/core/messages/message_model.dart';
 import 'package:solvers/solver/data/models/offer_model.dart';
 
 class ClientFireStore {
@@ -112,9 +116,6 @@ class ClientFireStore {
   }) async {
     final clientDoc =
         _fireStoreClientCollection.collection("client").doc(clientId);
-    print("firstName: $firstName");
-    print("lastName: $lastName");
-    print("phoneNumber: $phoneNumber");
     if (firstName != "") {
       await clientDoc.update({'firstName': firstName});
     }
@@ -124,5 +125,41 @@ class ClientFireStore {
     if (phoneNumber != "") {
       await clientDoc.update({'phoneNumber': phoneNumber});
     }
+  }
+
+  Future<void> clientSendMessage(MessageModel messageModel) async {
+    await _fireStoreClientCollection
+        .collection("client")
+        .doc(messageModel.senderId)
+        .collection('chat')
+        .doc(messageModel.receiverId)
+        .collection("messages")
+        .add(messageModel.toJson());
+    debugPrint("Message saved in sender successfully ......");
+    await _fireStoreClientCollection
+        .collection("technician")
+        .doc(messageModel.receiverId)
+        .collection('chat')
+        .doc(messageModel.senderId)
+        .collection("messages")
+        .add(messageModel.toJson());
+    debugPrint("Message saved in receiver successfully ......");
+  }
+
+  Stream<List<MessageModel>> clientGetMessage(
+    String senderId,
+    String receiverId,
+  ) {
+    return _fireStoreClientCollection
+        .collection("client")
+        .doc(senderId)
+        .collection('chat')
+        .doc(receiverId)
+        .collection("messages")
+        .orderBy("messageDate")
+        .snapshots()
+        .map((querySnapshot) => querySnapshot.docs
+            .map((doc) => MessageModel.fromJson(doc.data()))
+            .toList());
   }
 }

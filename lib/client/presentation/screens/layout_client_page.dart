@@ -14,18 +14,23 @@ class ClientLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final clientCubit = ClientCubit.get(context);
+
     return BlocConsumer<ClientCubit, ClientState>(
       listener: (context, state) {},
       builder: (context, state) {
-        final clientCubit = ClientCubit.get(context);
         // clientCubit.getId;
         return Scaffold(
           appBar: DefaultAppBar(
             leadingIconButton: const ThreeBlackLinesWidget(),
           ),
-          drawer: const Align(
+          drawer: Align(
             alignment: Alignment.topLeft,
-            child: MyDrawer(),
+            child: MyDrawer(
+              onTap: () {
+                ClientCubit.get(context).clientSignOut(context: context);
+              },
+            ),
           ),
           body: clientCubit.screens[clientCubit.currentIndex],
           floatingActionButton: SizedBox(

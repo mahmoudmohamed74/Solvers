@@ -127,3 +127,17 @@ class UpdateClientDataLoadingState extends ClientState {}
 class UpdateClientDataSuccessState extends ClientState {}
 
 class UpdateClientDataErrorState extends ClientState {}
+
+class ChatLoading extends ClientState {}
+
+class ChatLoaded extends ClientState {
+  final List<MessageModel> message;
+
+  ChatLoaded(this.message);
+}
+
+class ChatError extends ClientState {
+  final String error;
+
+  ChatError(this.error);
+}

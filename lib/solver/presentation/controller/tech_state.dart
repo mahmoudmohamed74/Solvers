@@ -122,3 +122,17 @@ class OnPhoneClicked extends TechState {
 
   OnPhoneClicked(this.isClicked);
 }
+
+class ChatLoading extends TechState {}
+
+class ChatLoaded extends TechState {
+  final List<MessageModel> message;
+
+  ChatLoaded(this.message);
+}
+
+class ChatError extends TechState {
+  final String error;
+
+  ChatError(this.error);
+}

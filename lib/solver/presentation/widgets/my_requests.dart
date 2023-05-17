@@ -3,6 +3,7 @@ import 'package:solvers/client/data/models/order_model.dart';
 import 'package:solvers/core/assets/app_assets.dart';
 import 'package:solvers/core/global/resources/color_manager.dart';
 import 'package:solvers/core/global/resources/values_manger.dart';
+import 'package:solvers/solver/presentation/screens/chat_page_tech_page.dart';
 
 class MyRequestsWidget extends StatelessWidget {
   final OrderModel orderModel;
@@ -11,6 +12,8 @@ class MyRequestsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final navigator = Navigator.of(context);
+
     return Stack(
       children: [
         Padding(
@@ -178,23 +181,36 @@ class MyRequestsWidget extends StatelessWidget {
                           width: AppSize.s5,
                         ),
                         const Icon(Icons.edit),
-                        Stack(
-                          alignment: Alignment.topRight,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                left: AppPadding.p20,
-                                top: AppPadding.p5,
-                                bottom: AppPadding.p5,
+                        if (orderModel.status != "new")
+                          GestureDetector(
+                            onTap: () {
+                              navigator.pushReplacement(
+                                MaterialPageRoute(
+                                  builder: (_) => TechChatPage(
+                                    clientId: orderModel.clientId,
+                                    clientName: orderModel.clientName,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 10),
+                              child: Stack(
+                                alignment: Alignment.topRight,
+                                children: [
+                                  Padding(
+                                    padding:
+                                        const EdgeInsets.all(AppPadding.p5),
+                                    child: Image.asset(ImageAssets.chat),
+                                  ),
+                                  CircleAvatar(
+                                    radius: 5,
+                                    backgroundColor: ColorManager.red,
+                                  ),
+                                ],
                               ),
-                              child: Image.asset(ImageAssets.chat),
                             ),
-                            CircleAvatar(
-                              radius: 5,
-                              backgroundColor: ColorManager.red,
-                            ),
-                          ],
-                        ),
+                          ),
                       ],
                     ),
                   ),

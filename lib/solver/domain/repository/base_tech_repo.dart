@@ -1,5 +1,6 @@
 import 'package:solvers/Auth/data/models/tech_model.dart';
 import 'package:solvers/client/data/models/order_model.dart';
+import 'package:solvers/core/messages/message_model.dart';
 import 'package:solvers/solver/data/models/offer_model.dart';
 import 'package:solvers/solver/data/requests/update_tech_data_request.dart';
 
@@ -18,4 +19,10 @@ abstract class BaseTechRepo {
     String techId,
   );
   Future<void> updateTechData(UpdateTechDataRequest techData);
+
+  Future<void> techSendMessage(MessageModel messageModel);
+  Stream<List<MessageModel>> techGetMessage(
+    String senderId,
+    String receiverId,
+  );
 }

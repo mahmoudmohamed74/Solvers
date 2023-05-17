@@ -11,7 +11,6 @@ import 'package:solvers/Auth/domain/usecases/create_client_use_case.dart';
 import 'package:solvers/Auth/domain/usecases/create_tech_use_case.dart';
 import 'package:solvers/Auth/domain/usecases/login_use_case.dart';
 import 'package:solvers/Auth/domain/usecases/reset_password_use_case.dart';
-import 'package:solvers/Auth/domain/usecases/signout_use_case.dart';
 import 'package:solvers/Auth/domain/usecases/signup_use_case.dart';
 import 'package:solvers/Auth/presentation/controller/auth_cubit/auth_cubit.dart';
 import 'package:solvers/client/data/datasource/client_firestore.dart';
@@ -20,7 +19,9 @@ import 'package:solvers/client/domain/repository/base_client_repo.dart';
 import 'package:solvers/client/domain/usecases/create_order_use_case.dart';
 import 'package:solvers/client/domain/usecases/get_all_offers_use_case.dart';
 import 'package:solvers/client/domain/usecases/get_client_use_case.dart';
+import 'package:solvers/client/domain/usecases/get_message_use_case.dart';
 import 'package:solvers/client/domain/usecases/get_order_use_case.dart';
+import 'package:solvers/client/domain/usecases/send_message_use_case.dart';
 import 'package:solvers/client/domain/usecases/update_client_data_use_case.dart';
 import 'package:solvers/client/domain/usecases/update_order_offer_use_case.dart';
 import 'package:solvers/client/presentation/controller/client_cubit.dart';
@@ -30,8 +31,10 @@ import 'package:solvers/solver/data/repository/base_tech_repo_impl.dart';
 import 'package:solvers/solver/domain/repository/base_tech_repo.dart';
 import 'package:solvers/solver/domain/usecases/create_offer_use_case.dart';
 import 'package:solvers/solver/domain/usecases/get_accepted_orders_use_case.dart';
+import 'package:solvers/solver/domain/usecases/get_message_use_case.dart';
 import 'package:solvers/solver/domain/usecases/get_order_to_tech_use_case.dart';
 import 'package:solvers/solver/domain/usecases/get_tech_use_case.dart';
+import 'package:solvers/solver/domain/usecases/send_message_use_case.dart';
 import 'package:solvers/solver/domain/usecases/update_order_accepted_type_use_case.dart';
 import 'package:solvers/solver/domain/usecases/update_tech_data_use_case.dart';
 import 'package:solvers/solver/presentation/controller/tech_cubit.dart';
@@ -97,9 +100,6 @@ class ServicesLocator {
           sl(),
         ));
 
-    sl.registerLazySingleton<SignOutAuthUseCase>(() => SignOutAuthUseCase(
-          sl(),
-        ));
     sl.registerLazySingleton<ResetPasswordUseCase>(() => ResetPasswordUseCase(
           sl(),
         ));
@@ -117,6 +117,18 @@ class ServicesLocator {
           sl(),
         ));
 
+    sl.registerLazySingleton<ClientSendMessageUseCase>(
+      () => ClientSendMessageUseCase(
+        sl(),
+      ),
+    );
+
+    sl.registerLazySingleton<ClientGetMessagesUseCase>(
+      () => ClientGetMessagesUseCase(
+        sl(),
+      ),
+    );
+
     // tech use cases
 
     sl.registerLazySingleton<CreateTechUseCase>(() => CreateTechUseCase(
@@ -126,6 +138,14 @@ class ServicesLocator {
     sl.registerLazySingleton<GetTechUseCase>(() => GetTechUseCase(
           sl(),
         ));
+    sl.registerLazySingleton<TechSendMessageUseCase>(
+      () => TechSendMessageUseCase(sl()),
+    );
+
+    sl.registerLazySingleton<TechGetMessagesUseCase>(
+      () => TechGetMessagesUseCase(sl()),
+    );
+
     // order's  client usecases
     sl.registerLazySingleton<CreateOrderUseCase>(() => CreateOrderUseCase(
           sl(),
@@ -195,7 +215,6 @@ class ServicesLocator {
         sl(),
         sl(),
         sl(),
-        sl(),
       ),
     );
 
@@ -208,10 +227,12 @@ class ServicesLocator {
         sl(),
         sl(),
         sl(),
+        sl(),
       ),
     );
     sl.registerFactory<TechCubit>(
       () => TechCubit(
+        sl(),
         sl(),
         sl(),
         sl(),

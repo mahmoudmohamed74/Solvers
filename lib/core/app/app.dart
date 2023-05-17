@@ -4,15 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:solvers/Auth/presentation/controller/auth_cubit/auth_cubit.dart';
 import 'package:solvers/client/presentation/controller/client_cubit.dart';
-import 'package:solvers/client/presentation/screens/layout_client_page.dart';
-import 'package:solvers/client/presentation/screens/request_status_client_page.dart';
 import 'package:solvers/core/routes/app_routes.dart';
 import 'package:solvers/core/services/services_locator.dart';
 import 'package:solvers/solver/presentation/controller/tech_cubit.dart';
-import 'package:solvers/solver/presentation/screens/contact%20_us_page.dart';
-import 'package:solvers/solver/presentation/screens/my_request_tech_page.dart';
-import 'package:solvers/solver/presentation/screens/request_status_tech_page.dart';
-import 'package:solvers/test.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp._internal();

@@ -126,11 +126,13 @@ class MainRequestsWidget extends StatelessWidget {
                         InkWell(
                           onTap: () {
                             Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => PaymentMethod(
-                                        amount:
-                                            double.parse(orderModel.earnest))));
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => PaymentMethod(
+                                  amount: double.parse(orderModel.earnest),
+                                ),
+                              ),
+                            );
                           },
                           child: Container(
                             color: ColorManager.green,
@@ -205,34 +207,36 @@ class MainRequestsWidget extends StatelessWidget {
                             fontSize: AppSize.s15,
                           ),
                         ),
-                        GestureDetector(
-                          onTap: () {
-                            navigator.pushReplacement(
-                              MaterialPageRoute(
-                                builder: (_) => ClientChatPage(
-                                    // orderModel: orderModel,
-
-                                    ),
+                        if (orderModel.status != "new")
+                          GestureDetector(
+                            onTap: () {
+                              navigator.pushReplacement(
+                                MaterialPageRoute(
+                                  builder: (_) => ClientChatPage(
+                                    techId: orderModel.techId,
+                                    techName: orderModel.techName,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 10),
+                              child: Stack(
+                                alignment: Alignment.topRight,
+                                children: [
+                                  Padding(
+                                    padding:
+                                        const EdgeInsets.all(AppPadding.p5),
+                                    child: Image.asset(ImageAssets.chat),
+                                  ),
+                                  CircleAvatar(
+                                    radius: 5,
+                                    backgroundColor: ColorManager.red,
+                                  ),
+                                ],
                               ),
-                            );
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.only(right: 10),
-                            child: Stack(
-                              alignment: Alignment.topRight,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(AppPadding.p5),
-                                  child: Image.asset(ImageAssets.chat),
-                                ),
-                                CircleAvatar(
-                                  radius: 5,
-                                  backgroundColor: ColorManager.red,
-                                ),
-                              ],
                             ),
                           ),
-                        ),
                       ],
                     ),
                   ),

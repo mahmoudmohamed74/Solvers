@@ -5,6 +5,7 @@ import 'package:solvers/client/data/models/order_model.dart';
 import 'package:solvers/client/data/requests/update_client_data_request.dart';
 import 'package:solvers/client/data/requests/update_order_offer_request.dart';
 import 'package:solvers/client/domain/repository/base_client_repo.dart';
+import 'package:solvers/core/messages/message_model.dart';
 import 'package:solvers/solver/data/models/offer_model.dart';
 
 class ClientRepoImpl implements BaseClientRepo {
@@ -72,7 +73,8 @@ class ClientRepoImpl implements BaseClientRepo {
 
   @override
   Future<void> updateClientData(
-      UpdateClientDataRequest updateClientData) async {
+    UpdateClientDataRequest updateClientData,
+  ) async {
     try {
       await _clientFireStore.updateClientData(
         clientId: updateClientData.clientId,
@@ -97,5 +99,22 @@ class ClientRepoImpl implements BaseClientRepo {
       print('Unknown error while fetching client: $e');
       return null;
     }
+  }
+
+  @override
+  Future<void> clientSendMessage(MessageModel messageModel) async {
+    try {
+      await _clientFireStore.clientSendMessage(messageModel);
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  @override
+  Stream<List<MessageModel>> clientGetMessage(
+    String senderId,
+    String receiverId,
+  ) {
+    return _clientFireStore.clientGetMessage(senderId, receiverId);
   }
 }

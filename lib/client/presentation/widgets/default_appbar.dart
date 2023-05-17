@@ -9,9 +9,11 @@ class DefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
   DefaultAppBar({
     Key? key,
     required this.leadingIconButton,
+    this.appBarText = "Solvers",
   }) : super(key: key);
 
   final Widget leadingIconButton;
+  final String appBarText;
 
   @override
   Size get preferredSize => const Size.fromHeight(70);
@@ -40,7 +42,7 @@ class DefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
             scale: AppSize.s4,
           ),
           Text(
-            "Solvers",
+            appBarText,
             style: TextStyle(
               fontSize: AppSize.s16,
               color: ColorManager.black,

@@ -118,7 +118,8 @@ class OfferListWidget extends StatelessWidget {
                       navigator.pushReplacement(
                         MaterialPageRoute(
                           builder: (_) => ClientChatPage(
-                            offerModel: offerModel,
+                            techId: offerModel.techId,
+                            techName: offerModel.techName,
                           ),
                         ),
                       );

@@ -42,23 +42,6 @@ class FirebaseAuthRepositoryImpl implements BaseFirebaseAuthRepository {
   }
 
   @override
-  Future<void> signOut() async {
-    try {
-      return await firebaseAuthentication.signOut();
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        return Future.error(e.message.toString());
-      } else {
-        return Future.error(e.message.toString());
-      }
-    } on PlatformException catch (e) {
-      return Future.error(e.message.toString());
-    } catch (e) {
-      return Future.error(e.toString());
-    }
-  }
-
-  @override
   Future<void> resetPassword({required String email}) async {
     try {
       await firebaseAuthentication.resetPassword(email);

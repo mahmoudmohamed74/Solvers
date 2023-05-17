@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:solvers/Auth/data/models/tech_model.dart';
 import 'package:solvers/client/data/models/order_model.dart';
+import 'package:solvers/core/messages/message_model.dart';
 import 'package:solvers/solver/data/models/offer_model.dart';
 
 class TechnicianFireStore {
@@ -114,5 +116,41 @@ class TechnicianFireStore {
         SetOptions(merge: true),
       );
     }
+  }
+
+  Future<void> techSendMessage(MessageModel messageModel) async {
+    await _fireStoreTechCollection
+        .collection("technician")
+        .doc(messageModel.senderId)
+        .collection('chat')
+        .doc(messageModel.receiverId)
+        .collection("messages")
+        .add(messageModel.toJson());
+    debugPrint("Message saved in sender successfully ......");
+    await _fireStoreTechCollection
+        .collection("client")
+        .doc(messageModel.receiverId)
+        .collection('chat')
+        .doc(messageModel.senderId)
+        .collection("messages")
+        .add(messageModel.toJson());
+    debugPrint("Message saved in receiver successfully ......");
+  }
+
+  Stream<List<MessageModel>> techGetMessages(
+    String senderId,
+    String receiverId,
+  ) {
+    return _fireStoreTechCollection
+        .collection("technician")
+        .doc(senderId)
+        .collection('chat')
+        .doc(receiverId)
+        .collection("messages")
+        .orderBy("messageDate")
+        .snapshots()
+        .map((querySnapshot) => querySnapshot.docs
+            .map((doc) => MessageModel.fromJson(doc.data()))
+            .toList());
   }
 }
