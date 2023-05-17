@@ -97,7 +97,7 @@ class PaymentMethod extends StatelessWidget {
                                 await initPayment(
                                   amount: amount * 100,
                                   context: context,
-                                  email: 'fezo10@test.com',
+                                  email: 'solvers10@test.com',
                                   orderId: orderId,
                                   earnestIsPaid: earnestIsPaid,
                                   priceIsPaid: priceIsPaid,
