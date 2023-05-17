@@ -8,8 +8,17 @@ import 'package:solvers/core/services/payment/stripe_payment.dart';
 
 class PaymentMethod extends StatelessWidget {
   final double amount;
+  final String orderId;
+  final bool earnestIsPaid;
+  final bool priceIsPaid;
 
-  const PaymentMethod({Key? key, required this.amount}) : super(key: key);
+  const PaymentMethod({
+    Key? key,
+    required this.amount,
+    required this.orderId,
+    this.earnestIsPaid = false,
+    this.priceIsPaid = false,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -88,13 +97,17 @@ class PaymentMethod extends StatelessWidget {
                                 await initPayment(
                                   amount: amount * 100,
                                   context: context,
-                                  email: 'solvers10@test.com',
+                                  email: 'fezo10@test.com',
+                                  orderId: orderId,
+                                  earnestIsPaid: earnestIsPaid,
+                                  priceIsPaid: priceIsPaid,
                                 );
                               },
                               style: ButtonStyle(
                                 elevation: MaterialStateProperty.all(5),
                                 backgroundColor: MaterialStateProperty.all(
-                                    ColorManager.selectedItem),
+                                  ColorManager.selectedItem,
+                                ),
                                 shape: MaterialStateProperty.all(
                                   RoundedRectangleBorder(
                                     borderRadius:
@@ -152,15 +165,20 @@ class PaymentMethod extends StatelessWidget {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => PaypalPayment(
-                                            amount: amount,
-                                          )),
+                                    builder: (context) => PaypalPayment(
+                                      amount: amount,
+                                      orderId: orderId,
+                                      earnestIsPaid: earnestIsPaid,
+                                      priceIsPaid: priceIsPaid,
+                                    ),
+                                  ),
                                 );
                               },
                               style: ButtonStyle(
                                 elevation: MaterialStateProperty.all(5),
                                 backgroundColor: MaterialStateProperty.all(
-                                    ColorManager.selectedItem),
+                                  ColorManager.selectedItem,
+                                ),
                                 shape: MaterialStateProperty.all(
                                   RoundedRectangleBorder(
                                     borderRadius:

@@ -109,6 +109,8 @@ class ClientOffersPage extends StatelessWidget {
                                   earnest: clientListOffers[index].earnest,
                                   techId: clientListOffers[index].techId,
                                   isAcceptedOffer: "true",
+                                  priceIsPaid: "false",
+                                  earnestIsPaid: "false",
                                 ),
                               );
                             },
@@ -123,6 +125,8 @@ class ClientOffersPage extends StatelessWidget {
                                   earnest: clientListOffers[index].earnest,
                                   techId: clientListOffers[index].techId,
                                   isAcceptedOffer: "false",
+                                  priceIsPaid: "",
+                                  earnestIsPaid: "",
                                 ),
                               );
                             },

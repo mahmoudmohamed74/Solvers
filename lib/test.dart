@@ -24,10 +24,14 @@ class _TestScreenState extends State<TestScreen> {
         child: TextButton(
           child: const Text("pay"),
           onPressed: () {
-            Navigator.of(context).push(MaterialPageRoute(
+            Navigator.of(context).push(
+              MaterialPageRoute(
                 builder: (BuildContext context) => const PaymentMethod(
-                      amount: 300,
-                    )));
+                  amount: 300,
+                  orderId: "orderModel.orderDocId",
+                ),
+              ),
+            );
           },
         ),
       ),

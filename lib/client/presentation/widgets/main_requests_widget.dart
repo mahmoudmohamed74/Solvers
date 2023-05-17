@@ -123,29 +123,50 @@ class MainRequestsWidget extends StatelessWidget {
                         const SizedBox(
                           width: AppSize.s10,
                         ),
-                        InkWell(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => PaymentMethod(
-                                  amount: double.parse(orderModel.earnest),
+                        if (orderModel.earnestIsPaid != "")
+                          Row(
+                            children: [
+                              if (orderModel.earnestIsPaid == "false")
+                                InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => PaymentMethod(
+                                          amount:
+                                              double.parse(orderModel.earnest),
+                                          orderId: orderModel.orderDocId,
+                                          earnestIsPaid: true,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  child: Container(
+                                    color: ColorManager.grey,
+                                    height: AppSize.s18,
+                                    width: AppSize.s60,
+                                    child: const Center(
+                                      child: Text(
+                                        "PAY NOW",
+                                        style: TextStyle(fontSize: AppSize.s13),
+                                      ),
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            );
-                          },
-                          child: Container(
-                            color: ColorManager.green,
-                            height: AppSize.s18,
-                            width: AppSize.s60,
-                            child: const Center(
-                              child: Text(
-                                "PAID",
-                                style: TextStyle(fontSize: AppSize.s13),
-                              ),
-                            ),
+                              if (orderModel.earnestIsPaid == "true")
+                                Container(
+                                  color: ColorManager.green,
+                                  height: AppSize.s18,
+                                  width: AppSize.s60,
+                                  child: const Center(
+                                    child: Text(
+                                      "PAID",
+                                      style: TextStyle(fontSize: AppSize.s13),
+                                    ),
+                                  ),
+                                ),
+                            ],
                           ),
-                        ),
                       ],
                     ),
                   ),
@@ -167,30 +188,51 @@ class MainRequestsWidget extends StatelessWidget {
                         const SizedBox(
                           width: AppSize.s10,
                         ),
-                        InkWell(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => PaymentMethod(
-                                  amount: double.parse(orderModel.price) -
-                                      double.parse(orderModel.earnest),
+                        if (orderModel.priceIsPaid != "")
+                          Row(
+                            children: [
+                              if (orderModel.priceIsPaid == "false")
+                                InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => PaymentMethod(
+                                          amount: double.parse(
+                                                  orderModel.price) -
+                                              double.parse(orderModel.earnest),
+                                          orderId: orderModel.orderDocId,
+                                          priceIsPaid: true,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  child: Container(
+                                    color: ColorManager.grey,
+                                    height: AppSize.s18,
+                                    width: AppSize.s60,
+                                    child: const Center(
+                                      child: Text(
+                                        "PAY NOW",
+                                        style: TextStyle(fontSize: AppSize.s13),
+                                      ),
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            );
-                          },
-                          child: Container(
-                            color: ColorManager.grey,
-                            height: AppSize.s18,
-                            width: AppSize.s60,
-                            child: const Center(
-                              child: Text(
-                                "PAY NOW",
-                                style: TextStyle(fontSize: AppSize.s13),
-                              ),
-                            ),
+                              if (orderModel.priceIsPaid == "true")
+                                Container(
+                                  color: ColorManager.green,
+                                  height: AppSize.s18,
+                                  width: AppSize.s60,
+                                  child: const Center(
+                                    child: Text(
+                                      "PAID",
+                                      style: TextStyle(fontSize: AppSize.s13),
+                                    ),
+                                  ),
+                                ),
+                            ],
                           ),
-                        ),
                       ],
                     ),
                   ),

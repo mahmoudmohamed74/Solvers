@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:http/http.dart' as http;
@@ -7,8 +8,11 @@ import 'package:solvers/Auth/presentation/widgets/default_snack_bar.dart';
 
 Future<void> initPayment({
   required String email,
+  required String orderId,
   required double amount,
   required BuildContext context,
+  bool? earnestIsPaid,
+  bool? priceIsPaid,
 }) async {
   try {
     // 1. Create a payment intent on the server
@@ -32,6 +36,12 @@ Future<void> initPayment({
       customerEphemeralKeySecret: jsonResponse['ephemeralKey'],
     ));
     await Stripe.instance.presentPaymentSheet();
+    FirebaseFirestore.instance.collection("order").doc(orderId).update({
+      if (earnestIsPaid == true) "earnestIsPaid": "true",
+      if (priceIsPaid == true) "priceIsPaid": "true",
+      if (priceIsPaid == true) "status": "solved",
+    });
+
     ScaffoldMessenger.of(context).showSnackBar(
       DefaultSnackbar(
         text: const Text('Payment is successful'),

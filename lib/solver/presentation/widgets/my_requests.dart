@@ -119,17 +119,30 @@ class MyRequestsWidget extends StatelessWidget {
                         const SizedBox(
                           width: AppSize.s10,
                         ),
-                        Container(
-                          color: ColorManager.green,
-                          height: AppSize.s18,
-                          width: AppSize.s60,
-                          child: const Center(
-                            child: Text(
-                              "PAID",
-                              style: TextStyle(fontSize: AppSize.s13),
+                        if (orderModel.priceIsPaid == "true")
+                          Container(
+                            color: ColorManager.green,
+                            height: AppSize.s18,
+                            width: AppSize.s60,
+                            child: const Center(
+                              child: Text(
+                                "PAID",
+                                style: TextStyle(fontSize: AppSize.s13),
+                              ),
                             ),
                           ),
-                        ),
+                        if (orderModel.priceIsPaid == "false")
+                          Container(
+                            color: ColorManager.grey,
+                            height: AppSize.s18,
+                            width: AppSize.s90,
+                            child: const Center(
+                              child: Text(
+                                "NOT PAID YET",
+                                style: TextStyle(fontSize: AppSize.s13),
+                              ),
+                            ),
+                          ),
                       ],
                     ),
                   ),
@@ -151,17 +164,30 @@ class MyRequestsWidget extends StatelessWidget {
                         const SizedBox(
                           width: AppSize.s10,
                         ),
-                        Container(
-                          color: ColorManager.grey,
-                          height: AppSize.s18,
-                          width: AppSize.s90,
-                          child: const Center(
-                            child: Text(
-                              "NOT PAID YET",
-                              style: TextStyle(fontSize: AppSize.s13),
+                        if (orderModel.earnestIsPaid == "true")
+                          Container(
+                            color: ColorManager.green,
+                            height: AppSize.s18,
+                            width: AppSize.s60,
+                            child: const Center(
+                              child: Text(
+                                "PAID",
+                                style: TextStyle(fontSize: AppSize.s13),
+                              ),
                             ),
                           ),
-                        ),
+                        if (orderModel.earnestIsPaid == "false")
+                          Container(
+                            color: ColorManager.grey,
+                            height: AppSize.s18,
+                            width: AppSize.s90,
+                            child: const Center(
+                              child: Text(
+                                "NOT PAID YET",
+                                style: TextStyle(fontSize: AppSize.s13),
+                              ),
+                            ),
+                          ),
                       ],
                     ),
                   ),
@@ -180,7 +206,6 @@ class MyRequestsWidget extends StatelessWidget {
                         const SizedBox(
                           width: AppSize.s5,
                         ),
-                        const Icon(Icons.edit),
                         if (orderModel.status != "new")
                           GestureDetector(
                             onTap: () {

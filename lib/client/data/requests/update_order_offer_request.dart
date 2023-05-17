@@ -6,6 +6,8 @@ class UpdateOrderOffer {
   final String earnest;
   final String techId;
   final String isAcceptedOffer;
+  final String earnestIsPaid;
+  final String priceIsPaid;
 
   UpdateOrderOffer({
     required this.orderDocId,
@@ -15,5 +17,7 @@ class UpdateOrderOffer {
     required this.earnest,
     required this.techId,
     required this.isAcceptedOffer,
+    required this.earnestIsPaid,
+    required this.priceIsPaid,
   });
 }

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_paypal/flutter_paypal.dart';
 import 'package:solvers/Auth/presentation/controller/auth_cubit/auth_cubit.dart';
@@ -8,8 +9,17 @@ import 'package:webview_flutter_x5/webview_flutter.dart';
 
 class PaypalPayment extends StatefulWidget {
   final double amount;
+  final String orderId;
+  final bool earnestIsPaid;
+  final bool priceIsPaid;
 
-  const PaypalPayment({Key? key, required this.amount}) : super(key: key);
+  const PaypalPayment({
+    Key? key,
+    required this.amount,
+    required this.orderId,
+    this.earnestIsPaid = false,
+    this.priceIsPaid = false,
+  }) : super(key: key);
 
   @override
   State<PaypalPayment> createState() => _PaypalPaymentState();
@@ -73,7 +83,9 @@ class _PaypalPaymentState extends State<PaypalPayment> {
       cancelURL: "https://solvers-a41b9.firebaseapp.com/cancel",
       transactions: [_transaction],
       note: "Contact us for any questions on your order.",
-      onSuccess: (Map params) async {
+      onSuccess: (
+        Map params,
+      ) async {
         if (mounted) {
           setState(() {
             _scaffoldKey.currentState?.showSnackBar(
@@ -84,6 +96,14 @@ class _PaypalPaymentState extends State<PaypalPayment> {
             );
           });
         }
+        FirebaseFirestore.instance
+            .collection("order")
+            .doc(widget.orderId)
+            .update({
+          if (widget.earnestIsPaid == true) "earnestIsPaid": "true",
+          if (widget.priceIsPaid == true) "priceIsPaid": "true",
+          if (widget.priceIsPaid == true) "status": "solved",
+        });
         print("Payment successful! Payment ID: $params");
       },
       onError: (error) {
