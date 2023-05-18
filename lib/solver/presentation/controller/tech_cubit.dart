@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,7 +11,6 @@ import 'package:solvers/core/app/app_prefs.dart';
 import 'package:solvers/core/messages/message_model.dart';
 import 'package:solvers/core/services/services_locator.dart';
 import 'package:solvers/core/utils/functions.dart';
-import 'package:solvers/solver/data/datasource/technician_firestore.dart';
 import 'package:solvers/solver/data/models/offer_model.dart';
 import 'package:solvers/solver/data/requests/update_tech_data_request.dart';
 import 'package:solvers/solver/domain/usecases/create_offer_use_case.dart';
@@ -107,11 +108,11 @@ class TechCubit extends Cubit<TechState> {
 
     emit(GetAllOrderTechLoadingState());
     return await _getOrderToTechUseCase.call(params: techId).then((value) {
-      value.forEach((element) {
+      for (var element in value) {
         if (element.status == 'new' && !element.refusedIds.contains(techId)) {
           orderTech.add(element);
         }
-      });
+      }
 
       allOrders = value;
 
@@ -119,6 +120,7 @@ class TechCubit extends Cubit<TechState> {
       return allOrders;
     }).catchError((error) {
       emit(GetAllOrderTechErrorState(error));
+      return error;
     });
   }
 
@@ -134,6 +136,7 @@ class TechCubit extends Cubit<TechState> {
     }).catchError((error) {
       print(error.toString());
       emit(GetAcceptedOrdersErrorState(error));
+      return error;
     });
   }
 

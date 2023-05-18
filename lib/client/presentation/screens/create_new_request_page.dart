@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -5,7 +7,6 @@ import 'package:solvers/client/presentation/widgets/default_appbar.dart';
 import 'package:solvers/core/routes/app_routes.dart';
 import 'package:uuid/uuid.dart';
 
-import 'package:solvers/Auth/presentation/controller/auth_cubit/auth_cubit.dart';
 import 'package:solvers/Auth/presentation/widgets/default_text_button.dart';
 import 'package:solvers/Auth/presentation/widgets/multi_drop_down%20_button.dart';
 import 'package:solvers/client/data/models/order_model.dart';
@@ -106,7 +107,7 @@ class _ClientNewRequestPageState extends State<ClientNewRequestPage> {
                   onSelectionChanged: (selectedItems) {
                     setState(() {
                       _selectedMainProblemItems = selectedItems;
-                      print("selected items ${_selectedMainProblemItems}");
+                      print("selected items $_selectedMainProblemItems");
                     });
                   },
                   title: "Main problem",
@@ -119,7 +120,7 @@ class _ClientNewRequestPageState extends State<ClientNewRequestPage> {
                   onSelectionChanged: (selectedItems) {
                     setState(() {
                       _selectedSpecificProblemItems = selectedItems;
-                      print("selected items ${_selectedSpecificProblemItems}");
+                      print("selected items $_selectedSpecificProblemItems");
                     });
                   },
                   title: "Specific problem",

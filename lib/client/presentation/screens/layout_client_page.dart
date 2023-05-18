@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:solvers/Auth/presentation/controller/auth_cubit/auth_cubit.dart';
 import 'package:solvers/client/presentation/controller/client_cubit.dart';
 import 'package:solvers/client/presentation/widgets/default_appbar.dart';
 import 'package:solvers/client/presentation/widgets/drawer.dart';
 import 'package:solvers/core/global/resources/color_manager.dart';
 import 'package:solvers/core/global/resources/values_manger.dart';
 import 'package:solvers/core/routes/app_routes.dart';
-import 'package:solvers/core/utils/constants.dart';
 
 class ClientLayout extends StatelessWidget {
-  ClientLayout({Key? key}) : super(key: key);
+  const ClientLayout({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

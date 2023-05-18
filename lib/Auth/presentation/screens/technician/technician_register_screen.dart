@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -91,7 +93,7 @@ class _TechnicianRegisterScreenState extends State<TechnicianRegisterScreen> {
           }
         } else if (state is CubitAuthFailed) {
           ScaffoldMessenger.of(context).showSnackBar(
-            DefaultSnackbar(
+            DefaultSnackBar(
               text: Text(state.error),
               backGroundColor: Colors.red,
             ),
@@ -263,7 +265,7 @@ class _TechnicianRegisterScreenState extends State<TechnicianRegisterScreen> {
                         onSelectionChanged: (selectedItems) {
                           setState(() {
                             _selectedItems = selectedItems;
-                            print("selected items ${_selectedItems}");
+                            print("selected items $_selectedItems");
                           });
                         },
                       ),

@@ -1,7 +1,6 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:solvers/Auth/presentation/controller/auth_cubit/auth_cubit.dart';
 import 'package:solvers/Auth/presentation/widgets/default_form_field.dart';
 import 'package:solvers/Auth/presentation/widgets/default_snack_bar.dart';
 import 'package:solvers/Auth/presentation/widgets/default_text_button.dart';
@@ -39,7 +38,7 @@ class ClientProfilePage extends StatelessWidget {
       listener: (context, state) {
         if (state is IsFirstNameValid) {
           ScaffoldMessenger.of(context).showSnackBar(
-            DefaultSnackbar(
+            DefaultSnackBar(
               text: Text(
                 state.isValid
                     ? "First Name updated successfully!"
@@ -57,7 +56,7 @@ class ClientProfilePage extends StatelessWidget {
 
         if (state is IsLastNameValid) {
           ScaffoldMessenger.of(context).showSnackBar(
-            DefaultSnackbar(
+            DefaultSnackBar(
               text: Text(
                 state.isValid
                     ? "Last Name updated successfully!"
@@ -74,7 +73,7 @@ class ClientProfilePage extends StatelessWidget {
         }
         if (state is IsPhoneNumberValid) {
           ScaffoldMessenger.of(context).showSnackBar(
-            DefaultSnackbar(
+            DefaultSnackBar(
               text: Text(
                 state.isValid
                     ? "Phone Number updated successfully!"

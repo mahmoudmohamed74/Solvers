@@ -3,7 +3,6 @@ import 'package:solvers/Auth/presentation/widgets/default_text_button.dart';
 import 'package:solvers/client/presentation/widgets/default_appbar.dart';
 import 'package:solvers/core/global/resources/color_manager.dart';
 import 'package:solvers/core/global/resources/values_manger.dart';
-import 'package:solvers/core/routes/app_routes.dart';
 
 class HelpPage extends StatelessWidget {
   HelpPage({Key? key}) : super(key: key);

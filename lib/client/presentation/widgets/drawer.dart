@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:solvers/client/presentation/screens/help_page.dart';
 import 'package:solvers/core/global/resources/color_manager.dart';
 import 'package:solvers/core/global/resources/values_manger.dart';
-import 'package:solvers/solver/presentation/screens/contact%20_us_page.dart';
+import 'package:solvers/solver/presentation/screens/contactus_page.dart';
 
 class MyDrawer extends StatelessWidget {
-  VoidCallback? onTap;
-  MyDrawer({super.key, this.onTap});
+  final VoidCallback? onTap;
+  const MyDrawer({super.key, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +98,7 @@ class MyDrawer extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const ContactUsScreen(),
+                            builder: (context) => const ContactUsPage(),
                           ),
                         );
                       },

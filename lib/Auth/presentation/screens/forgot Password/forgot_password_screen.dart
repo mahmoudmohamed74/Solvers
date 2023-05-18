@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,7 +25,7 @@ class ForgotPasswordScreen extends StatelessWidget {
       listener: (context, state) {
         if (state is ResetPasswordSuccessState) {
           ScaffoldMessenger.of(context).showSnackBar(
-            DefaultSnackbar(
+            DefaultSnackBar(
               text: Text(
                 AppStrings.linkSentToEmail,
                 style: TextStyle(
@@ -40,7 +39,7 @@ class ForgotPasswordScreen extends StatelessWidget {
         }
         if (state is ResetPasswordErrorState) {
           ScaffoldMessenger.of(context).showSnackBar(
-            DefaultSnackbar(
+            DefaultSnackBar(
               text: Text(
                 state.errorMessage,
                 style: TextStyle(

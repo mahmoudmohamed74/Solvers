@@ -4,14 +4,14 @@ import 'package:solvers/client/presentation/widgets/default_appbar.dart';
 import 'package:solvers/core/global/resources/color_manager.dart';
 import 'package:solvers/core/global/resources/values_manger.dart';
 
-class ContactUsScreen extends StatefulWidget {
-  const ContactUsScreen({Key? key}) : super(key: key);
+class ContactUsPage extends StatefulWidget {
+  const ContactUsPage({Key? key}) : super(key: key);
 
   @override
-  State<ContactUsScreen> createState() => _ContactUsScreenState();
+  State<ContactUsPage> createState() => _ContactUsPageState();
 }
 
-class _ContactUsScreenState extends State<ContactUsScreen> {
+class _ContactUsPageState extends State<ContactUsPage> {
   bool paymentIsExpanded = false;
   bool offerIsExpanded = false;
   bool requestIsExpanded = false;

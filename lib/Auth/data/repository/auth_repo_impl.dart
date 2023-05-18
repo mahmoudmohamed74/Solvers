@@ -1,6 +1,6 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/services.dart';
+// ignore_for_file: avoid_print
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:solvers/Auth/data/datasource/firebase_auth.dart';
 import 'package:solvers/Auth/domain/entities/registered_user.dart';
 import 'package:solvers/Auth/domain/repository/base_auth_repo.dart';

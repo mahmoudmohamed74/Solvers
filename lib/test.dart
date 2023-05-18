@@ -1,12 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:solvers/client/presentation/screens/home_client_page.dart';
 import 'package:solvers/client/presentation/screens/payment_method.dart';
 import 'package:solvers/client/presentation/widgets/default_appbar.dart';
-import 'package:solvers/client/presentation/widgets/drawer.dart';
-import 'package:solvers/core/global/resources/color_manager.dart';
-import 'package:solvers/core/services/payment/stripe_payment.dart';
-
-import 'core/services/payment/paypal_payment.dart';
 
 class TestScreen extends StatefulWidget {
   const TestScreen({Key? key}) : super(key: key);
@@ -19,7 +13,7 @@ class _TestScreenState extends State<TestScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: DefaultAppBar(leadingIconButton: ThreeBlackLinesWidget()),
+      appBar: const DefaultAppBar(leadingIconButton: ThreeBlackLinesWidget()),
       body: Center(
         child: TextButton(
           child: const Text("pay"),
@@ -43,12 +37,16 @@ class ExperienceListWidget extends StatefulWidget {
   const ExperienceListWidget({Key? key}) : super(key: key);
 
   @override
-  _ExperienceListWidgetState createState() => _ExperienceListWidgetState();
+  State<ExperienceListWidget> createState() => _ExperienceListWidgetState();
 }
 
 class _ExperienceListWidgetState extends State<ExperienceListWidget> {
-  List<String> _experiences = ['Experience 1', 'Experience 2', 'Experience 3'];
-  TextEditingController _experienceController = TextEditingController();
+  final List<String> _experiences = [
+    'Experience 1',
+    'Experience 2',
+    'Experience 3'
+  ];
+  final TextEditingController _experienceController = TextEditingController();
 
   void _addExperience() {
     setState(() {
@@ -70,7 +68,7 @@ class _ExperienceListWidgetState extends State<ExperienceListWidget> {
           children: [
             TextField(
               controller: _experienceController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Enter new experience',
               ),
             ),

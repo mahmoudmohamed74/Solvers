@@ -56,7 +56,7 @@ class LoginScreen extends StatelessWidget {
           }
         } else if (state is CubitAuthFailed) {
           ScaffoldMessenger.of(context).showSnackBar(
-            DefaultSnackbar(
+            DefaultSnackBar(
               text: Text(
                 state.error,
                 style: TextStyle(

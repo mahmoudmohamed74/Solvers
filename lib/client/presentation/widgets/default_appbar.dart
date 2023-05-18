@@ -6,7 +6,7 @@ import 'package:solvers/core/global/resources/color_manager.dart';
 import 'package:solvers/core/global/resources/values_manger.dart';
 
 class DefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
-  DefaultAppBar({
+  const DefaultAppBar({
     Key? key,
     required this.leadingIconButton,
     this.appBarText = "Solvers",

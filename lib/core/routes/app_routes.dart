@@ -9,7 +9,6 @@ import 'package:solvers/Auth/presentation/screens/technician/technician_register
 import 'package:solvers/Auth/presentation/screens/toggle/toggle_scrren.dart';
 import 'package:solvers/Auth/presentation/screens/verification/email_verification_screen.dart';
 import 'package:solvers/Auth/presentation/screens/verification/phone_verification_screen.dart';
-import 'package:solvers/client/presentation/screens/chat_page_client_page.dart';
 import 'package:solvers/client/presentation/screens/create_new_request_page.dart';
 import 'package:solvers/client/presentation/screens/help_page.dart';
 import 'package:solvers/client/presentation/screens/home_client_page.dart';
@@ -21,7 +20,6 @@ import 'package:solvers/client/presentation/screens/request_status_client_page.d
 import 'package:solvers/client/presentation/screens/requst_done_page.dart';
 import 'package:solvers/core/global/resources/strings_manger.dart';
 import 'package:solvers/solver/presentation/screens/chat_page_tech_page.dart';
-import 'package:solvers/solver/presentation/screens/contact%20_us_page.dart';
 import 'package:solvers/solver/presentation/screens/create_offer_tech_page.dart';
 import 'package:solvers/solver/presentation/screens/home_tech_page.dart';
 import 'package:solvers/solver/presentation/screens/layout_tech_page.dart';
@@ -97,7 +95,7 @@ class RouteGenerator {
 
       // client routes
       case Routes.layoutClient:
-        return MaterialPageRoute(builder: (_) => ClientLayout());
+        return MaterialPageRoute(builder: (_) => const ClientLayout());
       case Routes.createNewRequest:
         return MaterialPageRoute(builder: (_) => const ClientNewRequestPage());
       case Routes.homeClient:
@@ -135,8 +133,6 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => TechProfilePage());
       case Routes.requestStatusTech:
         return MaterialPageRoute(builder: (_) => const TechRequestStatusPage());
-      case Routes.contactUs:
-        return MaterialPageRoute(builder: (_) => const ContactUsScreen());
 
       case Routes.testRoute:
         return MaterialPageRoute(builder: (_) => const TestScreen());

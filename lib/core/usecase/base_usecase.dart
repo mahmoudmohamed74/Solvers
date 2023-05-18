@@ -4,7 +4,7 @@ abstract class BaseUseCase<R, P> {
   Future<R> call({required P params});
 }
 
-abstract class BaseWithNoParmUseCase<R, P> {
+abstract class BaseWithNoParamsUseCase<R, P> {
   Future<R> call(P params);
 }
 

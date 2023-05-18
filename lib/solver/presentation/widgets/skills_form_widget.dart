@@ -6,10 +6,11 @@ class SkillsForm extends StatefulWidget {
   final List<String> skills;
   final Function(List<String>) onSkillsChanged;
 
-  SkillsForm({required this.skills, required this.onSkillsChanged});
+  const SkillsForm(
+      {super.key, required this.skills, required this.onSkillsChanged});
 
   @override
-  _SkillsFormState createState() => _SkillsFormState();
+  State<SkillsForm> createState() => _SkillsFormState();
 }
 
 class _SkillsFormState extends State<SkillsForm> {

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:solvers/core/utils/constants.dart';
 
-class DefaultSnackbar extends SnackBar {
-  Color? backGroundColor;
-  Widget? text;
-  DefaultSnackbar({
+class DefaultSnackBar extends SnackBar {
+  final Color? backGroundColor;
+  final Widget? text;
+  DefaultSnackBar({
     Key? key,
     required this.text,
     required this.backGroundColor,

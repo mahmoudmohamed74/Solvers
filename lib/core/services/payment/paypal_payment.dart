@@ -1,9 +1,10 @@
+// ignore_for_file: avoid_print
+
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_paypal/flutter_paypal.dart';
-import 'package:solvers/Auth/presentation/controller/auth_cubit/auth_cubit.dart';
 import 'package:solvers/Auth/presentation/widgets/default_snack_bar.dart';
 import 'package:webview_flutter_x5/webview_flutter.dart';
 
@@ -89,8 +90,8 @@ class _PaypalPaymentState extends State<PaypalPayment> {
         if (mounted) {
           setState(() {
             _scaffoldKey.currentState?.showSnackBar(
-              DefaultSnackbar(
-                text: Text('Payment is successful'),
+              DefaultSnackBar(
+                text: const Text('Payment is successful'),
                 backGroundColor: Colors.green,
               ),
             );
@@ -108,7 +109,7 @@ class _PaypalPaymentState extends State<PaypalPayment> {
       },
       onError: (error) {
         _scaffoldKey.currentState?.showSnackBar(
-          DefaultSnackbar(
+          DefaultSnackBar(
             text: Text('An error occurred ${error.toString()}'),
             backGroundColor: Colors.yellow,
           ),
@@ -117,7 +118,7 @@ class _PaypalPaymentState extends State<PaypalPayment> {
       },
       onCancel: (params) {
         _scaffoldKey.currentState?.showSnackBar(
-          DefaultSnackbar(
+          DefaultSnackBar(
             text: const Text('Payment is cancelled'),
             backGroundColor: Colors.yellow,
           ),

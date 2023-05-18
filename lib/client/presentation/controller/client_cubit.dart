@@ -1,9 +1,10 @@
+// ignore_for_file: avoid_print
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:solvers/Auth/data/models/client_model.dart';
 import 'package:solvers/Auth/presentation/controller/auth_cubit/auth_cubit.dart';
-import 'package:solvers/client/data/datasource/client_firestore.dart';
 
 import 'package:solvers/client/data/models/order_model.dart';
 import 'package:solvers/client/data/requests/update_client_data_request.dart';
@@ -120,9 +121,12 @@ class ClientCubit extends Cubit<ClientState> {
         emit(GetAllOrdersSuccessState(allOrders));
       }
       return allOrders;
-    }).catchError((error) {
-      emit(GetAllOrdersErrorState(error.toString()));
-    });
+    }).catchError(
+      (error) {
+        emit(GetAllOrdersErrorState(error.toString()));
+        return error;
+      },
+    );
   }
 
   List<OfferModel> allOffers = [];
@@ -136,15 +140,13 @@ class ClientCubit extends Cubit<ClientState> {
     emit(GetAllOffersLoadingState());
     return await _getAllOffersToClientUseCase.call(params: orderId).then(
       (value) {
-        value.forEach(
-          (element) {
-            if (element.accepted == '' || element.accepted == 'true') {
-              clientOffers.add(element);
-            } else if (element.accepted == 'true') {
-              acceptedOffers.add(element);
-            }
-          },
-        );
+        for (var element in value) {
+          if (element.accepted == '' || element.accepted == 'true') {
+            clientOffers.add(element);
+          } else if (element.accepted == 'true') {
+            acceptedOffers.add(element);
+          }
+        }
         allOffers = value;
         // print("allOffers $allOffers");
         emit(GetAllOffersSuccessState(allOffersList: allOffers));
@@ -153,6 +155,7 @@ class ClientCubit extends Cubit<ClientState> {
     ).catchError(
       (error) {
         emit(GetAllOffersErrorState(error.toString()));
+        return error;
       },
     );
   }

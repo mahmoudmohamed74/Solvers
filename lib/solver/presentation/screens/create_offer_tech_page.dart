@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
-import 'package:solvers/Auth/presentation/controller/auth_cubit/auth_cubit.dart';
 import 'package:solvers/Auth/presentation/widgets/default_snack_bar.dart';
 import 'package:solvers/Auth/presentation/widgets/default_text_button.dart';
 import 'package:solvers/client/presentation/widgets/default_appbar.dart';
@@ -39,10 +38,9 @@ class TechCreateOfferPage extends StatelessWidget {
         DateFormat('dd/MM/yyyy HH:mm:ss a').format(dateTime);
     return BlocConsumer<TechCubit, TechState>(
       listener: (context, state) async {
-        final techCubit = TechCubit.get(context);
         if (state is CreateOfferSuccessState) {
           ScaffoldMessenger.of(context).showSnackBar(
-            DefaultSnackbar(
+            DefaultSnackBar(
               text: Text(
                 AppStrings.successFullOffer,
                 style: TextStyle(

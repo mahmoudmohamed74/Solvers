@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,7 +16,7 @@ import 'package:solvers/solver/presentation/controller/tech_cubit.dart';
 import 'package:solvers/solver/presentation/widgets/skills_form_widget.dart';
 
 class TechProfilePage extends StatefulWidget {
-  TechProfilePage({Key? key}) : super(key: key);
+  const TechProfilePage({Key? key}) : super(key: key);
 
   @override
   State<TechProfilePage> createState() => _TechProfilePageState();
@@ -46,7 +48,7 @@ class _TechProfilePageState extends State<TechProfilePage> {
       listener: (context, state) {
         if (state is IsFirstNameValid) {
           ScaffoldMessenger.of(context).showSnackBar(
-            DefaultSnackbar(
+            DefaultSnackBar(
               text: Text(
                 state.isValid
                     ? "First Name updated successfully!"
@@ -64,7 +66,7 @@ class _TechProfilePageState extends State<TechProfilePage> {
 
         if (state is IsLastNameValid) {
           ScaffoldMessenger.of(context).showSnackBar(
-            DefaultSnackbar(
+            DefaultSnackBar(
               text: Text(
                 state.isValid
                     ? "Last Name updated successfully!"
@@ -81,7 +83,7 @@ class _TechProfilePageState extends State<TechProfilePage> {
         }
         if (state is IsPhoneNumberValid) {
           ScaffoldMessenger.of(context).showSnackBar(
-            DefaultSnackbar(
+            DefaultSnackBar(
               text: Text(
                 state.isValid
                     ? "Phone Number updated successfully!"

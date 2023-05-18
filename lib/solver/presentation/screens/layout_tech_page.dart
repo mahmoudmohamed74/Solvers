@@ -18,8 +18,8 @@ class TechLayout extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         return Scaffold(
-          appBar: DefaultAppBar(
-            leadingIconButton: const ThreeBlackLinesWidget(),
+          appBar: const DefaultAppBar(
+            leadingIconButton: ThreeBlackLinesWidget(),
           ),
           drawer: Align(
             alignment: Alignment.topLeft,

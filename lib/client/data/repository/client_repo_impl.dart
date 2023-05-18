@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:solvers/Auth/data/models/client_model.dart';
 import 'package:solvers/client/data/datasource/client_firestore.dart';

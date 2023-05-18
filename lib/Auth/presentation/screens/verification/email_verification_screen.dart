@@ -88,7 +88,7 @@ class EmailVerificationScreen extends StatelessWidget {
                     onPressed: () async {
                       authCubit.user!.sendEmailVerification();
                       ScaffoldMessenger.of(context).showSnackBar(
-                        DefaultSnackbar(
+                        DefaultSnackBar(
                           text: Text(
                             AppStrings.reSendMessage,
                             style: TextStyle(

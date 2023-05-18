@@ -1,4 +1,4 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, avoid_print
 
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
@@ -6,12 +6,12 @@ import 'package:solvers/core/global/resources/color_manager.dart';
 import 'package:solvers/core/global/resources/values_manger.dart';
 
 class MultiDropDownButtonWidget extends StatefulWidget {
-  List<String> items = [];
+  final List<String> items;
   final Function(List<String>) onSelectionChanged; // new parameter
 
   final String title;
 
-  MultiDropDownButtonWidget({
+  const MultiDropDownButtonWidget({
     required this.items,
     required this.title,
     Key? key,

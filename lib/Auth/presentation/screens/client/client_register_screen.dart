@@ -13,7 +13,6 @@ import 'package:solvers/core/global/resources/strings_manger.dart';
 import 'package:solvers/core/global/resources/values_manger.dart';
 import 'package:solvers/core/global/resources/color_manager.dart';
 import 'package:solvers/core/routes/app_routes.dart';
-import 'package:solvers/core/services/services_locator.dart';
 import 'package:solvers/core/utils/constants.dart';
 import 'package:solvers/core/utils/functions.dart';
 
@@ -67,7 +66,7 @@ class ClientRegisterScreen extends StatelessWidget {
           }
         } else if (state is CubitAuthFailed) {
           ScaffoldMessenger.of(context).showSnackBar(
-            DefaultSnackbar(
+            DefaultSnackBar(
               text: Text(state.error),
               backGroundColor: Colors.red,
             ),

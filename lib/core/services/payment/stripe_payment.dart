@@ -43,7 +43,7 @@ Future<void> initPayment({
     });
 
     ScaffoldMessenger.of(context).showSnackBar(
-      DefaultSnackbar(
+      DefaultSnackBar(
         text: const Text('Payment is successful'),
         backGroundColor: Colors.green,
       ),
@@ -51,7 +51,7 @@ Future<void> initPayment({
   } catch (error) {
     if (error is StripeException) {
       ScaffoldMessenger.of(context).showSnackBar(
-        DefaultSnackbar(
+        DefaultSnackBar(
           text: Text('An error occurred ${error.error.localizedMessage}'),
           backGroundColor: Colors.red,
         ),
