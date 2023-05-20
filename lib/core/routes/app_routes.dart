@@ -6,7 +6,7 @@ import 'package:solvers/Auth/presentation/screens/reset%20password/reset_passwor
 import 'package:solvers/Auth/presentation/screens/splash/splash_screen.dart';
 import 'package:solvers/Auth/presentation/screens/success/success_screen.dart';
 import 'package:solvers/Auth/presentation/screens/technician/technician_register_screen.dart';
-import 'package:solvers/Auth/presentation/screens/toggle/toggle_scrren.dart';
+import 'package:solvers/Auth/presentation/screens/toggle/toggle_screen.dart';
 import 'package:solvers/Auth/presentation/screens/verification/email_verification_screen.dart';
 import 'package:solvers/Auth/presentation/screens/verification/phone_verification_screen.dart';
 import 'package:solvers/client/presentation/screens/create_new_request_page.dart';
@@ -17,7 +17,7 @@ import 'package:solvers/client/presentation/screens/my_requests_client_page.dart
 import 'package:solvers/client/presentation/screens/offers_client_page.dart';
 import 'package:solvers/client/presentation/screens/profile_page_client.dart';
 import 'package:solvers/client/presentation/screens/request_status_client_page.dart';
-import 'package:solvers/client/presentation/screens/requst_done_page.dart';
+import 'package:solvers/client/presentation/screens/request_done_page.dart';
 import 'package:solvers/core/global/resources/strings_manger.dart';
 import 'package:solvers/solver/presentation/screens/chat_page_tech_page.dart';
 import 'package:solvers/solver/presentation/screens/create_offer_tech_page.dart';
@@ -130,7 +130,7 @@ class RouteGenerator {
       case Routes.chatTech:
         return MaterialPageRoute(builder: (_) => TechChatPage());
       case Routes.profileTech:
-        return MaterialPageRoute(builder: (_) => TechProfilePage());
+        return MaterialPageRoute(builder: (_) => const TechProfilePage());
       case Routes.requestStatusTech:
         return MaterialPageRoute(builder: (_) => const TechRequestStatusPage());
 

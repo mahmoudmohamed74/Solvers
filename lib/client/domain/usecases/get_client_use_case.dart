@@ -1,5 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:solvers/Auth/data/models/client_model.dart';
+import 'package:solvers/client/data/models/client_model.dart';
 import 'package:solvers/client/domain/repository/base_client_repo.dart';
 import 'package:solvers/core/usecase/base_usecase.dart';
 

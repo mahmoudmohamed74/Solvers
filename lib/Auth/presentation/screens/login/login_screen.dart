@@ -20,7 +20,7 @@ import 'package:solvers/core/utils/functions.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
-  final _formKey = GlobalKey<FormState>(); // create validation
+  final _formKey = GlobalKey<FormState>();
 
   final TextEditingController _emailEditingController = TextEditingController();
   final TextEditingController _passwordEditingController =
@@ -29,7 +29,7 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final authCubit = BlocProvider.of<FirebaseAuthCubit>(context);
+    final authCubit = FirebaseAuthCubit.get(context);
     return BlocConsumer<FirebaseAuthCubit, FirebaseAuthState>(
       listener: (context, state) async {
         if (state is LogInSuccessState) {

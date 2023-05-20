@@ -27,7 +27,6 @@ class _TechProfilePageState extends State<TechProfilePage> {
   List<String> updatedSkills = [];
   final _focusNode = FocusScopeNode();
 
-  // create validation
   final TextEditingController _firstNameEditingController =
       TextEditingController();
 

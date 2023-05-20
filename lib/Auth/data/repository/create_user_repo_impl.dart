@@ -2,8 +2,8 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:solvers/Auth/data/datasource/firestore_create_user.dart';
-import 'package:solvers/Auth/data/models/tech_model.dart';
-import 'package:solvers/Auth/data/models/client_model.dart';
+import 'package:solvers/solver/data/models/tech_model.dart';
+import 'package:solvers/client/data/models/client_model.dart';
 import 'package:solvers/Auth/domain/repository/base_create_user_repo.dart';
 
 class CreateUserRepoImpl implements BaseCreateUserRepo {

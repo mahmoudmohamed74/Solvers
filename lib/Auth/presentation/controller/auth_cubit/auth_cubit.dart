@@ -4,8 +4,9 @@ import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:solvers/Auth/data/models/client_model.dart';
-import 'package:solvers/Auth/data/models/tech_model.dart';
+
+import 'package:solvers/client/data/models/client_model.dart';
+import 'package:solvers/solver/data/models/tech_model.dart';
 
 import 'package:solvers/Auth/domain/entities/registered_user.dart';
 import 'package:solvers/Auth/domain/usecases/check_user_use_case.dart';
@@ -46,6 +47,7 @@ class FirebaseAuthCubit extends Cubit<FirebaseAuthState> {
 
   Future<User?> signUp(RegisteredUser newUserInfo) async {
     emit(CubitAuthLoadingState());
+
     await _signUpAuthUseCase(params: newUserInfo).then((newUser) async {
       user = newUser;
       await user!.sendEmailVerification();
@@ -122,6 +124,7 @@ class FirebaseAuthCubit extends Cubit<FirebaseAuthState> {
   IconData suffix = Icons.visibility_outlined;
   bool isPassword = true;
   void changePasswordVisibility() {
+    emit(ChangePasswordVisibilityLoadingState());
     isPassword = !isPassword;
     suffix = isPassword ? Icons.visibility_outlined : Icons.visibility_off;
     emit(ChangePasswordVisibilityState());

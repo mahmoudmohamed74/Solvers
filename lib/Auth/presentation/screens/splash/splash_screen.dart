@@ -26,7 +26,6 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   _goNext() async {
-    // Navigator.pushReplacementNamed(context, Routes.layoutClient);
     _appPreferences.isClientLoggedIn().then(
       (isClientLoggedIn) {
         if (isClientLoggedIn) {
@@ -72,20 +71,6 @@ class _SplashScreenState extends State<SplashScreen> {
       backgroundColor: Colors.transparent,
       extendBodyBehindAppBar: true,
       body: Container(
-        // decoration: const BoxDecoration(
-        //   gradient: LinearGradient(
-        //     colors: [
-        //       Color(0xFFF6A064),
-        //       Color(0xFFF24223),
-        //       Color(0xFFEA7A6C),
-        //       Color.fromARGB(15, 240, 225, 214),
-        //     ],
-        //     begin: Alignment.topCenter,
-        //     end: Alignment.bottomCenter,
-        //     stops: [0.0, 0.3, 0.6, 1.0],
-        //     tileMode: TileMode.clamp,
-        //   ),
-        // ),
         color: ColorManager.white,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -94,8 +79,6 @@ class _SplashScreenState extends State<SplashScreen> {
               image: AssetImage(
                 ImageAssets.splashLogo,
               ),
-              // height: 100,
-              // width: 90,
             ),
             Row(
               children: const [

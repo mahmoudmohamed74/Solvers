@@ -11,7 +11,7 @@ import 'package:solvers/core/utils/functions.dart';
 class ResetPasswordScreen extends StatelessWidget {
   ResetPasswordScreen({super.key});
 
-  final _formKey = GlobalKey<FormState>(); // create validation
+  final _formKey = GlobalKey<FormState>();
 
   final TextEditingController _passwordEditingController =
       TextEditingController();
@@ -75,9 +75,7 @@ class ResetPasswordScreen extends StatelessWidget {
                       ? null
                       : AppStrings.passwordError,
                   suffix: Icons.lock_outline_rounded,
-                  suffixPressed: () {
-                    // TODO
-                  },
+                  suffixPressed: () {},
                   obscureText: false,
                 ),
                 const SizedBox(
@@ -96,9 +94,7 @@ class ResetPasswordScreen extends StatelessWidget {
                   },
                   obscureText: false,
                   suffix: Icons.lock_outline_rounded,
-                  suffixPressed: () {
-                    // TODO
-                  },
+                  suffixPressed: () {},
                 ),
                 const SizedBox(
                   height: AppSize.s25,

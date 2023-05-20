@@ -19,8 +19,8 @@ class ClientLayout extends StatelessWidget {
       builder: (context, state) {
         // clientCubit.getId;
         return Scaffold(
-          appBar: DefaultAppBar(
-            leadingIconButton: const ThreeBlackLinesWidget(),
+          appBar: const DefaultAppBar(
+            leadingIconButton: ThreeBlackLinesWidget(),
           ),
           drawer: Align(
             alignment: Alignment.topLeft,

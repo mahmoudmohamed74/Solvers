@@ -59,7 +59,7 @@ Future<void> initPayment({
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('An error occured $error'),
+          content: Text('An error occurred $error'),
         ),
       );
     }

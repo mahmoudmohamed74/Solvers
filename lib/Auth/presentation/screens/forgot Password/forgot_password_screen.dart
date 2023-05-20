@@ -21,8 +21,10 @@ class ForgotPasswordScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final navigator = Navigator.of(context);
+
     return BlocConsumer<FirebaseAuthCubit, FirebaseAuthState>(
-      listener: (context, state) {
+      listener: (context, state) async {
         if (state is ResetPasswordSuccessState) {
           ScaffoldMessenger.of(context).showSnackBar(
             DefaultSnackBar(
@@ -35,6 +37,10 @@ class ForgotPasswordScreen extends StatelessWidget {
               ),
               backGroundColor: ColorManager.green,
             ),
+          );
+          await Future.delayed(const Duration(seconds: 3));
+          navigator.pushReplacementNamed(
+            Routes.userLoginRoute,
           );
         }
         if (state is ResetPasswordErrorState) {

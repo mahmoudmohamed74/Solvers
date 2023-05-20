@@ -1,7 +1,7 @@
 // ignore_for_file: avoid_print
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:solvers/Auth/data/models/tech_model.dart';
+import 'package:solvers/solver/data/models/tech_model.dart';
 import 'package:solvers/client/data/models/order_model.dart';
 import 'package:solvers/core/messages/message_model.dart';
 import 'package:solvers/solver/data/datasource/technician_firestore.dart';

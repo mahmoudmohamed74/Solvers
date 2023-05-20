@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:solvers/Auth/data/models/client_model.dart';
+import 'package:solvers/client/data/models/client_model.dart';
 import 'package:solvers/client/data/models/order_model.dart';
 import 'package:solvers/core/messages/message_model.dart';
 import 'package:solvers/solver/data/models/offer_model.dart';

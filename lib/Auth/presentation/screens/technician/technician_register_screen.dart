@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:solvers/Auth/data/models/tech_model.dart';
+import 'package:solvers/solver/data/models/tech_model.dart';
 import 'package:solvers/Auth/domain/entities/registered_user.dart';
 import 'package:solvers/Auth/presentation/controller/auth_cubit/auth_cubit.dart';
 import 'package:solvers/Auth/presentation/widgets/default_form_field.dart';
@@ -30,7 +30,6 @@ class TechnicianRegisterScreen extends StatefulWidget {
 class _TechnicianRegisterScreenState extends State<TechnicianRegisterScreen> {
   final _formKey = GlobalKey<FormState>();
 
-  // create validation
   final TextEditingController _firstNameEditingController =
       TextEditingController();
 
@@ -66,6 +65,7 @@ class _TechnicianRegisterScreenState extends State<TechnicianRegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final authCubit = FirebaseAuthCubit.get(context);
     return BlocConsumer<FirebaseAuthCubit, FirebaseAuthState>(
       listener: (context, state) {
         if (state is SignUpSuccessState) {
@@ -228,11 +228,9 @@ class _TechnicianRegisterScreenState extends State<TechnicianRegisterScreen> {
                       validator: (input) => input!.isValidPassword()
                           ? null
                           : AppStrings.passwordError,
-                      suffix: Icons.lock_outline_rounded,
-                      suffixPressed: () {
-                        // TODO
-                      },
-                      obscureText: true,
+                      suffix: authCubit.suffix,
+                      suffixPressed: authCubit.changePasswordVisibility,
+                      obscureText: authCubit.isPassword,
                     ),
                     const SizedBox(
                       height: AppSize.s12,
@@ -248,11 +246,9 @@ class _TechnicianRegisterScreenState extends State<TechnicianRegisterScreen> {
                         }
                         return null;
                       },
-                      suffix: Icons.lock_outline_rounded,
-                      suffixPressed: () {
-                        // TODO
-                      },
-                      obscureText: true,
+                      suffix: authCubit.suffix,
+                      suffixPressed: authCubit.changePasswordVisibility,
+                      obscureText: authCubit.isPassword,
                     ),
                     const SizedBox(
                       height: AppSize.s20,

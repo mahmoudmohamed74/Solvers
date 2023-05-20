@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:solvers/Auth/data/models/client_model.dart';
+import 'package:solvers/client/data/models/client_model.dart';
 import 'package:solvers/Auth/domain/entities/registered_user.dart';
 import 'package:solvers/Auth/presentation/controller/auth_cubit/auth_cubit.dart';
 import 'package:solvers/Auth/presentation/widgets/default_form_field.dart';
@@ -21,7 +21,6 @@ class ClientRegisterScreen extends StatelessWidget {
 
   final _formKey = GlobalKey<FormState>();
 
-  // create validation
   final TextEditingController _firstNameEditingController =
       TextEditingController();
 
@@ -41,6 +40,8 @@ class ClientRegisterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final authCubit = FirebaseAuthCubit.get(context);
+
     return BlocConsumer<FirebaseAuthCubit, FirebaseAuthState>(
       listener: (context, state) {
         if (state is SignUpSuccessState) {
@@ -195,23 +196,20 @@ class ClientRegisterScreen extends StatelessWidget {
                       height: AppSize.s12,
                     ),
                     DefaultFormField(
-                      obscureText: true,
                       hintText: AppStrings.passwordHint,
                       controller: _passwordEditingController,
                       type: TextInputType.number,
                       validator: (input) => input!.isValidPassword()
                           ? null
                           : AppStrings.passwordError,
-                      suffix: Icons.lock_outline_rounded,
-                      suffixPressed: () {
-                        // TODO
-                      },
+                      suffix: authCubit.suffix,
+                      suffixPressed: authCubit.changePasswordVisibility,
+                      obscureText: authCubit.isPassword,
                     ),
                     const SizedBox(
                       height: AppSize.s12,
                     ),
                     DefaultFormField(
-                      obscureText: true,
                       hintText: AppStrings.confirmPasswordHint,
                       controller: _passwordConfirmEditingController,
                       type: TextInputType.text,
@@ -222,10 +220,9 @@ class ClientRegisterScreen extends StatelessWidget {
                         }
                         return null;
                       },
-                      suffix: Icons.lock_outline_rounded,
-                      suffixPressed: () {
-                        // TODO
-                      },
+                      suffix: authCubit.suffix,
+                      suffixPressed: authCubit.changePasswordVisibility,
+                      obscureText: authCubit.isPassword,
                     ),
                     const SizedBox(
                       height: AppSize.s20,

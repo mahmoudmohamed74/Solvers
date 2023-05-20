@@ -1,5 +1,5 @@
-import 'package:solvers/Auth/data/models/client_model.dart';
-import 'package:solvers/Auth/data/models/tech_model.dart';
+import 'package:solvers/client/data/models/client_model.dart';
+import 'package:solvers/solver/data/models/tech_model.dart';
 
 abstract class BaseCreateUserRepo {
   Future<void> createTech(TechModel tech);

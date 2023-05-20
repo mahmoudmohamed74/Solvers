@@ -1,4 +1,4 @@
-import 'package:solvers/Auth/data/models/tech_model.dart';
+import 'package:solvers/solver/data/models/tech_model.dart';
 import 'package:solvers/client/data/models/order_model.dart';
 import 'package:solvers/core/messages/message_model.dart';
 import 'package:solvers/solver/data/models/offer_model.dart';

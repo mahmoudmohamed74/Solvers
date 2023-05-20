@@ -63,4 +63,6 @@ class CreateTechFailed extends FirebaseAuthState {
   CreateTechFailed(this.error);
 }
 
+class ChangePasswordVisibilityLoadingState extends FirebaseAuthState {}
+
 class ChangePasswordVisibilityState extends FirebaseAuthState {}

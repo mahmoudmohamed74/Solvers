@@ -17,7 +17,6 @@ class ClientProfilePage extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
   final _focusNode = FocusScopeNode();
 
-  // create validation
   final TextEditingController _firstNameEditingController =
       TextEditingController();
 
@@ -31,7 +30,6 @@ class ClientProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final authCubit = BlocProvider.of<FirebaseAuthCubit>(context);
     final clientCubit = ClientCubit.get(context);
 
     return BlocConsumer<ClientCubit, ClientState>(

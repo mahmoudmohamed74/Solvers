@@ -267,6 +267,9 @@ class TechCreateOfferPage extends StatelessWidget {
                               ),
                               orderDocId!,
                             );
+                            _price.clear();
+                            _earnestPrice.clear();
+                            _textarea.clear();
                           }
                         },
                       ),

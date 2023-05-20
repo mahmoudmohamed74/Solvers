@@ -3,7 +3,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:solvers/Auth/data/models/tech_model.dart';
+import 'package:solvers/solver/data/models/tech_model.dart';
 import 'package:solvers/core/app/app.dart';
 
 import 'package:solvers/client/data/models/order_model.dart';
@@ -59,7 +59,7 @@ class TechCubit extends Cubit<TechState> {
     const TechHomePage(),
     const TechMyRequestPage(),
     const TechRequestStatusPage(),
-    TechProfilePage(),
+    const TechProfilePage(),
   ];
 
   void changeBottomNav(int index) {
