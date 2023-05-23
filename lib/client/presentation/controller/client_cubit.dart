@@ -252,7 +252,6 @@ class ClientCubit extends Cubit<ClientState> {
   void clientSignOut({required BuildContext context}) async {
     FirebaseAuth.instance.signOut();
     _appPreferences.sharedPreferences.clear();
-    // ClientCubit.get(context).close();
     runApp(MyApp());
     Navigator.pushReplacementNamed(context, Routes.userLoginRoute);
   }

@@ -141,7 +141,9 @@ class ForgotPasswordScreen extends StatelessWidget {
                         if (_formKey.currentState!.validate()) {
                           // resetPassword(context);
                           FirebaseAuthCubit.get(context).resetPassword(
-                              context, _emailEditingController.text);
+                            context,
+                            _emailEditingController.text,
+                          );
                         }
                       },
                     ),

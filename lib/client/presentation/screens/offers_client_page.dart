@@ -120,9 +120,9 @@ class ClientOffersPage extends StatelessWidget {
                                 UpdateOrderOffer(
                                   orderDocId: orderDocId!,
                                   status: "new",
-                                  techName: clientListOffers[index].techName,
-                                  price: clientListOffers[index].price,
-                                  earnest: clientListOffers[index].earnest,
+                                  techName: "",
+                                  price: "0",
+                                  earnest: "0",
                                   techId: clientListOffers[index].techId,
                                   isAcceptedOffer: "false",
                                   priceIsPaid: "",

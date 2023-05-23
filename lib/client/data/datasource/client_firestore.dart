@@ -102,7 +102,7 @@ class ClientFireStore {
     await _fireStoreClientCollection.collection('order').doc(orderDocId).update(
       {
         'techName': techName,
-        'techId': techId,
+        'techId': isAcceptedOffer == 'false' ? "" : techId,
         'status': status,
         'price': price,
         'earnest': earnest,
